@@ -1,0 +1,60 @@
+{
+	"index": {
+		"header": {
+			"title": "KAMEN KASHCHIEV"
+		},
+		"buttons": {
+			"languageButton": "LANGUAGES",
+			"navL": {
+				"title": "MORE",
+				"content": {
+					"1": "Curriculum Vitae",
+					"2": "Interactive C.V."
+				}
+			},
+			"main": "MAIN",
+			"navR": "CERTIFICATES"
+		},
+		"subButtons": {
+
+		}
+	},
+	"mainSection": {
+		"topArticle": {
+			"name": {
+				"title": "Name",
+				"content": "Kamen Kamenov Kashchiev"
+			},
+			"age": {
+				"title": "Age",
+				"content": "getAge"
+			},
+			"location": {
+				"title": "Location",
+				"content": "Sofia, Bulgaria"
+			},
+			"education": {
+				"title": "Education",
+				"content": "Highschool"
+			}
+		},
+		"middleArticle": {
+			"title": "Tech stack"
+		},
+		"bottomArticle": {
+			"title": "About me",
+			"content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci porro debitis earum molestias obcaecatieos quos labore at, ducimus. Debitis quis perspiciatis doloremque qui reprehenderit consectetur quae, accusantium laborum illum!"
+		}
+	},
+	"certificatesSection": {
+		"titles": [
+			"Front End Course",
+			"Modern JavaScript Course",
+			"PHP Course",
+			"Webpack Course"
+		]
+	},
+	"shared": {
+		"exitPdf": "EXIT"
+	}
+}

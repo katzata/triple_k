@@ -1,0 +1,109 @@
+nav {
+	position: absolute;
+	bottom: 0px;
+	width: 290px;
+	height: 20px;
+	display: grid;
+	grid-template-columns: 115px 60px 115px;
+	justify-items: center;
+	color: white;
+	transform: translateY(50%);
+	transition-duration: 1s;
+	opacity: 0;
+	user-select: none;
+	z-index: 4;
+}
+
+.navSectionL, .navSectionR {
+	position: relative;
+	width: 100%;
+	height: 18px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.navSectionTitle {
+	position: relative;
+	width: 100%;
+	display: inline-block;
+	font-family: "SpectralSC-light";
+	font-size: 1em;
+	line-height: 1em;
+	background-color: black;
+	box-shadow: 0 0 8px 5px black;
+	border-radius: 6px;
+	z-index: 3;
+}
+
+.navSectionLButton, .navSectionRButton {
+	position: absolute;
+	top: 0;
+	margin: 3px 0;
+	padding: 0 2px;
+	display: flex;
+	font-family: SpectralSC-Regular;
+	color: #EEEEEE;
+	font-size: 13px;
+	line-height: 13px;
+	background-color: black;
+	transition-duration: .2s;
+	border-radius: 3px;
+	border: none;
+	box-shadow: none;
+}
+
+.navSectionLButton:focus, .navSectionRButton:focus {
+	outline: none;
+}
+
+.navSectionLButton1 {
+	z-index: 2;
+}
+
+.navSectionLButton2 {
+	z-index: 1;
+}
+
+.navSectionLButton3 {
+	z-index: 0;
+}
+
+.navSectionRButton1 {
+	z-index: 0;
+}
+
+.navButtonMain {
+	width: 60px;
+	height: 22px;
+	margin: 0;
+	background-color: rgba(0, 0, 0, 0);
+	transform: translateY(60%) scale(0);
+	/*transition: .9s opacity ease-in-out;*/
+	transition-duration: .9s;
+	transition-timing-function: ease-in-out;
+	border: none;
+	opacity: 0;
+}
+
+.navButtonMainText {
+	padding: 0 4px;
+	color: white;
+	font-family: "SpectralSC-light";
+	font-size: 13px;
+	line-height: 13px;
+	background-color: black;
+	box-shadow: 0 0 10px 4px black;
+	display: inline-flex;
+}
+
+.navButtonMain:focus {
+	outline: none;
+}
+
+@media only screen and (max-width: 414px) {
+	.navSectionTitle {
+		font-size: 1em;
+	}
+}

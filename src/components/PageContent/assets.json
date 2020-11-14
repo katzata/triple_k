@@ -1,0 +1,62 @@
+{
+	"languages": [
+		"bg", "en", "it"
+	],
+	"intro": {
+		"img": {
+			"logo": "../assets/img/roza2.png"
+		},
+		"audio": {
+			"static": "../assets/audio/static.mp3",
+			"whisper": "../assets/audio/whisper.mp3",
+			"crack": "../assets/audio/crack.mp3"
+		}
+	},
+	"canvas": {
+		"crack": "../assets/img/crack.png",
+		"humanShape": "../assets/img/humanShape.png"
+	},
+	"icons": {
+		"titles": [
+			"HTML",
+			"CSS",
+			"Sass",
+			"Bootstrap",
+			"JavaScript",
+			"jQuery",
+			"Pixi.js",
+			"React",
+			"webpack",
+			"Node.js",
+			"Git"
+		],
+		"src": [
+			"../assets/icons/html.svg", 
+			"../assets/icons/css.svg",
+			"../assets/icons/sass.svg",
+			"../assets/icons/bootstrap.svg",
+			"../assets/icons/js.svg",
+			"../assets/icons/jquery.svg",
+			"../assets/icons/pixi.svg", 
+			"../assets/icons/react.svg",
+			"../assets/icons/webpack.svg",
+			"../assets/icons/nodejs.svg",
+			"../assets/icons/git.svg"
+		]
+	},
+	"cv": "../../assets/cv/cv.pdf",
+	"certificates": {
+		"thumbnails": [
+			"../../assets/cc/swift.jpg",
+			"../../assets/cc/mjs.jpg",
+			"../../assets/cc/php.jpg",
+			"../../assets/cc/wp.jpg"
+		],
+		"pdfs": [
+			"../../assets/cc/swift.pdf",
+			"../../assets/cc/mjs.pdf",
+			"../../assets/cc/php.pdf",
+			"../../assets/cc/wp.pdf"
+		]
+	}
+}

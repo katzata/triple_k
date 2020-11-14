@@ -1,0 +1,49 @@
+{
+	"index": {
+		"header": {
+			"title": "КАМЕН КАШЧИЕВ"
+		},
+		"buttons": {
+			"languageButton": "",
+			"navL": "ДОПЪЛНИТЕЛНО",
+			"navMiddle": "НАЧАЛО",
+			"navR": "СЕРТИФИКАТИ"
+		},
+		"subButtons": {
+
+		}
+	},
+	"mainSection": {
+		"topArticle": {
+			"name": {
+				"title": "Име",
+				"content": "Камен Каменов Кашчиев"
+			},
+			"age": {
+				"title": "Години",
+				"content": "`${getAge()}`"
+			},
+			"location": {
+				"title": "Местоположение",
+				"content": "София, България"
+			},
+			"education": {
+				"title": "Oбразование",
+				"content": "Средно образование"
+			}
+		},
+		"bottomArticle": {
+			"title": "За мен",
+			"content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci porro debitis earum molestias obcaecati eos quos labore at, ducimus. Debitis quis perspiciatis doloremque qui reprehenderit consectetur quae, accusantium laborum illum!"
+		}
+	},
+	"certificatesSection": {
+		"titles": [
+			"Front End Курс",
+			"Modern JavaScript Курс",
+			"PHP Курс",
+			"Webpack Курс"
+		],
+		"button": "ИЗХОД"
+	}
+}
