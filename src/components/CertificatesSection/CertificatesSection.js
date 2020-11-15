@@ -1,5 +1,5 @@
 import "./CertificatesSection.css";
-import Assets from "../PageContent/assets.json";
+import Assets from "../../assets/assets.json";
 
 class CertificatesSection {
 	constructor() {
@@ -63,7 +63,7 @@ class CertificatesSection {
 	}
 
 	setLanguage(language) {
-		this.text = require(`../PageContent/${language}.json`);
+		this.text = require(`../../assets/localisation/${language}.json`);
 	}
 
 	handleThumbNails(thumbnailSection, index) {

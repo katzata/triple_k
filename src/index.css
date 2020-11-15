@@ -90,7 +90,7 @@ header {
 .headerTitle, .headerTitle2 {
 	position: absolute;
 	font-family: SpectralSC-Regular;
-	font-size: 1.6em;
+	font-size: 3.6vw;
 	font-weight: normal;
 	text-shadow: 0 0 10px white;
 }
@@ -132,7 +132,7 @@ footer {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: black;
+	transition: .9s background-color ease-out;
 	z-index: 201;
 }
 
@@ -148,6 +148,6 @@ footer {
 
 @media only screen and (max-width: 414px) {
 	.headerTitle, .headerTitle2 {
-		font-size: 1.6em;
+		font-size: 6vw;
 	}
 }

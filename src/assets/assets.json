@@ -1,0 +1,68 @@
+{
+	"languages": [
+		"bg", "en", "it"
+	],
+	"intro": {
+		"img": {
+			"logo": "../assets/gfx/img/roza2.png"
+		},
+		"audio": {
+			"static": "../assets/sfx/static.mp3",
+			"whisper": "../assets/sfx/whisper.mp3",
+			"crack": "../assets/sfx/crack.mp3"
+		}
+	},
+	"canvas": {
+		"crack": "../assets/gfx/img/crack.png",
+		"humanShape": "../assets/gfx/img/humanShape.png",
+		"kkk": "../assets/gfx/img/kkk.png",
+		"skull": "../assets/gfx/img/skull.png",
+		"noise": "../assets/gfx/img/noise.png"
+	},
+	"animations": {
+		"noise": "../assets/gfx/img/noise.json"
+	},
+	"icons": {
+		"titles": [
+			"HTML",
+			"CSS",
+			"Sass",
+			"Bootstrap",
+			"JavaScript",
+			"jQuery",
+			"Pixi.js",
+			"React",
+			"webpack",
+			"Node.js",
+			"Git"
+		],
+		"src": [
+			"../assets/gfx/icons/html.svg", 
+			"../assets/gfx/icons/css.svg",
+			"../assets/gfx/icons/sass.svg",
+			"../assets/gfx/icons/bootstrap.svg",
+			"../assets/gfx/icons/js.svg",
+			"../assets/gfx/icons/jquery.svg",
+			"../assets/gfx/icons/pixi.svg", 
+			"../assets/gfx/icons/react.svg",
+			"../assets/gfx/icons/webpack.svg",
+			"../assets/gfx/icons/nodejs.svg",
+			"../assets/gfx/icons/git.svg"
+		]
+	},
+	"cv": "../../assets/pdfs/cv/cv.pdf",
+	"certificates": {
+		"thumbnails": [
+			"../../assets/pdfs/cc/swift.jpg",
+			"../../assets/pdfs/cc/mjs.jpg",
+			"../../assets/pdfs/cc/php.jpg",
+			"../../assets/pdfs/cc/wp.jpg"
+		],
+		"pdfs": [
+			"../../assets/pdfs/cc/swift.pdf",
+			"../../assets/pdfs/cc/mjs.pdf",
+			"../../assets/pdfs/cc/php.pdf",
+			"../../assets/pdfs/cc/wp.pdf"
+		]
+	}
+}

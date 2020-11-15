@@ -5,7 +5,7 @@ import CvSection2 from "../CvSection2/CvSection2";
 import CvSection from "../CvSection1/CvSection1";
 import CertificatesSection from "../CertificatesSection/CertificatesSection";
 
-const Content = require("../PageContent/assets.json");
+const Content = require("../../assets/assets.json");
 
 let canvas;
 let ctx;
@@ -14,7 +14,7 @@ const crack = new Image();
 crack.src = Content.canvas.crack;
 
 const humanShape = new Image();
-humanShape.src = "../assets/img/humanShape.png";
+humanShape.src = Content.canvas.humanShape;
 
 const mainSection = new MainSection();
 const cvSection1 = new CvSection1();
@@ -149,8 +149,13 @@ class MainPage {
 
 		if (stage === 3) {
 			this.content.footer.style.boxShadow = "0 0 28px 25px black";
-			this.content.footer.style.backgroundColor = `rgba(0, 0, 0, .8)`;
-			this.content.footerText.style.transform = `translateY(0vh)`;
+			this.content.footerText.style.transform = "translateY(0vh)";
+
+			this.content.footer.addEventListener("transitionend", () => {
+				if (this.content.footerText.style.transform === "translateY(0vh)") {
+					this.content.footer.style.backgroundColor = `rgba(0, 0, 0, .8)`;
+				}
+			})
 		}
 
 		if (stage === 4) {
@@ -310,7 +315,7 @@ class MainPage {
 			if (hovering) {
 				for (let i = 0; i < itemsLeft.length; i++) {
 					itemsLeft[i].style.transform = `translateY(${20 * (i + 1) + 2}px)`;
-					itemsLeft[i].style.boxShadow = "0 0 5px 3px black";
+					itemsLeft[i].style.boxShadow = "0 0 9px 7px black";
 				}
 			}
 
@@ -326,7 +331,7 @@ class MainPage {
 			if (hovering) {
 				for (let i = 0; i < itemsRight.length; i++) {
 					itemsRight[i].style.transform = `translateY(${20 * (i + 1) + 2}px)`;
-					itemsRight[i].style.boxShadow = "0 0 5px 3px black";
+					itemsRight[i].style.boxShadow = "0 0 9px 7px black";
 				}
 			}
 
@@ -412,11 +417,8 @@ class MainPage {
 		let y = Number(Math.random().toFixed(2));
 
 		this.humanShape.coords = [
-			x < this.humanShape.minX ? this.humanShape.minX
-			: x > this.humanShape.maxX ? this.humanShape.maxX : x
-			,
-			y < this.humanShape.minY ? this.humanShape.minY
-			: y > this.humanShape.maxY ? this.humanShape.maxY : y
+			canvas.width * (x < this.humanShape.minX ? this.humanShape.minX : x > this.humanShape.maxX ? this.humanShape.maxX : x),
+			canvas.height * (y < this.humanShape.minY ? this.humanShape.minY : y > this.humanShape.maxY ? this.humanShape.maxY : y)
 		]
 	}
 
@@ -435,11 +437,15 @@ class MainPage {
 			if (this.humanShape.alpha > this.humanShape.alphaIncrement) {
 				this.humanShape.alpha -= this.humanShape.alphaIncrement;
 			} else {
-				this.humanShape.displaying = false;
 				this.humanShape.gotCoords = false;
 				this.humanShape.fadeIn = true;
 				this.humanShape.closeDelay = 0;
 				this.humanShape.alpha = 0;
+				this.humanShape.displaying = false;
+				
+				setTimeout(() => {
+					this.humanShape.displaying = true;
+				}, 2000)
 			};
 		}
 	}
@@ -461,11 +467,16 @@ class MainPage {
 		}
 
 		ctx.save();
-		ctx.globalAlpha = this.humanShape.alpha
-		ctx.imageSmoothingEnabled = true;
+		ctx.globalAlpha = this.humanShape.alpha;
+		// ctx.imageSmoothingEnabled = true;
 		ctx.translate(-canvas.width / 16 - this.humanShapeOffset(5).x, -canvas.height / 12 - this.humanShapeOffset(5, this.counters.humanShape).y);
-		ctx.drawImage(humanShape, ...this.humanShape.frames[this.humanShape.index], canvas.width * this.humanShape.coords[0], canvas.height * this.humanShape.coords[1], canvas.height / 12, (canvas.height / 12) * 2);
+		ctx.drawImage(humanShape, ...this.humanShape.frames[this.humanShape.index], this.humanShape.coords[0], this.humanShape.coords[1], canvas.height / 12, (canvas.height / 12) * 2);
 		ctx.restore();
+	}
+
+	handleImageCanvas(trigger) {
+		mainSection.handleCanvas(trigger);
+		mainSection.handleTitleTextShadow();
 	}
 
 	render() {

@@ -1,6 +1,6 @@
 import "./Intro.css";
 
-const Content = require("../PageContent/assets.json");
+const Content = require("../../assets/assets.json");
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext('2d');
@@ -109,7 +109,7 @@ class Intro {
 		this.logoStage2();
 
 		ctx.globalAlpha = this.logoAlpha;
-		ctx.imageSmoothingEnabled = true;
+		// ctx.imageSmoothingEnabled = true;
 		ctx.translate(this.logoCenterX, this.logoCenterY);
 		ctx.drawImage(logo, this.logoX, this.logoY, this.logoSize, this.logoSize * logo.height / logo.width);
 		ctx.restore();

@@ -1,5 +1,5 @@
 import "./CvSection1.css";
-import Assets from "../PageContent/assets.json";
+import Assets from "../../assets/assets.json";
 
 class CvSection1 {
 	constructor() {
@@ -37,7 +37,7 @@ class CvSection1 {
 	}
 
 	setLanguage(language) {
-		this.text = require(`../PageContent/${language}.json`);
+		this.text = require(`../../assets/localisation/${language}.json`);
 	}
 
 	handleListeners() {
@@ -68,7 +68,7 @@ class CvSection1 {
 		if (state) {
 			this.content.cvSection1.style.transform = "scale(1)";
 			this.content.cvSection1.style.opacity = "1";
-			this.content.pdf.style.display = "flex";
+			this.content.cvContainer.style.display = "flex";
 		} else {
 			this.content.cvSection1.style.opacity = "0";
 		}

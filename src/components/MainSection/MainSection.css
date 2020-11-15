@@ -1,5 +1,7 @@
 .mainSection {
 	position: absolute;
+	top: 0;
+	left: 0;
 	width: 100%;
 	padding: 30px 20px 20px;
 	display: flex;
@@ -28,18 +30,22 @@
 	font-family: SpectralSC-Regular;
 }
 
-.articleSubTitle {
+.articleSubTitleContainer {
 	position: relative;
 	padding-bottom: 2px;
 	margin: 4vw auto 2px 0;
 	display: flex;
 	color: #F0F0F0;
-	font-size: 3.2vh;
-	line-height: 3.3vh;
+	font-size: 2.4vw;
+	line-height: 2.4vw;
 	text-shadow: 0 0 2px white;
 }
 
-.topArticleSubTitle:nth-child(1) {
+.articleSubTitleContainer:first-of-type {
+	margin-top: 0;
+}
+
+.toparticleSubTitleContainer:nth-child(1) {
 	margin-top: 0;
 }
 
@@ -49,24 +55,35 @@
 	width: 116%;
 }
 
-.topArticleText {
+.articleTextContainer {
 	margin: 4px 0 0 3vh;
 	color: #E4E4E4;
-	font-size: 2.7vw;
-	line-height: 2.7vh;
+	font-size: 2.6vw;
+	line-height: 2.6vh;
 	font-style: italic;
 }
 
 .topArticleLetters {
+
 	background-color: rgba(0, 0, 0, .28);
 	box-shadow: 0 0 3px 2px rgba(0, 0, 0, .28);
 	border-radius: 50%;
 }
 
-.topArticleImg {
+/* .topArticleImg {
     width: auto;
     height: 24vh;
     margin: auto;
+	background-color: rgba(0, 0, 0, .7);
+	box-shadow: 0 1px 4px 6px rgba(0, 0, 0, .66);
+	border-radius: 2px;
+} */
+
+.imageCanvas {
+	width: 18vw;
+	max-width: 190px;
+	min-width: 74px;
+	margin: auto;
 	background-color: rgba(0, 0, 0, .7);
 	box-shadow: 0 1px 4px 6px rgba(0, 0, 0, .66);
 	border-radius: 2px;
@@ -89,9 +106,10 @@
 	line-height: 3.1vh;
 	height: 3.1vh; /* needed for safari mobile */
 	font-weight: normal;
+	text-shadow: none;
 }
 
-.skillsContainer {
+.techStackContainer {
 	width: 100%;
 	height: 100%;
 	display: grid;
@@ -210,6 +228,10 @@
 	line-height: 3.2vh;
 }
 
+.bottomarticleSubTitleContainer {
+	margin-top: 0;
+}
+
 .bottomArticleHr {
 	left: -8%;
 	bottom: 0;
@@ -218,9 +240,9 @@
 
 .bottomArticleText {
 	width: 90%;
-	margin: 0 auto;
+	margin: 4px auto 0;
 	font-size: 2.7vh;
-	line-height: 2.9vh;
+	line-height: 2.7vh;
 	font-style: italic;
 	text-align: justify;
 }
@@ -240,11 +262,12 @@
 		padding-left: 3vw;
 	}
 
-	.topArticleSubTitle {
+	.articleSubTitleContainer {
 		position: relative;
 		margin: 2.5vh auto 2px 0;
-		font-size: 12px;
-		line-height: 12px;
+		font-size: 13px;
+		line-height: 13px;
+		letter-spacing: 1px;
 	}
 
 	.topArticleHr {
@@ -253,11 +276,11 @@
 		width: 140%;
 	}
 
-	.topArticleText {
-		margin-top: -2px;
+	.articleTextContainer, .bottomArticleText {
+		margin-top: 0px;
 		margin-left: 3vw;
-		font-size: 17px;
-		line-height: 20px;
+		font-size: 16px;
+		line-height: 17px;
 		letter-spacing: 1px;
 	}
 
@@ -265,21 +288,16 @@
 		margin: 30px 0;
 	}
 
-	.skillsContainer {
+	.techStackContainer {
+		height: 90px;
 		grid-template-columns: repeat(5, 1fr);
-		grid-template-rows: 15px 15px 15px;
-		grid-row-gap: 20px;
+		grid-template-rows: repeat(3, 17%);
+		grid-row-gap: 24.5%;
 		align-items: center;
 	}
 
 	.iconTitle {
 		background-color: rgba(0, 0, 0, .35);
 		font-size: 1.6vh;
-	}
-
-	.bottomArticleTitle {
-		font-size: 17px;
-		line-height: 20px;
-		letter-spacing: 1px;
 	}
 }

@@ -24,12 +24,13 @@ function mainLoop() {
 	mainPage.handleCanvas();
 	
 	if (mainPage.humanShape.displaying) {
-		mainPage.handleHumanShape()
+		mainPage.handleHumanShape();
 	} else {
-		mainPage.humanShape.displaying = true;
+		// mainPage.humanShape.displaying = true;
 	};
 
 	mainPage.handleCrack();
+	mainPage.handleImageCanvas(mainPage.humanShape.displaying);
 
 	if (mainPage.renderSection) {
 		window.requestAnimationFrame(mainLoop);

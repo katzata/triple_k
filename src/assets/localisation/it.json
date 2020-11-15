@@ -1,0 +1,49 @@
+{
+	"index": {
+		"header": {
+			"title": "KAMEN KASHCHIEV"
+		},
+		"buttons": {
+			"languageButton": "",
+			"navL": "ADDIZIONALE",
+			"navMiddle": "INIZIO",
+			"navR": "CERTIFICATI"
+		},
+		"subButtons": {
+
+		}
+	},
+	"mainSection": {
+		"topArticle": {
+			"name": {
+				"title": "Nome",
+				"content": "Kamen Kamenov Kashchiev"
+			},
+			"age": {
+				"title": "Età",
+				"content": "`${getAge()}`"
+			},
+			"location": {
+				"title": "Località",
+				"content": "Sofia, Bulgaria"
+			},
+			"education": {
+				"title": "Titolo di studio",
+				"content": "Diploma di scuola secondaria superiore"
+			}
+		},
+		"bottomArticle": {
+			"title": "Su di me",
+			"content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci porro debitis earum molestias obcaecati eos quos labore at, ducimus. Debitis quis perspiciatis doloremque qui reprehenderit consectetur quae, accusantium laborum illum!"
+		}
+	},
+	"certificatesSection": {
+		"titles": [
+			"Corso di Front End",
+			"Corso di Modern JavaScript",
+			"Corso di PHP",
+			"Corso di Webpack"
+		],
+		"button": "ESCI"
+	}
+}

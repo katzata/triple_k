@@ -26,7 +26,7 @@ class CvSection2 {
 	}
 
 	setLanguage(language) {
-		this.text = require(`../PageContent/${language}.json`);
+		this.text = require(`../../assets/localisation/${language}.json`);
 	}
 
 	handleListeners() {

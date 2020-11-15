@@ -1,7 +1,8 @@
 import "./MainSection.css";
-import Assets from "../PageContent/assets.json";
+import Assets from "../../assets/assets.json";
+import noiseAnimation from "../../assets/gfx/img/noise.json";
 
-const kkk = require("../../assets/img/kkk.png");
+// const noiseAnimation = require(`${Assets.animations.noise}`);
 
 class MainSection {
 	constructor() {
@@ -30,13 +31,43 @@ class MainSection {
 			nav: undefined,
 			mainSection: undefined,
 			topArticle: undefined,
-			articleSubTitle: undefined,
+			canvas: undefined,
+			ctx: undefined,
+			articleSubTitleContainer: undefined,
 			topArticleText: undefined,
+		}
+
+		this.img = {
+			kkk: new Image(),
+			whiteNoise: new Image(),
+		}
+
+		this.kkk = {
+			togle: false,
+			alpha: 1
+		}
+
+		this.shadowAnimation = {
+			counter: 0,
+			frame: 0,
+			coords: [
+				["4", "4"],
+			]
+		}
+
+		this.noiseAnimation = {
+			noiseAnimation: undefined,
+			frameCount: 0,
+			overallCount: 0,
+			frame: 0,
+			toggle: true,
+			alpha: 0,
+			alphaIncrement: .0022
 		}
 	}
 
 	setLanguage(language) {
-		this.text = require(`../PageContent/${language}.json`);
+		this.text = require(`../../assets/localisation/${language}.json`);
 	}
 
 	init() {
@@ -44,9 +75,9 @@ class MainSection {
 		mainSection.classList.add("mainSection", "sections");
 		this.content.mainSection = mainSection;
 
-		this.handleTopArticle(mainSection);
-		this.handleMiddleArticle(mainSection);
-		this.handleBottomArticle(mainSection);
+		this.prepareTopArticle(mainSection);
+		this.prepareMiddleArticle(mainSection);
+		this.prepareBottomArticle(mainSection);
 
 		document.querySelector("main").appendChild(mainSection);
 
@@ -86,7 +117,7 @@ class MainSection {
 		}
 	}
 
-	handleTopArticle(mainSection) {
+	prepareTopArticle(mainSection) {
 		const topArticleContainer = document.createElement("div");
 		topArticleContainer.classList.add("topArticleContainer");
 		this.content.topArticleContainer = topArticleContainer;
@@ -96,44 +127,137 @@ class MainSection {
 		this.content.topArticle = topArticle;
 
 		Object.values(this.text.mainSection.topArticle).map((text, idx) => {
-			let articleSubTitle = document.createElement("div");
-			articleSubTitle.classList.add("articleSubTitle");
+			let articleSubTitleContainer = document.createElement("div");
+			articleSubTitleContainer.classList.add("articleSubTitleContainer");
 			
 			let topArticleTitle = document.createElement("p");
 			topArticleTitle.textContent = text.title;
 			topArticleTitle.classList.add("topArticleLetters");
-			articleSubTitle.appendChild(topArticleTitle);
+			articleSubTitleContainer.appendChild(topArticleTitle);
 
-			let topArticleText = document.createElement("div");
-			topArticleText.classList.add("topArticleText", `topArticleText${idx + 1}`);
+			let articleTextContainer = document.createElement("div");
+			articleTextContainer.classList.add("articleTextContainer", `topArticleText${idx + 1}`);
 
 			let topArticleContent = document.createElement("p");
 			topArticleContent.textContent = text.content === "getAge" ? this.getAge() : text.content;
 			topArticleContent.classList.add("topArticleLetters");
-			topArticleText.appendChild(topArticleContent);
+			articleTextContainer.appendChild(topArticleContent);
 
 			const topArticleHr = document.createElement("hr");
 			topArticleHr.classList.add("topArticleHr");
-			articleSubTitle.appendChild(topArticleHr);
+			articleSubTitleContainer.appendChild(topArticleHr);
 
-			topArticle.appendChild(articleSubTitle);
-			topArticle.appendChild(topArticleText);
+			topArticle.appendChild(articleSubTitleContainer);
+			topArticle.appendChild(articleTextContainer);
 		});
 
-		this.content.articleSubTitle = document.querySelectorAll(".articleSubTitle");
-		this.content.topArticleText = document.querySelectorAll(".topArticleText");
+		this.content.articleSubTitleContainer = document.querySelectorAll(".articleSubTitleContainer");
+		this.content.articleTextContainer = document.querySelectorAll(".articleTextContainer");
 
-		const topArticleImg = document.createElement("img");
-		topArticleImg.classList.add("topArticleImg");
-		topArticleImg.src = kkk.default;
-		this.content.topArticleImg = topArticleImg;
+		// const topArticleImg = document.createElement("img");
+		// topArticleImg.classList.add("topArticleImg");
+		// topArticleImg.src = kkk.default;
+		// this.content.topArticleImg = topArticleImg;
 
 		topArticleContainer.appendChild(topArticle);
-		topArticleContainer.appendChild(topArticleImg);
+		this.prepareCanvas(topArticleContainer);
+
+		// topArticleContainer.appendChild(topArticleImg);
 		this.content.mainSection.appendChild(topArticleContainer);
 	}
 
-	handleMiddleArticle(mainSection) {
+	prepareCanvas(target) {
+		this.img.kkk.src = Assets.canvas.kkk;
+		this.img.whiteNoise.src = Assets.canvas.noise;
+
+		const canvas = document.createElement("canvas");
+		canvas.classList.add("imageCanvas");
+		this.content.canvas = canvas;
+
+		this.content.ctx = canvas.getContext("2d");
+		target.appendChild(canvas);
+
+		this.img.noiseAnimation = Assets.animations.noise;
+
+		this.handleCanvas();
+	}
+
+	handleCanvas(trigger) {
+		const width = window.innerWidth / 4;
+		const height = window.innerWidth / 4 * 277 / 190;
+
+		this.content.canvas.width = width;
+		this.content.canvas.height = height;
+
+		this.content.ctx.save();
+		this.content.ctx.globalAlpha = this.kkk.Alpha;
+		this.content.ctx.clearRect(0, 0, width, height);
+		this.content.ctx.drawImage(this.img.kkk, 0, 0, 190, 277, 0, 0, this.content.canvas.width, this.content.canvas.height);
+		this.content.ctx.restore();
+
+		if (trigger) {
+			this.handleNoiseAnimation(trigger);
+		} else {
+			if (this.noiseAnimation.overallCount !== 0) this.noiseAnimation.overallCount = 0;
+		}
+	}
+
+	handleKKKAlpha() {
+		if (this.noiseAnimation.alpha > .15) {
+			this.kkk.toggle = true;
+		} else {
+			if (this.kkk.toggle) this.kkk.toggle = false;
+		}
+		
+		if (this.kkk.toggle) {
+			this.kkk.Alpha = .64 + Math.random();
+		} else {
+			if (this.kkk.Alpha !== 1) this.kkk.Alpha = 1;
+		}
+	}
+
+	handleNoiseAnimation(trigger) {
+		this.content.ctx.save();
+		this.handleNoiseAnimationAlpha(.2);
+		this.content.ctx.globalAlpha = this.noiseAnimation.alpha;
+		this.content.ctx.drawImage(this.img.whiteNoise, Object.values(noiseAnimation)[this.noiseAnimation.frame].x, Object.values(noiseAnimation)[this.noiseAnimation.frame].y, 190, 277, 0, 0, this.content.canvas.width, this.content.canvas.height);
+		this.content.ctx.restore();
+
+		this.noiseAnimation.frameCount++;
+
+		if (this.noiseAnimation.frameCount === 2) {
+			this.noiseAnimation.frame++;
+			this.noiseAnimation.frameCount = 0;
+
+			if (this.noiseAnimation.frame === Object.values(noiseAnimation).length - 1) {
+				this.noiseAnimation.frame = 0;
+			}
+		}
+	}
+
+	handleNoiseAnimationAlpha(maxAlpha) {
+		this.noiseAnimation.overallCount++;
+
+		if (this.noiseAnimation.overallCount > 280) {
+			this.noiseAnimation.toggle = false;
+		} else {
+			this.noiseAnimation.toggle = true;
+		};
+
+		if (this.noiseAnimation.toggle) {
+			if (this.noiseAnimation.alpha < maxAlpha) {
+				this.noiseAnimation.alpha += this.noiseAnimation.alphaIncrement;
+			}
+		} else {
+			if (this.noiseAnimation.alpha > .01) {
+				this.noiseAnimation.alpha += -this.noiseAnimation.alphaIncrement;
+			}
+		}
+		
+		this.handleKKKAlpha();
+	}
+
+	prepareMiddleArticle(mainSection) {
 		const middleArticle = document.createElement("div");
 		middleArticle.classList.add("middleArticle");
 
@@ -142,9 +266,9 @@ class MainSection {
 		articleTitle.textContent = `${this.text.mainSection.middleArticle.title}`;
 		middleArticle.appendChild(articleTitle);
 
-		const skillsContainer = document.createElement("div");
-		skillsContainer.classList.add("skillsContainer");
-		middleArticle.appendChild(skillsContainer);
+		const techStackContainer = document.createElement("div");
+		techStackContainer.classList.add("techStackContainer");
+		middleArticle.appendChild(techStackContainer);
 
 		for (let i = 0; i < Assets.icons.src.length; i++) {
 			const container = document.createElement("div");
@@ -166,7 +290,7 @@ class MainSection {
 			iconTitle.dataset.index = `${i}`;
 			container.appendChild(iconTitle);
 
-			skillsContainer.appendChild(container);
+			techStackContainer.appendChild(container);
 
 			container.addEventListener("mouseover", () => {
 				this.handleIconsHover(true, iconTitle, iconOverlay);
@@ -175,37 +299,67 @@ class MainSection {
 			container.addEventListener("mouseleave", () => {
 				this.handleIconsHover(false, iconTitle, iconOverlay);
 			})
+
+			container.addEventListener("blur", () => {
+				this.handleIconsHover(false, iconTitle, iconOverlay);
+				alert("XX")
+			})
 		}
 
 		mainSection.appendChild(middleArticle);
 	}
 
-	handleBottomArticle(mainSection) {
+	prepareBottomArticle(mainSection) {
 		const bottomArticle = document.createElement("section");
 		bottomArticle.classList.add("bottomArticle");
 		this.content.bottomArticle = bottomArticle;
 
-		const articleSubTitle = document.createElement("div");
-		articleSubTitle.classList.add("articleSubTitle");
-		this.content.articleSubTitle = articleSubTitle;
+		const articleSubTitleContainer = document.createElement("div");
+		articleSubTitleContainer.classList.add("articleSubTitleContainer", "bottomArticleSubTitleContainer");
+		this.content.articleSubTitleContainer = articleSubTitleContainer;
 
 		let bottomArticleTitle = document.createElement("p");
 		bottomArticleTitle.textContent = this.text.mainSection.bottomArticle.title;
 		bottomArticleTitle.classList.add("bottomArticleTitle");
-		articleSubTitle.appendChild(bottomArticleTitle);
+		articleSubTitleContainer.appendChild(bottomArticleTitle);
 
 		const bottomArticleHr = document.createElement("hr");
 		bottomArticleHr.classList.add("bottomArticleHr");
-		articleSubTitle.appendChild(bottomArticleHr);
+		articleSubTitleContainer.appendChild(bottomArticleHr);
 
-		bottomArticle.appendChild(articleSubTitle);
+		bottomArticle.appendChild(articleSubTitleContainer);
 
 		let bottomArticleContent = document.createElement("p");
 		bottomArticleContent.textContent = this.text.mainSection.bottomArticle.content;
-		bottomArticleContent.classList.add("bottomArticleText");
+		bottomArticleContent.classList.add("bottomArticleText", "articleTextContainer");
 		bottomArticle.appendChild(bottomArticleContent);
 
 		this.content.mainSection.appendChild(bottomArticle);
+	}
+
+	handleTitleTextShadow() {
+		const title = document.querySelector(".articleTitle");
+		let mainOffset = [
+			Math.floor(Math.random() * 10 - 5),
+			Math.floor(Math.random() * 10 - 5),
+		];
+
+		let offset1;
+		let offset2;
+
+		if (this.shadowAnimation.counter === 2) {
+			offset1 = Math.floor(Math.random() * 4 - 2);
+			this.shadowAnimation.counter = 0;
+			this.shadowAnimation.frame++;
+
+			if (this.shadowAnimation.frame === this.shadowAnimation.coords.length) {
+				offset2 = Math.floor(Math.random() * 4 - 2);
+				this.shadowAnimation.frame = 0;
+			}
+		}
+
+		this.shadowAnimation.counter++;
+		title.style.textShadow = `${offset1 + mainOffset[0]}px ${offset2 + mainOffset[1]}px 3px #5B5B5B`;
 	}
 
 	handleIconsHover(hovering, icon, overlay) {
@@ -245,12 +399,22 @@ class MainSection {
 			if (!this.states.displaying) {
 				this.handleFade(true);
 				this.states.displaying = true;
+			
+				window.onclick = () => {
+					// console.log(document.querySelector(".mainSection").scrollHeight, document.querySelector(".middleArticle").offsetTop)
+					// alert(window.innerWidth);
+				}
 			}
 		}
 	}
 }
 
 window.ontouchend = () => {
+	// alert(window.innerWidth);
+}
+
+window.onclick = () => {
+	console.log(document.querySelector(".imageCanvas").offsetTop)
 	// alert(window.innerWidth);
 }
 

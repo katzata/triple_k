@@ -1,5 +1,6 @@
 /node_modules
 /dist
+/DoomCV
 /src/components/DoomCV
 /public/hot
 /public/storage

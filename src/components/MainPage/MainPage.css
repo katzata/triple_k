@@ -37,6 +37,10 @@ nav {
 	z-index: 3;
 }
 
+.navButtons {
+	padding: 2px;
+}
+
 .navSectionLButton, .navSectionRButton {
 	position: absolute;
 	top: 0;
