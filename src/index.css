@@ -37,6 +37,7 @@
 	margin: 0;
 	box-sizing: border-box;
 	letter-spacing: 1px;
+	text-shadow: 0 0 3px black;
 }
 
 html {

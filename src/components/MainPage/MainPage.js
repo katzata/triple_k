@@ -4,6 +4,7 @@ import CvSection1 from "../CvSection1/CvSection1";
 import CvSection2 from "../CvSection2/CvSection2";
 import CvSection from "../CvSection1/CvSection1";
 import CertificatesSection from "../CertificatesSection/CertificatesSection";
+import PortfolioSection from "../PortfolioSection/PortfolioSection";
 
 const Content = require("../../assets/assets.json");
 
@@ -20,17 +21,18 @@ const mainSection = new MainSection();
 const cvSection1 = new CvSection1();
 const cvSection2 = new CvSection2();
 const certificatesSection = new CertificatesSection();
+const portfolioSection = new PortfolioSection();
 
 class MainPage {
 	constructor() {
+		this.pagePrepared = false;
+		this.renderSection = false;
+		this.miniIntroDone = false;
+
 		this.counters = {
 			main: 0,
 			humanShape: 0
 		}
-
-		this.pagePrepared = false;
-		this.renderSection = false;
-		this.miniIntroDone = false;
 
 		this.language = "en";
 
@@ -68,13 +70,21 @@ class MainPage {
 		}
 
 		this.humanShape = {
-			displaying: true,
+			displaying: false,
 			gotCoords: false,
+			fadeIn: true,
+			fadeInDelay: 6000,
 			coords: [window.innerWidth * .10, window.innerHeight - window.innerHeight * .20],
+			minX: .10,
+			minY: .24,
+			maxX: .90,
+			maxY: .79,
+			height: 0,
+			heightMultiplyer: 12,
+			heightRange: 12,
 			alpha: 0,
 			alphaIncrement: .025,
 			closeDelay: 0,
-			fadeIn: true,
 			index: 0,
 			frames: [
 				[0, 0, 64, 128],
@@ -83,12 +93,8 @@ class MainPage {
 				[64, 0, 64, 128],
 				[64, 128, 64, 128],
 				[0, 128, 64, 128],
-				[0, 0, 64, 128],
+				[0, 0, 64, 128]
 			],
-			minX: .10,
-			minY: .24,
-			maxX: .90,
-			maxY: .79
 		}
 
 		this.stages = {
@@ -115,7 +121,8 @@ class MainPage {
 				mainSection: mainSection,
 				cvSection1: cvSection1,
 				cvSection2: cvSection2,
-				certificatesSection: certificatesSection
+				certificatesSection: certificatesSection,
+				portfolioSection: portfolioSection
 			}
 		};
 	}
@@ -422,7 +429,7 @@ class MainPage {
 		]
 	}
 
-	humanShapeAlpha(counter) {
+	humanShapeAlpha() {
 		if (this.humanShape.closeDelay === 20) {
 			this.humanShape.fadeIn = false;
 		}
@@ -442,12 +449,22 @@ class MainPage {
 				this.humanShape.closeDelay = 0;
 				this.humanShape.alpha = 0;
 				this.humanShape.displaying = false;
-				
-				setTimeout(() => {
-					this.humanShape.displaying = true;
-				}, 2000)
+
+				this.humanShapeDelay();
 			};
 		}
+	}
+
+	humanShapeDelay() {
+		const delay = this.humanShape.fadeInDelay + Math.floor(Math.random() * this.humanShape.fadeInDelay);
+		
+		setTimeout(() => {
+			this.humanShape.displaying = true;
+		}, delay);
+	}
+
+	humanShapeHeight() {
+		this.humanShape.height = Math.floor(Math.random() * this.humanShape.heightMultiplyer + this.humanShape.heightRange);
 	}
 
 	handleHumanShape() {
@@ -455,28 +472,29 @@ class MainPage {
 
 		if (!this.humanShape.gotCoords) {
 			this.humanShapeCoords();
+			this.humanShapeHeight();
 			this.humanShape.gotCoords = true;
 		};
 
 		if (this.counters.humanShape === 4) {
 			this.humanShape.index++;
 			this.counters.humanShape = 0;
-			this.humanShapeAlpha(this.counters.humanShape);
+			this.humanShapeAlpha();
 			
 			if (this.humanShape.index > this.humanShape.frames.length - 1) this.humanShape.index = 0;
 		}
 
 		ctx.save();
 		ctx.globalAlpha = this.humanShape.alpha;
-		// ctx.imageSmoothingEnabled = true;
 		ctx.translate(-canvas.width / 16 - this.humanShapeOffset(5).x, -canvas.height / 12 - this.humanShapeOffset(5, this.counters.humanShape).y);
-		ctx.drawImage(humanShape, ...this.humanShape.frames[this.humanShape.index], this.humanShape.coords[0], this.humanShape.coords[1], canvas.height / 12, (canvas.height / 12) * 2);
+		ctx.drawImage(humanShape, ...this.humanShape.frames[this.humanShape.index], this.humanShape.coords[0], this.humanShape.coords[1], canvas.height / this.humanShape.height, (canvas.height / this.humanShape.height) * 2);
 		ctx.restore();
 	}
 
 	handleImageCanvas(trigger) {
 		mainSection.handleCanvas(trigger);
 		mainSection.handleTitleTextShadow();
+		portfolioSection.handleInfoScrolling();
 	}
 
 	render() {
@@ -493,6 +511,10 @@ class MainPage {
 			this.handleNavButtons();
 		} else {
 			this.firstTimeOpenSection();
+			
+			setTimeout(() => {
+				this.humanShape.displaying = true;
+			}, 8000)
 		}
 
 		this.handleCanvas();

@@ -183,22 +183,24 @@ class MainSection {
 	}
 
 	handleCanvas(trigger) {
-		const width = window.innerWidth / 4;
-		const height = window.innerWidth / 4 * 277 / 190;
+		if (this.states.displaying) {
+			const width = window.innerWidth / 4;
+			const height = window.innerWidth / 4 * 277 / 190;
 
-		this.content.canvas.width = width;
-		this.content.canvas.height = height;
+			this.content.canvas.width = width;
+			this.content.canvas.height = height;
 
-		this.content.ctx.save();
-		this.content.ctx.globalAlpha = this.kkk.Alpha;
-		this.content.ctx.clearRect(0, 0, width, height);
-		this.content.ctx.drawImage(this.img.kkk, 0, 0, 190, 277, 0, 0, this.content.canvas.width, this.content.canvas.height);
-		this.content.ctx.restore();
+			this.content.ctx.save();
+			this.content.ctx.globalAlpha = this.kkk.Alpha;
+			this.content.ctx.clearRect(0, 0, width, height);
+			this.content.ctx.drawImage(this.img.kkk, 0, 0, 190, 277, 0, 0, this.content.canvas.width, this.content.canvas.height);
+			this.content.ctx.restore();
 
-		if (trigger) {
-			this.handleNoiseAnimation(trigger);
-		} else {
-			if (this.noiseAnimation.overallCount !== 0) this.noiseAnimation.overallCount = 0;
+			if (trigger) {
+				this.handleNoiseAnimation(trigger);
+			} else {
+				if (this.noiseAnimation.overallCount !== 0) this.noiseAnimation.overallCount = 0;
+			}
 		}
 	}
 
@@ -210,7 +212,7 @@ class MainSection {
 		}
 		
 		if (this.kkk.toggle) {
-			this.kkk.Alpha = .64 + Math.random();
+			this.kkk.Alpha = .6 + Math.random();
 		} else {
 			if (this.kkk.Alpha !== 1) this.kkk.Alpha = 1;
 		}

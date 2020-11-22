@@ -64,5 +64,22 @@
 			"../../assets/pdfs/cc/php.pdf",
 			"../../assets/pdfs/cc/wp.pdf"
 		]
+	},
+	"projects": {
+		"yourecipe": [
+			"../assets/gfx/previews/yr.jpg",
+			"https://yourecipe.kashchiev.com/",
+			"This is a website/app that acts as a cookbook. The recipes can be public or private, rated and commented similar to social networks."
+		],
+		"test1": [
+			"../assets/gfx/previews/yr.jpg",
+			"https://yourecipe.kashchiev.com/",
+			"test info"
+		],
+		"test2": [
+			"../assets/gfx/previews/yr.jpg",
+			"https://yourecipe.kashchiev.com/",
+			"test info"
+		]
 	}
 }

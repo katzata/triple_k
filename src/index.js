@@ -25,8 +25,6 @@ function mainLoop() {
 	
 	if (mainPage.humanShape.displaying) {
 		mainPage.handleHumanShape();
-	} else {
-		// mainPage.humanShape.displaying = true;
 	};
 
 	mainPage.handleCrack();
