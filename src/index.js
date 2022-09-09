@@ -1,36 +1,39 @@
+console.log("x");
+console.log("xxx");
 import "./index.css";
-import Intro from "./components/Intro/Intro.js";
-import MainPage from "./components/MainPage/MainPage.js";
 
-let intro = new Intro();
-let mainPage = new MainPage();
+// import Intro from "./components/Intro/Intro.js";
+// import MainPage from "./components/MainPage/MainPage.js";
 
-(function initialLoop() {
-	// if (intro.running) {
-	// 	intro.render();
-	// } else {
-		mainPage.render();
-	// }
+// let intro = new Intro();
+// let mainPage = new MainPage();
 
-	if (!mainPage.renderSection) {
-		window.requestAnimationFrame(initialLoop);
-	} else {
-		mainLoop();
-	}
-})()
+// (function initialLoop() {
+// 	// if (intro.running) {
+// 	// 	intro.render();
+// 	// } else {
+// 		mainPage.render();
+// 	// }
 
-function mainLoop() {
-	mainPage.handlePageWidth();
-	mainPage.handleCanvas();
+// 	if (!mainPage.renderSection) {
+// 		window.requestAnimationFrame(initialLoop);
+// 	} else {
+// 		mainLoop();
+// 	}
+// })()
+
+// function mainLoop() {
+// 	mainPage.handlePageWidth();
+// 	mainPage.handleCanvas();
 	
-	if (mainPage.humanShape.displaying) {
-		mainPage.handleHumanShape();
-	};
+// 	if (mainPage.humanShape.displaying) {
+// 		mainPage.handleHumanShape();
+// 	};
 
-	mainPage.handleCrack();
-	mainPage.handleImageCanvas(mainPage.humanShape.displaying);
+// 	mainPage.handleCrack();
+// 	mainPage.handleImageCanvas(mainPage.humanShape.displaying);
 
-	if (mainPage.renderSection) {
-		window.requestAnimationFrame(mainLoop);
-	}
-}
+// 	if (mainPage.renderSection) {
+// 		window.requestAnimationFrame(mainLoop);
+// 	}
+// }

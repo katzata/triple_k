@@ -1,7 +1,6 @@
 /node_modules
-/dist
+/build
 /DoomCV
-/src/components/DoomCV
 /public/hot
 /public/storage
 /storage/*.key

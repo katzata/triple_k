@@ -8,10 +8,16 @@ module.exports = {
 	},
 	mode: 'development',
 	devServer: {
-		contentBase: path.resolve(__dirname, "./dist"),
-		index: "index.html",
-		port: 9000
+		static: {
+			directory: path.join(__dirname, 'src'),
+		},
+		compress: true,
+		hot: true,
+		port: 9000,
+		liveReload: true
+		// watchFiles: ['src/**/*']
 	},
+	target: "web",
 	module: {
 		rules: [
 			{
@@ -29,15 +35,9 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.js$/,
+				test: /\.(js)$/,
 				exclude: /node_modules/,
-				use: {
-					loader: "babel-loader",
-					options: {
-						presets: ["@babel/env"],
-						plugins: [ "transform-class-properties" ]
-					}
-				}
+				use: ['babel-loader']
 			}
 		]
 	}
