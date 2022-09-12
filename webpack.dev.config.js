@@ -15,7 +15,6 @@ module.exports = {
 		hot: true,
 		port: 9000,
 		liveReload: true
-		// watchFiles: ['src/**/*']
 	},
 	target: "web",
 	module: {
@@ -29,15 +28,18 @@ module.exports = {
 				},
 			},
 			{
-				test: /\.css$/,
+				test: /\.(css|s[ac]ss)$/,
 				use: [
-					"style-loader", "css-loader"
+					"style-loader", "css-loader", "sass-loader",
 				]
 			},
 			{
 				test: /\.(js)$/,
 				exclude: /node_modules/,
 				use: ['babel-loader']
+			},
+			{ 
+				test: /\.(handlebars|hbs)$/, loader: "handlebars-loader"
 			}
 		]
 	}

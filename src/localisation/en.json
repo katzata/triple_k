@@ -1,22 +1,21 @@
 {
 	"index": {
 		"header": {
-			"title": "KAMEN KASHCHIEV"
-		},
-		"buttons": {
-			"languageButton": "LANGUAGES",
-			"navL": {
-				"title": "MORE",
-				"content": {
-					"1": "Curriculum Vitae",
-					"2": "Interactive C.V."
-				}
+			"title": "KAMEN KASHCHIEV",
+			"nav": {
+				"navL": {
+					"title": "MORE",
+					"content": {
+						"1": "Curriculum Vitae",
+						"2": "Interactive C.V."
+					}
+				},
+				"main": "MAIN",
+				"navR": "CERTIFICATES"
 			},
-			"main": "MAIN",
-			"navR": "CERTIFICATES"
-		},
-		"subButtons": {
-
+			"buttons": {
+				"languageButtons": "LANGUAGES"
+			}
 		}
 	},
 	"mainSection": {

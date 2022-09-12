@@ -1,0 +1,167 @@
+header {
+    position: relative;
+    width: 100%;
+    height: 4.6865846514352665vw;
+    max-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    box-shadow: 0 0 28px 25px black;
+    z-index: 201;
+}
+
+header::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    height: 20px;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+.headerTitle,
+.headerGhostTitle {
+    position: absolute;
+    font-family: "SpectralSC-Regular";
+    font-size: 1.2vw;
+    font-weight: normal;
+    color: #E4E4E4;
+    text-shadow: 0 0 1px rgb(255, 255, 255);
+}
+
+.headerGhostTitle {
+    color: rgba(255, 255, 255, .25);
+    text-shadow: 0 0 3px rgba(255, 255, 255, .25);
+}
+
+nav {
+    position: absolute;
+    bottom: 0px;
+    width: 290px;
+    height: 20px;
+    display: grid;
+    grid-template-columns: 115px 60px 115px;
+    justify-items: center;
+    color: rgba(255, 255, 255, .75);
+    font-size: 1em;
+    transform: translateY(50%);
+    transition-duration: 1s;
+    opacity: 1;
+    user-select: none;
+    z-index: 4;
+}
+
+.navSectionL,
+.navSectionR {
+    position: relative;
+    width: 100%;
+    height: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid red;
+}
+
+.navSectionL:hover,
+.navSectionR:hover {
+    height: auto;
+    overflow: visible;
+}
+
+.navSectionL:hover .navSectionTitleL,
+.navSectionR:hover .navSectionTitleR {
+    color: white;
+}
+
+.navSectionL:hover .navSectionLButton,
+.navSectionR:hover .navSectionRButton {
+    position: relative;
+}
+
+.navSectionTitle {
+    position: relative;
+    width: 100%;
+    margin-bottom: 5px;
+    display: inline-block;
+    font-family: "SpectralSC-light";
+    background-color: black;
+    box-shadow: 0 0 8px 5px black;
+    transition-duration: .2s;
+    border-radius: 6px;
+    z-index: 3;
+}
+
+.navSectionLButton,
+.navSectionRButton {
+    position: absolute;
+    top: 0;
+    margin: 3px 0;
+    padding: 0 2px;
+    display: flex;
+    font-family: SpectralSC-Regular;
+    color: #EEEEEE;
+    font-size: 13px;
+    line-height: 13px;
+    background-color: black;
+    transition-duration: .2s;
+    border-radius: 3px;
+    border: none;
+    box-shadow: none;
+}
+
+.navSectionLButton:focus,
+.navSectionRButton:focus {
+    outline: none;
+}
+
+.navSectionLButton1 {
+    z-index: 2;
+}
+
+.navSectionLButton2 {
+    z-index: 1;
+}
+
+.navSectionLButton3 {
+    z-index: 0;
+}
+
+.navSectionRButton1 {
+    z-index: 0;
+}
+
+.navButtonMain {
+    width: 60px;
+    height: 22px;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0);
+    transform: translateY(60%) scale(0);
+    /*transition: .9s opacity ease-in-out;*/
+    transition-duration: .9s;
+    transition-timing-function: ease-in-out;
+    border: none;
+    opacity: 0;
+}
+
+.navButtonMainText {
+    padding: 0 4px;
+    color: white;
+    font-family: "SpectralSC-light";
+    font-size: 13px;
+    line-height: 13px;
+    background-color: black;
+    box-shadow: 0 0 10px 4px black;
+    display: inline-flex;
+}
+
+.navButtonMain:focus {
+    outline: none;
+}
+
+@media only screen and (max-width: 414px) {
+    .navSectionTitle {
+        font-size: 1em;
+    }
+}

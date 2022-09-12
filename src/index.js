@@ -1,6 +1,18 @@
-console.log("x");
-console.log("xxx");
-import "./index.css";
+import "./index.scss";
+
+import langs from "./localisation/langs";
+
+import headerComponent from "./components/core/Header/Header";
+const Header = new headerComponent();
+const root = document.querySelector("#root");
+const currentLang = "en";
+
+root.appendChild(Header.render(langs[currentLang].index.header));
+
+console.log(langs);
+
+// document.querySelector("#root").appendChild(Header.render());
+
 
 // import Intro from "./components/Intro/Intro.js";
 // import MainPage from "./components/MainPage/MainPage.js";

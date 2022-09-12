@@ -15,13 +15,21 @@ module.exports = {
 				loader: "file-loader",
 				options: {
 					outputPath: "assets",
+					name: '[name].[ext]'
 				},
 			},
 			{
-				test: /\.(css)$/,
+				test: /\.(png|jpg|ttf|woff|woff2|pdf)$/,
+				loader: "file-loader",
+				options: {
+					outputPath: "assets",
+				},
+			},
+			{
+				test: /\.(css|s[ac]ss)$/,
 				use: [
 					MiniCssExtractPlugin.loader,
-					'css-loader',
+					'css-loader', "sass-loader",
 				],
 			},
 			{
@@ -54,11 +62,7 @@ module.exports = {
 			template: path.resolve(__dirname, "src", "index.html")
 		}),
 		new CopyPlugin({
-			patterns: [{ from: 'src/assets', to: 'assets',
-				globOptions: {
-					ignore: [ "fonts/font", '*.zip' ]
-				}
-			}],
+			patterns: [{ from: 'src/assets', to: 'assets'}],
 		}),
 		// new HandlebarsPlugin({
 		// 	// path to hbs entry file(s). Also supports nested directories if write path.join(process.cwd(), "app", "src", "**", "*.hbs"),
