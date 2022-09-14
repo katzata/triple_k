@@ -1,0 +1,25 @@
+@mixin fadeOutAnimation {
+    opacity: 0;
+    animation-name: fadeOut;
+    animation-duration: .8s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+
+@mixin fadeInAnimation {
+    opacity: 1;
+    animation-name: fadeIn;
+    animation-duration: .8s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+
+@keyframes fadeOut {
+    0% {opacity: 100%;}
+    100% {opacity: 0%;}
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0%;}
+    100% {opacity: 100%;}
+}

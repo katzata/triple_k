@@ -1,9 +1,24 @@
 import headerTemplate from "./header.hbs";
 import "./header.scss";
 
+// import { capitalise } from "../../../utils/utils";
+
 class Header {
-    constructor() {
+    constructor(text) {
+        const { title, nav } = text;
+
         this.component = document.createElement("header");
+        this.template = headerTemplate({ 
+            title,
+            navL: nav.navL,
+            main: nav.main,
+            navR: nav.navR
+        });
+
+        this.animateGhostTitle();
+
+        window.onpushstate = () => console.log("x");
+        console.log(window.location);
     };
 
     animateGhostTitle() {
@@ -28,10 +43,8 @@ class Header {
         })();
     };
 
-    render(text) {
-        this.component.innerHTML = headerTemplate(text);
-        this.animateGhostTitle();
-        console.log(text);
+    render() {
+        this.component.innerHTML = this.template;
         return this.component;
     };
 }

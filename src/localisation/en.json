@@ -4,14 +4,25 @@
 			"title": "KAMEN KASHCHIEV",
 			"nav": {
 				"navL": {
-					"title": "MORE",
+					"title": "MORE INFO",
 					"content": {
-						"1": "Curriculum Vitae",
-						"2": "Interactive C.V."
+						"Certificates": "/certificates",
+						"Interactive C.V.": "/interactivecv"
 					}
 				},
-				"main": "MAIN",
-				"navR": "CERTIFICATES"
+				"main": {
+					"title": "MAIN",
+					"content": {
+						"1": "MAIN"
+					}
+				},
+				"navR": {
+					"title": "PORTFOLIO",
+					"content" : {
+						"Projects": "/projects",
+						"GitHub": "https://github.com/katzata"
+					}
+				}
 			},
 			"buttons": {
 				"languageButtons": "LANGUAGES"

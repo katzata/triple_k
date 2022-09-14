@@ -4,4 +4,4 @@ A personal website/portfolio.
 <br>
 
 ### Dependencies
-- Handlebars (currently installed globaly, therefore is unlisted in package.json)
+- Handlebars 4.7.7 (currently installed globaly, therefore is unlisted in package.json)

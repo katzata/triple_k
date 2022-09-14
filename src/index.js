@@ -1,15 +1,20 @@
 import "./index.scss";
 
 import langs from "./localisation/langs";
+import { updateLocation } from "./router/router";
 
 import headerComponent from "./components/core/Header/Header";
-const Header = new headerComponent();
-const root = document.querySelector("#root");
+
 const currentLang = "en";
+const Header = new headerComponent(langs[currentLang].index.header);
+const root = document.querySelector("#root");
 
-root.appendChild(Header.render(langs[currentLang].index.header));
+const mainSection = document.createElement("main");
 
-console.log(langs);
+root.appendChild(Header.render());
+root.appendChild(mainSection);
+updateLocation();
+// console.log(langs);
 
 // document.querySelector("#root").appendChild(Header.render());
 

@@ -4,22 +4,26 @@
 
 <nav>
     <div class="navSections navSectionL">
-        <p class="navSectionTitle navSectionTitleL">MORE INFO</p>
+        <p class="navSectionTitle">{{navL.title}}</p>
 
-        <button class="navButtons navSectionLButton navSectionLButton1" data-section="cvSection1">C.V. Part 1</button>
-        <button class="navButtons navSectionLButton navSectionLButton2" data-section="cvSection2">C.V. Part 2</button>
-        <button class="navButtons navSectionLButton navSectionLButton3" data-section="certificatesSection">Certificates</button>
+        <div class="linksContainer">
+            {{#each navL.content}}
+                <a href="{{@this}}" class="navLinks">{{@key}}</a>
+            {{/each}}
+        </div>
     </div>
 
-    <button class="navButtons navButtonMain" data-section="mainSection">
-        <span class="navButtonMainText">MAIN</span>
-    </button>
+    <div class="navSections navSectionM">
+        <a href="/" class="navLinks navMain">{{main.title}}</a>
+    </div>
 
     <div class="navSections navSectionR">
-        <p class="navSectionTitle navSectionTitleR">PROJECTS</p>
+        <p class="navSectionTitle">{{navR.title}}</p>
 
-        <button class="navButtons navSectionRButton navSectionRButton1" data-section="links">Links</button>
-        <button class="navButtons navSectionRButton navSectionRButton2" data-section="projects">PROJECTS</button>
+        <div class="linksContainer">
+            <a href="{{navR.content.Projects}}" class="navLinks">Projects</a>
+            <a href="{{navR.content.GitHub}}" target="_blank" class="navLinks">GitHub</a>
+        </div>
     </div>
 </nav>
 
