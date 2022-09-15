@@ -1,13 +1,16 @@
+import BaseComponent from "../../core/BaseComponent/BaseComponent";
 import certificatesPageTemplate from "./certificatesPage.hbs";
+import "./certificatesPage.scss";
 
-class CertificatesPage {
+import { certificates } from "../../../assets/assets";
+
+class CertificatesPage extends BaseComponent {
     constructor() {
+        super();
+        const { Markup, JavaScript, Other } = certificates;
         this.component = document.createElement("section");
-    };
-
-    render() {
-        this.component.innerHTML = certificatesPageTemplate();
-        return this.component;
+        this.component.id = "certificatesPage";
+        this.template = certificatesPageTemplate({ certificates });
     };
 };
 

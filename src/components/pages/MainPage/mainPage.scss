@@ -1,0 +1,12 @@
+// @import "../../../mixins/_fonts.scss";
+
+#mainPage {
+    height: 1000px;
+    color: rgba(255, 255, 255, .95);
+    
+    h2 {
+        font-family: "SpectralSC-Regular";
+        font-weight: normal;
+        // @include fontSpectralSC;
+    }
+}

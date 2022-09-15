@@ -1,0 +1,40 @@
+#certificatesPage {
+    width: 100%;
+    color: rgba(255, 255, 255, 0.95);
+
+    h2 {
+        margin-bottom: 10px;
+        font-family: "SpectralSC-Regular";
+        text-align: center;
+    }
+
+    .certificatesSection {
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+
+        h3 {
+            font-family: "SpectralSC-extra-light";
+            font-weight: 400;
+        }
+
+        .certificatesRow {
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            overflow: auto;
+
+            .certificateContainer {
+                width: 180px;
+                min-width: 180px;
+                padding: 14px;
+                display: flex;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

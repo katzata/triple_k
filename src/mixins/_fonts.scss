@@ -1,0 +1,11 @@
+@font-face {
+	font-family: "SpectralSC-Regular";
+    src: url("../../../assets/fonts/SpectralSC-Regular.ttf");
+	// src: url("./assets/fonts/SpectralSC-Medium.ttf") format("ttf");
+	// src: url("./assets/fonts/SpectralSC-Medium.woff") format("woff");
+	// src: url("./assets/fonts/SpectralSC-Medium.woff2") format("woff2");
+}
+
+@mixin fontSpectralSC {
+    font-family: "SpectralSC-Regular";
+}

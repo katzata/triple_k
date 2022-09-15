@@ -15,7 +15,7 @@
 }
 
 @font-face {
-	font-family: "SpectralSC-reular";
+	font-family: "SpectralSC-regular";
 	src: url("./assets/fonts/SpectralSC-Regular.ttf") format("ttf");
 	src: url("./assets/fonts/SpectralSC-Regular.woff") format("woff");
 	src: url("./assets/fonts/SpectralSC-Regular.woff2") format("woff2");
@@ -36,7 +36,7 @@
 }
 
 $main-text-shadow: 0 0 3px black;
-$main-background: white;
+$main-background: black;
 $main-transition-duration: .8s;
 
 * {
@@ -45,6 +45,7 @@ $main-transition-duration: .8s;
 	letter-spacing: 1px;
 	text-decoration: none;
 	outline: none;
+	border: none;
 }
 
 html {
@@ -64,7 +65,9 @@ html {
 			grid-template-columns: 100%;
 
 			main {
-				transition-duration: $main-transition-duration;
+				display: flex;
+				padding: 54px 0 30px;
+				overflow: auto
 			}
 
 			main.fadeIn {
@@ -76,6 +79,27 @@ html {
 			}
 		}
 	}
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+  }
+  
+/* Track */
+::-webkit-scrollbar-track {
+	background: #000000;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #dfdfdf;
+	border-radius: 5px;
+	border: 3px solid #000000;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #FFFFFF; 
 }
 
 

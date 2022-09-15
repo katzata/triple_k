@@ -9,20 +9,19 @@ export const route = async () => {
         const newPage = routes[path].render();
         pageTransition(newPage);
     } else {
-        console.log("path", path);
+        console.log("wrong path", path);
     };
 };
 
 export const updateLocation = (url) => {
     if (url) {
-        window.history.pushState({}, url.split("/").pop(), url);
-    } else {
-        const browserUrl = window.location.pathname;
-        window.history.pushState({}, browserUrl.split("/").pop(), browserUrl);
+        const pageTitle = url.split("/").pop();
+        updateDocumentTitle(pageTitle);
+        window.history.pushState({ page: pageTitle }, pageTitle, url);
+        
+        toggleHomeLinkVisibility(url);
+        route();
     };
-
-    route(url);
-    toggleHomeLinkVisibility(url);
 };
 
 const pageTransition = (newPage) => {
@@ -44,6 +43,18 @@ const pageTransition = (newPage) => {
     };
 };
 
+const updateDocumentTitle = (path) => {
+    const subtitles = {
+        "": "",
+        certificates: "dark matter",
+        interactivecv: "safe to touch",
+        projects: "can cause blindness"
+    };
+    // const title = document.title;
+    console.log(path);
+    document.title = `Triple K ${path !== "" ? `- ${subtitles[path]}` : ""}`;
+};
+
 window.addEventListener("click", (e) => {
     const { className, href } = e.target;
 
@@ -57,32 +68,7 @@ window.addEventListener("click", (e) => {
     };
 });
 
-window.addEventListener("popstate", event => {
-    console.log("x", event);
-    // Grab the history state id
-    // let stateId = event.state.id;
-    
-    // Show clicked id in console (just for fun)
-    // console.log("stateId = ", stateId);
-    
-    // Visually select the clicked button/tab/box
-    // select_tab(stateId);
-    
-    // Load content for this tab/page
-    // load_content(stateId);
-});
-
-window.addEventListener("pushstate", event => {
-    console.log(event);
-    // Grab the history state id
-    // let stateId = event.state.id;
-    
-    // Show clicked id in console (just for fun)
-    // console.log("stateId = ", stateId);
-    
-    // Visually select the clicked button/tab/box
-    // select_tab(stateId);
-    
-    // Load content for this tab/page
-    // load_content(stateId);
+window.addEventListener("popstate", (e) => {
+    route(e.target.location.pathname);
+    toggleHomeLinkVisibility(e.target.location.pathname);
 });

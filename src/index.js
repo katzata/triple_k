@@ -13,7 +13,7 @@ const mainSection = document.createElement("main");
 
 root.appendChild(Header.render());
 root.appendChild(mainSection);
-updateLocation();
+updateLocation("/");
 // console.log(langs);
 
 // document.querySelector("#root").appendChild(Header.render());
