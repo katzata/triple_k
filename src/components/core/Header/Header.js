@@ -2,16 +2,18 @@ import BaseComponent from "../BaseComponent/BaseComponent";
 import headerTemplate from "./header.hbs";
 import "./header.scss";
 
-// import { capitalise } from "../../../utils/utils";
+
+import LanguageBar from "./LanguageBar/LanguageBar";
 
 class Header extends BaseComponent {
-    constructor(text) {
+    constructor() {
         super();
-        const { title, nav } = text;
+
+        const { title, nav } = this.currentLang.header;
         const { navL, main, navR } = nav;
 
-        this.component = document.createElement("header");
-        this.template = headerTemplate({ title, navL, main, navR });
+        this.component = this.createElement("header");
+        this.template = headerTemplate({ title, navL, main, navR, langs: this.langs });
         this.navHovering = null;
         
         this.animationsLoop([
@@ -19,9 +21,19 @@ class Header extends BaseComponent {
             this.animateNavLinks
         ]);
         
+        this.addSubComponents();
+
+        // to be moved to a separate component
         this.onLoad([
-            this.navLinkListeners
+            this.navLinkHandlers
         ]);
+    };
+
+
+
+    addSubComponents = () => {
+        const languageBar = new LanguageBar().render();
+        this.component.appendChild(languageBar);
     };
 
     animateGhostTitle() {
@@ -30,7 +42,7 @@ class Header extends BaseComponent {
         const posX = super.random(offset);
         const posY = super.random(offset);
 
-        ghostTitle.style.transform = `translate(${posX}px, ${posY}px)`;
+        if (ghostTitle) ghostTitle.style.transform = `translate(${posX}px, ${posY}px)`;
     };
 
     animateNavLinks = () => {
@@ -48,23 +60,37 @@ class Header extends BaseComponent {
         };
     };
 
-    navLinkListeners = () => {
+    navLinkHandlers = () => {
         const links = document.querySelectorAll(".navLinks");
 
         for (const link of links) {
             if (link.className === "navLinks") {
-                link.addEventListener("mouseenter", (e) => {this.navHovering = e.target});
-                link.addEventListener("mouseleave", (e) => {
+                link.onmouseenter = (e) => {this.navHovering = e.target};
+                link.onmouseleave = (e) => {
                     this.navHovering = null;
                     
                     e.target.style.transitionDuration = "0.2s";
                     e.target.style.opacity = "1";
                     e.target.style.textShadow = "none";
                     e.target.style.transform = `translate(0px, 0px) skew(0deg, 0deg)`;
-                });
+                };
             };
         };
     };
-}
+
+    // languageHandler() {
+    //     if (checkLanguages() !== this.currentLang) {
+    //         console.log("asd");
+    //         this.reRender();
+    //     }
+    // };
+
+    render() {
+        // console.log(super.render([this.languageBar.render()]));
+        const component = super.render();
+        this.addSubComponents();
+        return component;
+    };
+};
 
 export default Header;

@@ -5,8 +5,8 @@ import CertificatesPage from "../components/pages/CertificatesPage/CertificatesP
 
 // possibly send the .render() method directly
 const routes = {
-    "/": new MainPage(),
-    "/certificates": new CertificatesPage()
+    "/": () => new MainPage(),
+    "/certificates": () => new CertificatesPage()
 };
 
 export default routes;

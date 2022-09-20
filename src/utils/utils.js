@@ -10,6 +10,6 @@ export const toggleHomeLinkVisibility = (url = "/") => {
     test.className = "navLinks navMain " + state;
 };
 
-export const animationLoop = () => {
-    return text.charAt(0).toLocaleUpperCase() + text.slice(1);
-};
+// export const animationLoop = () => {
+//     return text.charAt(0).toLocaleUpperCase() + text.slice(1);
+// };

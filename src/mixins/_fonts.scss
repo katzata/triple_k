@@ -1,11 +1,74 @@
-@font-face {
-	font-family: "SpectralSC-Regular";
-    src: url("../../../assets/fonts/SpectralSC-Regular.ttf");
-	// src: url("./assets/fonts/SpectralSC-Medium.ttf") format("ttf");
-	// src: url("./assets/fonts/SpectralSC-Medium.woff") format("woff");
-	// src: url("./assets/fonts/SpectralSC-Medium.woff2") format("woff2");
+// @include font-face('Rune', '../../../assets/fonts/rune', 'rune', 'serif') {
+// 	@font-face {
+// 		font-family: "Rune";
+// 		src: url("../../../assets/fonts/rune.ttf") format("ttf");
+// 		src: url("../../../assets/fonts/rune.woff") format("woff");
+// 		src: url("../../../assets/fonts/rune.woff2") format("woff2");
+// 	}
+// };
+
+$style: "Rune";
+$name: "rune";
+$path: "../../../assets/fonts/rune";
+
+@mixin font-face($style, $path, $name) {
+	@font-face {
+	  font-family: '#{$style}';
+	  src: url($path);
+	  src: url($path) format('embedded-opentype'), url($path + '.woff')
+		  format('woff'), url($path + '.ttf') format('truetype'), url($path + '.svg#' + $style + '')
+		  format('svg');
+	}
 }
 
-@mixin fontSpectralSC {
-    font-family: "SpectralSC-Regular";
-}
+// @font-face {
+// 	font-family: "Rune";
+// 	src: url("../../../assets/fonts/rune.ttf") format("ttf");
+// 	src: url("../../../assets/fonts/rune.woff") format("woff");
+// 	src: url("../../../assets/fonts/rune.woff2") format("woff2");
+// }
+
+// @font-face {
+// 	font-family: "SpectralSC-Regular";
+// 	src: url("../../../assets/fonts/SpectralSC-Regular.ttf");
+// 	// src: url("./assets/fonts/SpectralSC-Medium.ttf") format("ttf");
+// 	// src: url("./assets/fonts/SpectralSC-Medium.woff") format("woff");
+// 	// src: url("./assets/fonts/SpectralSC-Medium.woff2") format("woff2");
+// }
+
+// @font-face {
+// 	font-family: "SpectralSC";
+// 	src: url("../../../assets/fonts/SpectralSC-Medium.ttf") format("ttf");
+// 	src: url("../../../assets/fonts/SpectralSC-Medium.woff") format("woff");
+// 	src: url("../../../assets/fonts/SpectralSC-Medium.woff2") format("woff2");
+// }
+
+// @font-face {
+// 	font-family: "SpectralSC-light";
+// 	src: url("../../../assets/fonts/SpectralSC-Light.ttf") format("ttf");
+// 	src: url("../../../assets/fonts/SpectralSC-Light.woff") format("woff");
+// 	src: url("../../../assets/fonts/SpectralSC-Light.woff2") format("woff2");
+// }
+
+// @font-face {
+// 	font-family: "SpectralSC-extra-light";
+// 	src: url("../../../assets/fonts/SpectralSC-ExtraLight.ttf") format("ttf");
+// 	src: url("../../../assets/fonts/SpectralSC-ExtraLight.woff") format("woff");
+// 	src: url("../../../assets/fonts/SpectralSC-ExtraLight.woff2") format("woff2");
+// }
+
+// @mixin Rune {
+//     font-family: "rune";
+// }
+
+// @mixin SpectralSC-Regular {
+//     font-family: "SpectralSC-Regular";
+// }
+
+// @mixin SpectralSC-light {
+//     font-family: "SpectralSC-light";
+// }
+
+// @mixin SpectralSC-extra-light {
+//     font-family: "SpectralSC-extra-light";
+// }

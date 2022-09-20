@@ -1,19 +1,32 @@
 {
-	"index": {
-		"header": {
-			"title": "KAMEN KASHCHIEV"
+	"header": {
+		"title": "KAMEN KASHCHIEV",
+		"nav": {
+			"navL": {
+				"title": "ADDIZIONALE",
+				"content": {
+					"Certificati": "/certificates",
+					"C.V. Interattivo": "/interactivecv"
+				}
+			},
+			"main": {
+				"title": "INIZIO",
+				"content": {}
+			},
+			"navR": {
+				"title": "PORTFOLIO",
+				"content" : {
+					"Progetti": "/projects",
+					"GitHub": "https://github.com/katzata"
+				}
+			}
 		},
 		"buttons": {
-			"languageButton": "",
-			"navL": "ADDIZIONALE",
-			"navMiddle": "INIZIO",
-			"navR": "CERTIFICATI"
-		},
-		"subButtons": {
-
+			"languageButtons": "LANGUAGES"
 		}
 	},
 	"mainSection": {
+		"test": "ehila",
 		"topArticle": {
 			"name": {
 				"title": "Nome",

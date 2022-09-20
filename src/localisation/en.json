@@ -1,35 +1,32 @@
 {
-	"index": {
-		"header": {
-			"title": "KAMEN KASHCHIEV",
-			"nav": {
-				"navL": {
-					"title": "MORE INFO",
-					"content": {
-						"Certificates": "/certificates",
-						"Interactive C.V.": "/interactivecv"
-					}
-				},
-				"main": {
-					"title": "MAIN",
-					"content": {
-						"1": "MAIN"
-					}
-				},
-				"navR": {
-					"title": "PORTFOLIO",
-					"content" : {
-						"Projects": "/projects",
-						"GitHub": "https://github.com/katzata"
-					}
+	"header": {
+		"title": "KAMEN KASHCHIEV",
+		"nav": {
+			"navL": {
+				"title": "MORE INFO",
+				"content": {
+					"Certificates": "/certificates",
+					"Interactive C.V.": "/interactivecv"
 				}
 			},
-			"buttons": {
-				"languageButtons": "LANGUAGES"
+			"main": {
+				"title": "MAIN",
+				"content": {}
+			},
+			"navR": {
+				"title": "PORTFOLIO",
+				"content" : {
+					"Projects": "/projects",
+					"GitHub": "https://github.com/katzata"
+				}
 			}
+		},
+		"buttons": {
+			"languageButtons": "LANGUAGES"
 		}
 	},
 	"mainSection": {
+		"test": "yay",
 		"topArticle": {
 			"name": {
 				"title": "Name",

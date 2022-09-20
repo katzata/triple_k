@@ -1,4 +1,6 @@
-@import "../../../mixins/mixins.scss";
+@import "../../../mixins/_mixins.scss";
+@import "../../../mixins/_fonts.scss";
+
 
 $title-font-color: rgba(255, 255, 255, .95);
 $base-nav-font-color: rgba(255, 255, 255, .75);
@@ -18,7 +20,6 @@ header {
     align-items: center;
     justify-content: center;
     background-color: black;
-    // box-shadow: 0 0 28px 26px black;
     z-index: 201;
 
     &:after {
@@ -34,7 +35,7 @@ header {
     .headerTitle,
     .headerGhostTitle {
         position: absolute;
-        font-family: "SpectralSC-Regular";
+        font-family: "SpectralSC-Regular", "comic";
         font-size: calc($nav-font-size + 5px);
         font-weight: normal;
         color: $title-font-color;

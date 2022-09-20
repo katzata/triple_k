@@ -5,10 +5,10 @@ import "./mainPage.scss";
 class MainPage extends BaseComponent {
     constructor() {
         super();
-        
+
         this.component = document.createElement("section");
         this.component.id = "mainPage";
-        this.template = mainPageTemplate();
+        this.template = mainPageTemplate({ test: this.currentLang.mainSection.test });
     };
 };
 

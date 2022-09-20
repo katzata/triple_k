@@ -1,19 +1,32 @@
 {
-	"index": {
-		"header": {
-			"title": "КАМЕН КАШЧИЕВ"
+	"header": {
+		"title": "КАМЕН КАШЧИЕВ",
+		"nav": {
+			"navL": {
+				"title": "ДОПЪЛНИТЕЛНО",
+				"content": {
+					"Сертификати": "/certificates",
+					"Интерактивно C.V.": "/interactivecv"
+				}
+			},
+			"main": {
+				"title": "НАЧАЛО",
+				"content": {}
+			},
+			"navR": {
+				"title": "ПОРТФОЛИО",
+				"content" : {
+					"Проекти": "/projects",
+					"GitHub": "https://github.com/katzata"
+				}
+			}
 		},
 		"buttons": {
-			"languageButton": "",
-			"navL": "ДОПЪЛНИТЕЛНО",
-			"navMiddle": "НАЧАЛО",
-			"navR": "СЕРТИФИКАТИ"
-		},
-		"subButtons": {
-
+			"languageButtons": "ЕЗИЦИ"
 		}
 	},
 	"mainSection": {
+		"test": "ура",
 		"topArticle": {
 			"name": {
 				"title": "Име",

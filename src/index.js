@@ -1,22 +1,45 @@
 import "./index.scss";
 
-import langs from "./localisation/langs";
+// import langs from "./localisation/langs";
+import { checkLanguages } from "./localisation/langs";
 import { updateLocation } from "./router/router";
 
-import headerComponent from "./components/core/Header/Header";
+import Header from "./components/core/Header/Header";
+import MainCanvas from "./components/core/FogCanvas/FogCanvas";
 
-const currentLang = "en";
-const Header = new headerComponent(langs[currentLang].index.header);
-const root = document.querySelector("#root");
+const addHeader = () => {
+    const header = new Header();
+    return header.render();
+};
 
-const mainSection = document.createElement("main");
+const addMainCanvas = () => {
+    const mainCanvas = new MainCanvas();
+    return mainCanvas.render();
+};
 
-root.appendChild(Header.render());
-root.appendChild(mainSection);
-updateLocation("/");
+const init = () => {
+    const root = document.querySelector("#root");
+    const mainSection = document.createElement("main");
+
+    checkLanguages();
+    root.appendChild(addHeader());
+    root.appendChild(addMainCanvas());
+    root.appendChild(mainSection);
+    updateLocation("/");
+};
+
+init();
+
+// const reRender = () => {
+//     const newHeader = addHeader();
+//     const currentHeader = document.querySelector("header");
+
+//     currentHeader.replaceChildren(newHeader.children);
+// };
+
 // console.log(langs);
 
-// document.querySelector("#root").appendChild(Header.render());
+// document.querySelector("#root").appendChild(header.render());
 
 
 // import Intro from "./components/Intro/Intro.js";
