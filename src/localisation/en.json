@@ -54,14 +54,21 @@
 		}
 	},
 	"certificatesSection": {
-		"titles": [
-			"Front End Course",
-			"Modern JavaScript Course",
-			"PHP Course",
-			"Webpack Course"
-		]
+		"sections": {
+			"Markup": "Markup",
+			"JavaScript": "JavaScript",
+			"Other": "Other"
+		},
+		"downloadButton": "Download PDF"
 	},
-	"shared": {
-		"exitPdf": "EXIT"
+	"footer": {
+		"main": {
+			"title": "Test EN"
+		},
+		"sections": {
+			"Markup": "Markup",
+			"JavaScript": "JavaScript",
+			"Other": "Other"
+		}
 	}
 }

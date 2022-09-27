@@ -7,10 +7,16 @@ import { certificates } from "../../../assets/assets";
 class CertificatesPage extends BaseComponent {
     constructor() {
         super();
-        const { Markup, JavaScript, Other } = certificates;
+        
         this.component = document.createElement("section");
         this.component.id = "certificatesPage";
-        this.template = certificatesPageTemplate({ certificates });
+        this.template = certificatesPageTemplate;
+        this.templateData = () => {
+            const { sections, downloadButton } = this.currentLang.certificatesSection;
+            const certificateAssets = Object.entries(certificates).map(([title, content]) => [sections[title], content]);
+
+            return {certificates: Object.fromEntries(certificateAssets), downloadButton};
+        };
     };
 };
 

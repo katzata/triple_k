@@ -3,45 +3,61 @@ import arrowTemplate from "./arrow.hbs";
 import "./languageBar.scss";
 
 import { changeLanguage } from "../../../../localisation/langs";
+import { addGlobalListener } from "../../../../utils/globalListeners";
 
 class LanguageBar extends BaseComponent {
     constructor() {
         super();
-        this.component = this.createElement("div", {zIndex: "3"});
-        this.component.className = "languageBar";
+
+        this.component = this.createElement("section", {zIndex: "3"});
         this.isVisible = false;
-        
-        this.component.appendChild(this.generateToggleButton());
-        this.component.appendChild(this.generateLangButtons());
+        this.events = [];
+        this.subComponents = [
+            () => this.generateToggleButton(),
+            () => this.generateLangButtons()
+        ];
+
+        // addGlobalListener({
+        //     eventName: "click",
+        //     identifier: "langsToggle",
+        //     eventHandler: this.toggleLanguageBar
+        // });
+        // console.log(document.querySelector("#languageBar"));
     };
 
-    generateToggleButton() {
+    generateToggleButton = () => {
         const arrow = arrowTemplate();
         const button = this.createElement("button", { id: "langsToggle", innerHTML: arrow });
-        
-        button.addEventListener("click", () => this.toggleLanguageBar());
+        // console.log({ item: button, event: "onclick", handler: this.toggleLanguageBar});
+        // button.addEventListener("click", () => this.toggleLanguageBar());
+        this.events.push({ item: button, event: "onclick", handler: this.toggleLanguageBar});
+
+        button.onclick = this.toggleLanguageBar;
+
         return button;
     };
 
-    generateLangButtons() {
+    generateLangButtons = () => {
         const languages =  Object.keys(this.langs).map(key => {
             const imgAttr = {
                 className: "langIcon",
                 src: `../../../assets/gfx/icons/langs/${key}.svg`,
                 alt: `${key} icon`
             };
+            
             const img = this.createElement("img", imgAttr);
             const span = this.createElement("span", { className: "langTitle", textContent: key.toLocaleUpperCase() });
             const button = this.createElement("button", { className: "langButton" }, [img, span]);
             
-            button.addEventListener("click", () => changeLanguage(key));
+            // console.log("asdas", button);
+            button.onclick = () => changeLanguage(key);
             return button;
         });
 
         return this.createElement("div", { id: "langsContainer" }, languages);
     };
 
-    toggleLanguageBar() {
+    toggleLanguageBar = () => {
         let width = 20;
         this.isVisible = !this.isVisible;
 
@@ -56,17 +72,10 @@ class LanguageBar extends BaseComponent {
         };
         
         this.component.style.width = `${width}px`;
-        this.component.style.transitionDelay = `${this.isVisible ? "0s" : ".5s"}`;
-
-        this.component.onTransitionEnd = () => {
-            console.log("x");
-        }
-
         this.arrowHandler();
-        this.langButtonAnimationHandler();
     };
     
-    arrowHandler() {
+    arrowHandler = () => {
         const arrow = document.querySelector("#toggleArrow");
 
         if (this.isVisible) {    
@@ -79,20 +88,6 @@ class LanguageBar extends BaseComponent {
             arrow.points[2].x = 80;
         };
     };
-
-    langButtonAnimationHandler() {
-        const langsContainer = document.querySelector("#langsContainer");
-        langsContainer.style.animationName = `${this.isVisible ? "fadeIn" : "fadeOut"}`;
-        langsContainer.style.animationDelay = `${this.isVisible ? ".3s" : "0s"}`;
-    };
-
-    // for testing !!!!!!!!!!!!!!!!!
-    render() {
-        // console.log(this.template);
-        // console.log(this.component.querySelectorAll(".langsToggle"));
-        return super.render();
-    };
-    //
 };
 
 export default LanguageBar;

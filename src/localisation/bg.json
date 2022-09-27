@@ -51,12 +51,21 @@
 		}
 	},
 	"certificatesSection": {
-		"titles": [
-			"Front End Курс",
-			"Modern JavaScript Курс",
-			"PHP Курс",
-			"Webpack Курс"
-		],
-		"button": "ИЗХОД"
+		"sections": {
+			"Markup": "Markup",
+			"JavaScript": "JavaScript",
+			"Other": "Други"
+		},
+		"downloadButton": "Download PDF"
+	},
+	"footer": {
+		"main": {
+			"title": "Тест"
+		},
+		"sections": {
+			"Markup": "Markup",
+			"JavaScript": "JavaScript",
+			"Other": "Other"
+		}
 	}
 }

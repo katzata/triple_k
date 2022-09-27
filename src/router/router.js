@@ -1,66 +1,51 @@
 import routes from "./routes";
-import { toggleHomeLinkVisibility } from "../utils/utils";
-import Header from "../components/core/Header/Header";
+import { toggleHomeLinkVisibility, pageTransition } from "../utils/utils";
 
-export const route = () => {
+let coreComponents = {};
+
+export const route = (callback) => {
+    const targetSection = document.querySelector("main");
     const path = window.location.pathname;
     const keys = Object.keys(routes);
 
     if (keys.includes(path)) {
-        const newPage = routes[path]().render();
-        pageTransition(newPage);
+        const newPage = routes[path]();
+
+        if (callback) {
+            callback({ targetSection, ...coreComponents }, newPage);
+        } else {
+            targetSection.replaceChildren(newPage.render());
+        };
     } else {
         console.log("wrong path", path);
     };
 };
 
+export const setCoreComponents = (components) => {
+    coreComponents = components;
+};
+
 export const updateLocation = (url) => {
-    // console.log(url);
     if (url) {
         const pageTitle = url.split("/").pop();
         updateDocumentTitle(pageTitle);
         window.history.pushState({ page: pageTitle }, pageTitle, url);
         
         toggleHomeLinkVisibility(url);
-        route();
-    };
-};
-
-const pageTransition = (newPage) => {
-    const targetSection = document.querySelector("main");
-    const currentPage = targetSection.firstChild;
-
-    targetSection.onanimationend = (e) => {
-        if (e.animationName === "fadeOut") {
-            e.target.replaceChildren(newPage);
-            e.target.className = "fadeIn";
-            // if (window.location.hash.slice(1) !== localStorage.lang) {
-                const header = new Header().render();
-                console.log(header.children);
-                document.querySelector("header").replaceChildren(...header.children);
-                console.log(window.location.hash.slice(1), localStorage.lang);
-            // };
-            // console.log(document.querySelector("header"));
-        };
-    };
-    
-    if (currentPage) {
-        targetSection.className = "fadeOut";
-    } else {
-        targetSection.appendChild(newPage);
-        targetSection.className = "fadeIn";
+        route(pageTransition);
     };
 };
 
 const updateDocumentTitle = (path) => {
     const subtitles = {
         "": "",
-        certificates: "dark matter",
-        interactivecv: "safe to touch",
-        projects: "can cause blindness"
+        "/": "",
+        certificates: " - demonic arts",
+        interactivecv: " - maximum violence",
+        projects: " - can cause blindness"
     };
 
-    document.title = `Triple K ${path !== "" ? `- ${subtitles[path]}` : ""}`;
+    document.title = `Triple K ${subtitles[path]}`;
 };
 
 window.addEventListener("click", (e) => {
@@ -77,8 +62,10 @@ window.addEventListener("click", (e) => {
 });
 
 
-// ////////////////////////////
 window.addEventListener("popstate", (e) => {
-    route(e.target.location.pathname);
-    toggleHomeLinkVisibility(e.target.location.pathname);
+    const { pathname } = e.target.location;
+
+    updateDocumentTitle(pathname.slice(1));
+    route(pageTransition);
+    toggleHomeLinkVisibility(pathname);
 });

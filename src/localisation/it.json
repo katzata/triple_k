@@ -51,12 +51,21 @@
 		}
 	},
 	"certificatesSection": {
-		"titles": [
-			"Corso di Front End",
-			"Corso di Modern JavaScript",
-			"Corso di PHP",
-			"Corso di Webpack"
-		],
-		"button": "ESCI"
+		"sections": {
+			"Markup": "Markup",
+			"JavaScript": "JavaScript",
+			"Other": "Altri"
+		},
+		"downloadButton": "Download PDF"
+	},
+	"footer": {
+		"main": {
+			"title": "Test IT"
+		},
+		"sections": {
+			"Markup": "Markup",
+			"JavaScript": "JavaScript",
+			"Other": "Other"
+		}
 	}
 }

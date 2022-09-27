@@ -2,38 +2,35 @@ import BaseComponent from "../BaseComponent/BaseComponent";
 import headerTemplate from "./header.hbs";
 import "./header.scss";
 
-
+// import { addEvents } from "../../../utils/globalListeners";
 import LanguageBar from "./LanguageBar/LanguageBar";
+// const languageBar = new LanguageBar();
 
 class Header extends BaseComponent {
     constructor() {
         super();
 
-        const { title, nav } = this.currentLang.header;
-        const { navL, main, navR } = nav;
-
         this.component = this.createElement("header");
-        this.template = headerTemplate({ title, navL, main, navR, langs: this.langs });
+        this.template = headerTemplate;
+        this.templateData = () => {
+            const { title, nav } = this.currentLang.header;
+            const { navL, main, navR } = nav;
+            
+            return { title, navL, main, navR, langs: this.langs }
+        };
+        this.subComponents = [
+            () => new LanguageBar().render(),
+        ];
         this.navHovering = null;
+        this.generateTempalte = headerTemplate;
         
         this.animationsLoop([
             this.animateGhostTitle,
             this.animateNavLinks
         ]);
-        
-        this.addSubComponents();
 
-        // to be moved to a separate component
-        this.onLoad([
-            this.navLinkHandlers
-        ]);
-    };
-
-
-
-    addSubComponents = () => {
-        const languageBar = new LanguageBar().render();
-        this.component.appendChild(languageBar);
+        // addEvents({});
+        this.navLinkHandlers();
     };
 
     animateGhostTitle() {
@@ -76,20 +73,6 @@ class Header extends BaseComponent {
                 };
             };
         };
-    };
-
-    // languageHandler() {
-    //     if (checkLanguages() !== this.currentLang) {
-    //         console.log("asd");
-    //         this.reRender();
-    //     }
-    // };
-
-    render() {
-        // console.log(super.render([this.languageBar.render()]));
-        const component = super.render();
-        this.addSubComponents();
-        return component;
     };
 };
 

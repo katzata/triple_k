@@ -1,25 +1,54 @@
-@mixin fadeOutAnimation {
+@mixin sectionFadeOut {
     opacity: 0;
-    animation-name: fadeOut;
+    animation-name: sectionFadeOut;
     animation-duration: .8s;
     animation-iteration-count: 1;
     animation-timing-function: linear;
 }
 
-@mixin fadeInAnimation {
+@mixin sectionFadeIn {
     opacity: 1;
-    animation-name: fadeIn;
+    animation-name: sectionFadeIn;
     animation-duration: .8s;
     animation-iteration-count: 1;
     animation-timing-function: linear;
 }
 
-@keyframes fadeOut {
+@mixin simpleFadeOut {
+    opacity: 0;
+    animation-name: simpleFadeOut;
+    animation-duration: .8s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+
+@mixin simpleFadeIn {
+    opacity: 1;
+    animation-name: simpleFadeIn;
+    animation-duration: .8s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+
+
+
+
+@keyframes sectionFadeOut {
     0% {opacity: 100%;}
     100% {opacity: 0%;}
 }
 
-@keyframes fadeIn {
+@keyframes sectionFadeIn {
+    0% {opacity: 0%;}
+    100% {opacity: 100%;}
+}
+
+@keyframes simpleFadeOut {
+    0% {opacity: 100%;}
+    100% {opacity: 0%;}
+}
+
+@keyframes simpleFadeIn {
     0% {opacity: 0%;}
     100% {opacity: 100%;}
 }

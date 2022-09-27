@@ -1,14 +1,21 @@
+import BaseComponent from "../BaseComponent/BaseComponent";
 import footerTemplate from "./footer.hbs";
+import "./footer.scss";
 
-class Footer {
+import linkedInIcon from "./icons/linkedIn.hbs";
+import telegramIcon from "./icons/telegram.hbs";
+import viberIcon from "./icons/viber.hbs";
+
+class Footer extends BaseComponent {
     constructor() {
+        super();
+
         this.component = document.createElement("footer");
-    };
-
-    render(text) {
-        this.component.innerHTML = footerTemplate();
-
-        return this.component;
+        this.template = footerTemplate;
+        this.templateData = () => {
+            const { main } = this.currentLang.footer;
+            return this.template({ main })
+        };
     };
 };
 

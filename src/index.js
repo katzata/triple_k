@@ -1,34 +1,34 @@
 import "./index.scss";
 
-// import langs from "./localisation/langs";
+import { pageTransition } from "./utils/utils";
 import { checkLanguages } from "./localisation/langs";
-import { updateLocation } from "./router/router";
+import { setCoreComponents, route } from "./router/router";
 
 import Header from "./components/core/Header/Header";
-import MainCanvas from "./components/core/FogCanvas/FogCanvas";
+import Footer from "./components/core/Footer/Footer";
+import FogCanvas from "./components/core/FogCanvas/FogCanvas";
 
-const addHeader = () => {
-    const header = new Header();
-    return header.render();
-};
-
-const addMainCanvas = () => {
-    const mainCanvas = new MainCanvas();
-    return mainCanvas.render();
-};
+const header = new Header();
+const footer = new Footer();
+const fogCanvas = new FogCanvas();
 
 const init = () => {
     const root = document.querySelector("#root");
     const mainSection = document.createElement("main");
 
     checkLanguages();
-    root.appendChild(addHeader());
-    root.appendChild(addMainCanvas());
+
+    root.appendChild(fogCanvas.render());
+    root.appendChild(header.render());
     root.appendChild(mainSection);
-    updateLocation("/");
+    root.appendChild(footer.render());
+
+    setCoreComponents({ header, mainSection, footer, fogCanvas })
+    route(pageTransition);
 };
 
 init();
+
 
 // const reRender = () => {
 //     const newHeader = addHeader();

@@ -7,8 +7,8 @@ class MainPage extends BaseComponent {
         super();
 
         this.component = document.createElement("section");
-        this.component.id = "mainPage";
-        this.template = mainPageTemplate({ test: this.currentLang.mainSection.test });
+        this.template = mainPageTemplate;
+        this.templateData = () => { test: this.currentLang.mainSection.test }
     };
 };
 

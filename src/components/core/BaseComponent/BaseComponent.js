@@ -1,41 +1,24 @@
 import langs, {checkLanguages} from "../../../localisation/langs";
+import { addGlobalListener } from "../../../utils/globalListeners";
 
 class BaseComponent {
     constructor() {
-        this.component = document.createElement("div");
-        this.component.id = "";
+        this.component = null;
+        this.id = this.constructor.name[0].toLocaleLowerCase() + this.constructor.name.slice(1);
+        this.currentLang = null;
         this.template = null;
+        this.templateData = null;
+        this.subComponents = null;
         this.langs = langs;
-        this.currentLang = checkLanguages();
-    };
-
-    handleLanguage() {
-        
-        // const language = navigator.language.toLocaleLowerCase();
-        // const userLang = languagebincludes("-") ? language.split("-")[0] : language;
-        // let setLang = langs[localStorage.lang] || "en";
-
-        // for (const lang of Object.keys(langs)) {
-        //     if (langs[localStorage.lang]) break;
-
-        //     if (lang === userLang) {
-        //         setLang = langs[lang];
-        //         break;
-        //     };
-        // };
-
-        // return setLang;
-    };
-
-    setLanguage() {
-        // console.log();
+        this.events = [];
+        this.runAnimations = false;
     };
 
     animationsLoop(animations, customDelay) {
         const delay = customDelay ? customDelay : Math.ceil(1000 / 60);
         let prevTime = new Date().getTime();
 
-        (function loop() {
+        const loop = () => {
             if (animations) {
                 const currentTime = new Date().getTime();
 
@@ -47,12 +30,22 @@ class BaseComponent {
             };
 
             window.requestAnimationFrame(loop);
-        })();
+        };
+
+        loop();
     };
 
-    onLoad(onLoadFunctions) {
-        window.onload = () => {
-            for (const onLoadFunction of onLoadFunctions) onLoadFunction();
+    addSubComponents = (components) => {
+        for (const component of components) {
+            // if (Array.isArray(component)) {
+            //     const [{ type, attr }, node] = component;
+            //     const element = this.createElement(type, attr);
+            //     continue;
+            // };
+
+            // console.log(component());
+
+            this.component.appendChild(component() || component);
         };
     };
 
@@ -74,14 +67,61 @@ class BaseComponent {
         return !num ? Math.random() : Math.ceil((Math.random() * num) - (num / 2));
     };
 
-    render(additionalitems) {
-        if (this.template) this.component.innerHTML = this.template;
+    addListeners() {
+        // console.log(this.events);
+        for (const { item, event, handler } of this.events) {
+            item[event] = handler;
+            // console.log(item[event]);
+        }
+    };
 
-        if (additionalitems) {
-            for (const item of additionalitems) this.component.appendChild(item);
+    remove() {
+        this.component.remove();
+    };
+
+    append() {
+        document.querySelector("#root").appendChild(this.component);
+    };
+
+    render = () => {
+        this.currentLang = checkLanguages();
+
+        if (this.component.id !== this.id) this.component.id = this.id;
+        if (this.templateData) this.component.innerHTML = this.template(this.templateData());
+        if (this.subComponents !== null) this.addSubComponents(this.subComponents);
+        if (this.events.length !== 0) {
+            // for (const event of this.events) {
+            //     addGlobalListener(event);
+            // };
         };
 
-        return this.component;
+
+        ///////////////////////////////////////////////////////////
+        if (this.id === "languageBar") {
+            
+            // console.log("x", this.currentLang);
+        }
+        ///////////////////////////////////////////////////////////
+
+        const existingComponent = document.querySelector(`#${this.id}`);
+        if (existingComponent) {
+            // existingComponent.innerHTML = this.component.innerHTML;
+            existingComponent.replaceChildren(...this.component.children);
+        } else {
+            return this.component;
+        };
+    };
+
+    get className() {
+        return this.component.className;
+    };
+
+    set className(classes) {
+        this.component.className = classes;
+    };
+
+    onanimationend(animationEndFn) {
+        this.component.onanimationend = animationEndFn;
     };
 };
 

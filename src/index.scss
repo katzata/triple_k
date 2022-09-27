@@ -62,24 +62,45 @@ html {
 			width: 100%;
 			height: 100%;
 			display: grid;
-			grid-template-rows: auto 1fr auto;
+			grid-template-rows: auto 1fr 40px;
 			grid-template-columns: 100%;
+			overflow: hidden;
 
 			main {
-				display: flex;
+				min-height: 100%;
 				padding: 54px 0 30px;
-				overflow: auto
+				display: flex;
+				overflow: auto;
+				// TEST!!!
+				color: #dfdfdf;
 			}
 
-			main.fadeIn {
-				@include fadeInAnimation;
+
+			main.sectionFadeIn {
+				@include sectionFadeIn;
 			}
 
-			main.fadeOut {
-				@include fadeOutAnimation;
+			main.sectionFadeOut {
+				@include sectionFadeOut;
 			}
 		}
 	}
+}
+
+.sectionFadeIn {
+	@include sectionFadeIn;
+}
+
+.sectionFadeOut {
+	@include sectionFadeOut;
+}
+
+.simpleFadeIn {
+	@include simpleFadeIn;
+}
+
+.simpleFadeOut {
+	@include simpleFadeOut;
 }
 
 ::-webkit-scrollbar {
