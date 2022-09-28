@@ -37,15 +37,13 @@ class BaseComponent {
 
     addSubComponents = (components) => {
         for (const component of components) {
-            // if (Array.isArray(component)) {
-            //     const [{ type, attr }, node] = component;
-            //     const element = this.createElement(type, attr);
-            //     continue;
-            // };
-
-            // console.log(component());
-
-            this.component.appendChild(component() || component);
+            const rawComponent = component() || component;
+            
+            if (rawComponent instanceof Array) {
+                rawComponent.map(el => this.component.appendChild(el))
+            } else {
+                this.component.appendChild(component() || component);
+            };
         };
     };
 
@@ -57,7 +55,13 @@ class BaseComponent {
         };
 
         if (children) {
-            children.forEach((child) => element.appendChild(child));
+            children.forEach((child) => {
+                if (child instanceof Array) {
+                    child.forEach(el => element.appendChild(el));
+                } else {
+                    element.appendChild(child)
+                };
+            });
         };
 
         return element;
@@ -89,23 +93,9 @@ class BaseComponent {
         if (this.component.id !== this.id) this.component.id = this.id;
         if (this.templateData) this.component.innerHTML = this.template(this.templateData());
         if (this.subComponents !== null) this.addSubComponents(this.subComponents);
-        if (this.events.length !== 0) {
-            // for (const event of this.events) {
-            //     addGlobalListener(event);
-            // };
-        };
-
-
-        ///////////////////////////////////////////////////////////
-        if (this.id === "languageBar") {
-            
-            // console.log("x", this.currentLang);
-        }
-        ///////////////////////////////////////////////////////////
 
         const existingComponent = document.querySelector(`#${this.id}`);
         if (existingComponent) {
-            // existingComponent.innerHTML = this.component.innerHTML;
             existingComponent.replaceChildren(...this.component.children);
         } else {
             return this.component;

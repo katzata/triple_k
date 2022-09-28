@@ -3,7 +3,7 @@
     color: rgba(255, 255, 255, 0.95);
 
     h2 {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         font-family: "SpectralSC-Regular";
         text-align: center;
     }
@@ -15,24 +15,74 @@
         flex-direction: column;
 
         h3 {
+            margin-left: 3vw;
             font-family: "SpectralSC-extra-light";
             font-weight: 400;
         }
 
         .certificatesRow {
             width: 100%;
-            margin-bottom: 20px;
+            height: 20vw;
+            min-height: 270px;
+            padding: 1.2vw 3vw 3vw;
+            margin: 0 0 20px;
             display: flex;
             overflow: auto;
 
             .certificateContainer {
-                width: 180px;
-                min-width: 180px;
-                padding: 14px;
+                position: relative;
+                height: 100%;
+                margin: 0 24px;
                 display: flex;
 
-                img {
-                    width: 100%;
+                &:hover .thumb_f {
+                    transform: rotateY(180deg) scale(1, 1);
+                    transition-delay: .2s;
+                }
+
+                &:hover .thumb_b {
+                    transform: rotateY(0deg) scale(1, 1);
+                    transition-delay: .2s;
+                }
+
+                &:hover .test {
+                    width: 500%;
+                    height: 500%;
+                }
+
+                .thumb_b,
+                .thumb_f {
+                    height: 100%;
+                    transition-duration: .2s;
+                    transition-delay: 0s;
+                }
+
+                .thumb_f {
+                    position: relative;
+                    transform: rotateY(0deg) scale(.8, .8);
+                    // transform: rotateY(0deg) scale(1, 1);
+                    backface-visibility: hidden;
+                }
+                
+                .thumb_b {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    transform: rotateY(180deg) scale(.8, .8);
+                    // transform: rotateY(180deg) scale(1, 1);
+                    backface-visibility: visible;
+                };
+
+                .test {
+                    position: absolute;
+                    left: -1.6vw;
+                    top: -2vw;
+                    width: 0;
+                    height: 0;
+                    transition-duration: .2s;
+                    transition-delay: .4s;
+                    background-color: red;
+                    border: 1px solid rgb(23, 23, 23);
                 }
             }
         }

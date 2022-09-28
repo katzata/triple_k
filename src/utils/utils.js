@@ -4,20 +4,23 @@ export const capitalise = (text) => {
 
 export const toggleHomeLinkVisibility = (url = "/") => {
     const path = url.split("/").pop();
-    const state = path === "" ? "sectionFadeOut" : "sectionFadeIn";
-    const test = document.querySelector(".navMain");
+    const navMain = document.querySelector(".navMain");
     
-    test.className = "navLinks navMain " + state;
+    navMain.style.transform = path === "" ? "translateY(0)" : "translateY(100%)";
+    navMain.style.opacity = path === "" ? "0" : "1";
+    navMain.style.zIndex = path === "" ? "-1" : "0";
 };
 
-export const pageTransition = ({ targetSection, fogCanvas, header, footer }, page) => {
+export const pageTransition = async ({ targetSection, fogCanvas, header, footer }, page, endRouting) => {
     const currentPage = targetSection.firstChild;
 
-    targetSection.onanimationend = (e) => {
+    targetSection.onanimationend = async (e) => {
         if (e.animationName === "sectionFadeOut") {
             e.target.replaceChildren(page.render());
             e.target.className = "sectionFadeIn";
         };
+
+        if (e.animationName === "sectionFadeIn") endRouting();
     };
     
     if (currentPage) {

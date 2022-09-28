@@ -44,7 +44,11 @@ export const changeLanguage = (lang) => {
     if (localStorage.lang !== lang) {
         localStorage.setItem("lang", lang);
         route(langTransition);
+
+        return true;
     };
+
+    return false;
 };
 
 export default langs;

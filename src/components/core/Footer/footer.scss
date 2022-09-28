@@ -33,3 +33,9 @@ footer {
         margin: 10px 0;
     }
 }
+
+@media screen and (max-height: 375px) {
+    footer {
+        transform: translateY(calc(100% - 30px));
+    }
+}

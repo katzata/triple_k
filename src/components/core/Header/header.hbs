@@ -1,29 +1,4 @@
 <p class="headerGhostTitle">{{title}}</p>
 <h1 class="headerTitle">{{title}}</h1>
 
-<nav>
-    <div class="navSections navSectionL">
-        <p class="navSectionTitle">{{navL.title}}</p>
-
-        <div class="linksContainer">
-            {{#each navL.content}}
-                <a href="{{@this}}" class="navLinks">{{@key}}</a>
-            {{/each}}
-        </div>
-    </div>
-
-    <div class="navSections navSectionM">
-        <a href="/" class="navLinks navMain">{{main.title}}</a>
-    </div>
-
-    <div class="navSections navSectionR">
-        <p class="navSectionTitle">{{navR.title}}</p>
-
-        <div class="linksContainer">
-            <a href="{{navR.content.Projects}}" class="navLinks">Projects</a>
-            <a href="{{navR.content.GitHub}}" target="_blank" class="navLinks">GitHub</a>
-        </div>
-    </div>
-</nav>
-
 <hr class="hrTop">

@@ -20,10 +20,11 @@ class FogCanvas extends BaseComponent {
         this.particleSize = (innerWidth < innerHeight ? innerWidth : innerHeight) / 1.65;
         this.fogDensity = 0;
         // this.fogVelocity = 3 * this.scale;
-        this.fogVelocity = 8 * this.scale;
+        this.fogVelocity = 6 * this.scale;
         this.fogParticles = [];
         this.siblingsReady = false;
         this.triggerParticle = Math.floor(this.fogDensity / 4);
+
         this.siblings = [];
 
         this.animationsLoop([
@@ -52,13 +53,13 @@ class FogCanvas extends BaseComponent {
     
     setDensity() {
         const { innerWidth, innerHeight } = window;
-        const density = innerWidth > innerHeight ? innerWidth : innerHeight;
-        return Math.ceil(density / 6);
+        const density = Math.ceil((innerWidth > innerHeight ? innerWidth : innerHeight) / 6);
+        return density < 100 ? 100 : density;
     };
 
     prepareFog() {
         this.fogDensity = this.setDensity();
-        alert(this.fogDensity)
+        // alert(this.fogDensity)
         const maxX = this.component.width - this.particleSize;
         const maxY = this.component.height - this.particleSize;
 
@@ -90,7 +91,7 @@ class FogCanvas extends BaseComponent {
     handleVisibility() {
         if (this._isVisible) {
             if (this.fogParticles.length === 0) this.prepareFog();
-            if (this.component.style.zIndex !== "300") this.component.style.zIndex = "300";
+            if (this.component.style.zIndex !== "400") this.component.style.zIndex = "400";
         } else {
             if (!this.fogPrepped) this.fogPrepped = false;
             if (this.fogParticles.length > 0) this.fogParticles = [];
@@ -119,7 +120,6 @@ class FogCanvas extends BaseComponent {
         const fadeOutTriggerParticle = this.fogParticles[this.triggerParticle];
         const fadeInTriggerParticle = this.fogParticles[this.triggerParticle];
         const lastParticle = this.fogParticles[this.fogDensity - 1];
-        
         // if (fadeOutTriggerParticle.alpha === 1 && fadeOutTriggerParticle.fadeIn) {
         //     for (const sibling of this.siblings) {
         //         sibling.className = "simpleFadeOut";

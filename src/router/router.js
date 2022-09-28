@@ -2,22 +2,25 @@ import routes from "./routes";
 import { toggleHomeLinkVisibility, pageTransition } from "../utils/utils";
 
 let coreComponents = {};
+let routing = false;
 
 export const route = (callback) => {
     const targetSection = document.querySelector("main");
     const path = window.location.pathname;
     const keys = Object.keys(routes);
+    toggleHomeLinkVisibility(path);
 
     if (keys.includes(path)) {
         const newPage = routes[path]();
 
         if (callback) {
-            callback({ targetSection, ...coreComponents }, newPage);
+            callback({ targetSection, ...coreComponents }, newPage, () => routing = false);
         } else {
             targetSection.replaceChildren(newPage.render());
         };
     } else {
         console.log("wrong path", path);
+        routing = false;
     };
 };
 
@@ -26,12 +29,12 @@ export const setCoreComponents = (components) => {
 };
 
 export const updateLocation = (url) => {
-    if (url) {
+    if (!routing && url) {
         const pageTitle = url.split("/").pop();
+        routing = true;
         updateDocumentTitle(pageTitle);
         window.history.pushState({ page: pageTitle }, pageTitle, url);
-        
-        toggleHomeLinkVisibility(url);
+
         route(pageTransition);
     };
 };
@@ -49,14 +52,14 @@ const updateDocumentTitle = (path) => {
 };
 
 window.addEventListener("click", (e) => {
-    const { className, href } = e.target;
+    const { tagName, href } = e.target;
 
-    if (typeof className === "string" && className.includes("navLinks")) {
+    if (tagName === "A") {
         const link = href.split("/").pop();
-        
+
         if (link !== "katzata") {
             e.preventDefault();
-            updateLocation(href);
+            if (href !== window.location.href) updateLocation(href);
         };
     };
 });

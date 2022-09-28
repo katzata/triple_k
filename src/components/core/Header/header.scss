@@ -35,8 +35,9 @@ header {
     .headerTitle,
     .headerGhostTitle {
         position: absolute;
-        font-family: "SpectralSC-Regular", "comic";
+        font-family: "SpectralSC-Regular";
         font-size: calc($nav-font-size + 5px);
+        line-height: $nav-font-size + 5px;
         font-weight: normal;
         color: $title-font-color;
         text-shadow: 0 0 1px rgb(255, 255, 255);
@@ -66,10 +67,9 @@ header {
     nav {
         position: absolute;
         bottom: 0px;
-        width: 290px;
         height: 22px;
         display: grid;
-        grid-template-columns: 105px 70px 105px;
+        grid-template-columns: 125px 70px 125px;
         grid-template-rows: 22px;
         justify-items: center;
         color: $base-nav-font-color;
@@ -115,7 +115,6 @@ header {
                 position: relative;
                 width: 100%;
                 display: inline-block;
-                // transition-duration: $buttons-transition-duration;
                 text-align: center;
                 border-radius: 8px;
                 z-index: 3;
@@ -146,10 +145,6 @@ header {
                     transition-duration: $buttons-transition-duration;
                     border-radius: 4px;
                     
-                    &:hover {
-                        // color: $hover-font-color;
-                    }
-                    
                     &:visited {
                         color: $base-nav-font-color;
                     }
@@ -173,13 +168,14 @@ header {
             
             .navMain {
                 position: absolute;
-                bottom: -80%;
+                bottom: 0%;
                 padding: 0 4px;
                 color: $base-nav-font-color;
                 transition-duration: $buttons-transition-duration;
                 background-color: $nav-bg;
                 box-shadow: $button-box-shadow;
-                
+                opacity: 0;
+
                 &:hover {
                     color: $hover-font-color;
                 }
@@ -193,87 +189,23 @@ header {
 }
 
 
-.fadeIn {
-    @include sectionFadeIn;
-}
-
-.fadeOut {
-    @include sectionFadeOut;
-}
-
 @media screen and (max-width: 1000px) {
     
 }
 
+@media screen and (max-height: 375px) {
+    header {
+        height: 52px;
 
-// .navSectionLButton,
-// .navSectionRButton {
-//     position: absolute;
-//     top: 0;
-//     margin: 3px 0;
-//     padding: 0 2px;
-//     display: flex;
-//     font-family: SpectralSC-Regular;
-//     color: #EEEEEE;
-//     font-size: 13px;
-//     line-height: 13px;
-//     background-color: black;
-//     transition-duration: $buttons-transition-duration;
-//     4
-//     border: none;
-//     box-shadow: none;
+        .headerTitle,
+        .headerGhostTitle {
+            font-size: calc($nav-font-size + 2px);
+            line-height: $nav-font-size + 5px;
+        }
 
-//     &:focus {
-//         outline: none;
-//     }
-// }
-
-// .navSectionLButton1 {
-//     z-index: 2;
-// }
-
-// .navSectionLButton2 {
-//     z-index: 1;
-// }
-
-// .navSectionLButton3 {
-//     z-index: 0;
-// }
-
-// .navSectionRButton1 {
-//     z-index: 0;
-// }
-
-// .navButtonMain {
-//     width: 60px;
-//     height: 22px;
-//     margin: 0;
-//     background-color: rgba(0, 0, 0, 0);
-//     transform: translateY(60%) scale(0);
-//     /*transition: .9s opacity ease-in-out;*/
-//     transition-duration: $buttons-transition-duration;
-//     transition-timing-function: ease-in-out;
-//     border: none;
-//     opacity: 0;
-// }
-
-// .navButtonMainText {
-//     padding: 0 4px;
-//     color: white;
-//     font-family: "SpectralSC-light";
-//     font-size: 13px;
-//     line-height: 13px;
-//     background-color: black;
-//     box-shadow: 0 0 10px 4px black;
-//     display: inline-flex;
-// }
-
-// .navButtonMain:focus {
-//     outline: none;
-// }
-
-// @media only screen and (max-width: 414px) {
-//     .navSectionTitle {
-//         font-size: 1em;
-//     }
-// }
+        nav {
+            font-size: $nav-font-size - 2px;
+            line-height: 20px;
+        }
+    }
+}
