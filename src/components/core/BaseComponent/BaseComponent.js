@@ -9,13 +9,15 @@ class BaseComponent {
         this.template = null;
         this.templateData = null;
         this.subComponents = null;
+        this.childSubComponents = null;
+        this.shadowElements = [];
         this.langs = langs;
         this.events = [];
         this.runAnimations = false;
     };
 
     animationsLoop(animations, customDelay) {
-        const delay = customDelay ? customDelay : Math.ceil(1000 / 60);
+        const delay = customDelay ? customDelay : Math.floor(1000 / 60);
         let prevTime = new Date().getTime();
 
         const loop = () => {
@@ -43,6 +45,30 @@ class BaseComponent {
                 rawComponent.map(el => this.component.appendChild(el))
             } else {
                 this.component.appendChild(component() || component);
+            };
+        };
+    };
+
+    addChildSubComponents = (components) => {
+        const componentChildren = Array.from(this.component.children);
+
+        for (const [target, component] of components) {
+            if (component instanceof Array) {
+                component.map(el => {
+                    console.log("x", target, componentChildren.querySelector("#imageContainer"));
+                    // this.component.appendChild(el)
+                });
+            } else {
+                for (const child of componentChildren) {
+                    const targetChild = child.querySelector("#imageContainer");
+
+                    if (targetChild) {
+                        targetChild.appendChild(component);
+                        break;
+                    };
+                };
+                // console.log(target, componentChildren[0].querySelector("#imageContainer"));
+                // this.component.appendChild(component() || component);
             };
         };
     };
@@ -93,6 +119,10 @@ class BaseComponent {
         if (this.component.id !== this.id) this.component.id = this.id;
         if (this.templateData) this.component.innerHTML = this.template(this.templateData());
         if (this.subComponents !== null) this.addSubComponents(this.subComponents);
+        if (this.childSubComponents !== null) this.addChildSubComponents(this.childSubComponents);
+        // if (this.shadowElements.length > 0) this.shadowElements.forEach(([el, text]) => {
+            
+        // });
 
         const existingComponent = document.querySelector(`#${this.id}`);
         if (existingComponent) {

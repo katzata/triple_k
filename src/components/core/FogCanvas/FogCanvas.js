@@ -1,7 +1,7 @@
 import BaseComponent from "../BaseComponent/BaseComponent";
 import "./fogCanvas.scss";
 
-import FogParticle from "./Fog/Fog";
+import FogParticle from "./FogParticle/FogParticle";
 
 class FogCanvas extends BaseComponent {
     constructor() {
@@ -19,7 +19,6 @@ class FogCanvas extends BaseComponent {
         this._fadeIn = false;
         this.particleSize = (innerWidth < innerHeight ? innerWidth : innerHeight) / 1.65;
         this.fogDensity = 0;
-        // this.fogVelocity = 3 * this.scale;
         this.fogVelocity = 6 * this.scale;
         this.fogParticles = [];
         this.siblingsReady = false;

@@ -10,6 +10,8 @@ import { updateLocation, route } from "../router/router";
 // import FogCanvas from "../components/core/FogCanvas/FogCanvas";
 
 // const fogCanvas = new FogCanvas();
+const lang = navigator.language.toLocaleLowerCase();
+const userLang = lang.includes("-") ? lang.split("-")[0] : lang;
 
 const langs = {
     bg: langBg,
@@ -18,6 +20,22 @@ const langs = {
 };
 
 export let setLanguage = "";
+
+export const setLang = () => {
+    let setLang = "en";
+
+    for (const lang of Object.keys(langs)) {
+        if (langs[localStorage.lang]) {
+            return localStorage.lang;
+        };
+
+        if (lang === userLang) {
+            return userLang;
+        };
+    };
+
+    return setLang;
+};
 
 export const checkLanguages = () => {
     const language = navigator.language.toLocaleLowerCase();
@@ -44,11 +62,7 @@ export const changeLanguage = (lang) => {
     if (localStorage.lang !== lang) {
         localStorage.setItem("lang", lang);
         route(langTransition);
-
-        return true;
     };
-
-    return false;
 };
 
 export default langs;

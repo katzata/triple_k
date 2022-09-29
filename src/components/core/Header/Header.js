@@ -67,12 +67,15 @@ class Header extends BaseComponent {
     };
 
     animateGhostTitle() {
-        const ghostTitle = document.querySelector(".headerGhostTitle");
-        const offset = ghostTitle.offsetHeight - 13;
-        const posX = super.random(offset);
-        const posY = super.random(offset);
+        const ghostTitle = document.querySelector("#headerGhostTitle");
+        
+        if (ghostTitle) {
+            const offset = ghostTitle.offsetHeight - 12;
+            const posX = super.random(offset);
+            const posY = super.random(offset);
 
-        if (ghostTitle) ghostTitle.style.transform = `translate(${posX}px, ${posY}px)`;
+            ghostTitle.style.transform = `translate(${posX}px, ${posY}px)`;
+        };
     };
 
     animateNavLinks = () => {

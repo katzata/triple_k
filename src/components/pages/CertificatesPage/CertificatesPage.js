@@ -35,13 +35,13 @@ class CertificatesPage extends BaseComponent {
                         className: `thumb${el.slice(el.length - 2)}`,
                         src: `../../../assets/certificates/img/${el}.png`
                     });
-                })
+                });
 
                 return this.createElement("div", {className: "certificateContainer"}, thumbs)
             });
-            
+
             const row = this.createElement("div", { className: "certificatesRow" }, certificateThumbs)
-            return [sectionTitle, row];
+            return this.createElement("div", {className: "rowWrapper"}, [sectionTitle, row]);
         });
         
         const certificatesSection = this.createElement("div", {className: "certificatesSection"}, subSections)

@@ -13,7 +13,32 @@
         display: flex;
 
         .topSubSection {
-            width: 38%;
+            #imageContainer {
+                position: relative;
+                height: 280px;
+                display: flex;
+                overflow: hidden;
+
+                #mainImage,
+                #skullImage, {
+                }
+                
+                #mainImage {
+                    height: 100%;
+                    position: relative;
+                    opacity: 1;
+                    z-index: 1;
+                }
+
+                #skullImage {
+                    position: absolute;
+                    height: 73%;
+                    left: -2px;
+                    top: 27px;
+                    transform: rotateZ(-4deg);
+                    opacity: 1;
+                }
+            }
         }
     }
 }

@@ -11,10 +11,10 @@ export const toggleHomeLinkVisibility = (url = "/") => {
     navMain.style.zIndex = path === "" ? "-1" : "0";
 };
 
-export const pageTransition = async ({ targetSection, fogCanvas, header, footer }, page, endRouting) => {
+export const pageTransition = ({ targetSection, fogCanvas, header, footer }, page, endRouting) => {
     const currentPage = targetSection.firstChild;
 
-    targetSection.onanimationend = async (e) => {
+    targetSection.onanimationend = (e) => {
         if (e.animationName === "sectionFadeOut") {
             e.target.replaceChildren(page.render());
             e.target.className = "sectionFadeIn";
