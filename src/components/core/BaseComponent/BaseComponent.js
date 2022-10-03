@@ -55,7 +55,6 @@ class BaseComponent {
         for (const [target, component] of components) {
             if (component instanceof Array) {
                 component.map(el => {
-                    console.log("x", target, componentChildren.querySelector("#imageContainer"));
                     // this.component.appendChild(el)
                 });
             } else {
@@ -67,7 +66,7 @@ class BaseComponent {
                         break;
                     };
                 };
-                // console.log(target, componentChildren[0].querySelector("#imageContainer"));
+                
                 // this.component.appendChild(component() || component);
             };
         };
@@ -125,7 +124,7 @@ class BaseComponent {
         // });
 
         const existingComponent = document.querySelector(`#${this.id}`);
-        if (existingComponent) {
+        if (existingComponent && this.component.children.length > 0) {
             existingComponent.replaceChildren(...this.component.children);
         } else {
             return this.component;
@@ -140,7 +139,7 @@ class BaseComponent {
         this.component.className = classes;
     };
 
-    onanimationend(animationEndFn) {
+    set onanimationend(animationEndFn) {
         this.component.onanimationend = animationEndFn;
     };
 };

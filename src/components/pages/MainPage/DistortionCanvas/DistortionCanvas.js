@@ -15,14 +15,15 @@ class DistortionCanvas extends BaseComponent {
         this._isVisible = false;
         this.noise = this.generateImage();
         this.currentFrame = 0;
+        this.animationRunning = false;
         this.offsetY = 3;
-        this.animationAlpha = 0;
+        this.alpha = 0;
         this.alphaIncrement = 0.02;
-        this.alphaMax = 0.3;
+        this.alphaMax = 0.28;
 
         this.animationsLoop([
             this.canvasHandler
-        ], Math.floor(1000 / 30));
+        ], Math.ceil(1000 / 30));
     };
 
     generateImage() {
@@ -34,24 +35,35 @@ class DistortionCanvas extends BaseComponent {
 
     canvasHandler = () => {
         this.handleVisibility();
-
+        
         if (this.animationRunning) {
             this.handleSize();
             this.handleAnimation();
         };
+
+        if (!this.animationRunning && this.alpha !== 0) this.alpha = 0;
     };
 
     handleVisibility() {
-        if (this._isVisible) {
-            this.animationRunning = true;
-            
-            if (this.animationAlpha < this.alphaMax) {
-                this.animationAlpha += 0.02;
-                if (this.animationAlpha > this.alphaMax) this.animationAlpha = this.alphaMax;
-            };
+        if (this.animationRunning) {
+            if (this.component.style.zIndex !== "2") this.component.style.zIndex = "2";
         } else {
-            this.animationRunning = false;
+            if (this.component.style.zIndex !== "0") this.component.style.zIndex = "0";
         };
+        // if (this._isVisible) {
+        //     this.animationRunning = true;
+            
+        //     if (this.alpha < this.alphaMax) {
+        //         this.alpha += this.alphaIncrement;
+        //         if (this.alpha > this.alphaMax) this.alpha = this.alphaMax;
+        //     };
+
+        //     if (this.component.style.zIndex !== "2") this.component.style.zIndex = "2";
+        // } else {
+        //     this.alpha = 0;
+        //     this.animationRunning = false;
+        //     if (this.component.style.zIndex !== "0") this.component.style.zIndex = "0";
+        // };
     };
 
     handleSize() {
@@ -67,7 +79,7 @@ class DistortionCanvas extends BaseComponent {
         const frameY = (this.offsetY * frameHeight) + this.offsetY * 2;
         
         this.ctx.save();
-        this.ctx.globalAlpha = this.animationAlpha;
+        this.ctx.globalAlpha = this.alpha;
         this.ctx.drawImage(this.noise, frameX, frameY, frameWidth, frameHeight, 0, 0, this.component.width, this.component.height);
         this.ctx.restore();
 

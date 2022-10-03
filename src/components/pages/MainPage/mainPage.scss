@@ -1,6 +1,7 @@
 // @import "../../../mixins/_fonts.scss";
 
 #mainPage {
+    width: 100%;
     color: rgba(255, 255, 255, .95);
     
     h2 {
@@ -9,36 +10,70 @@
         // @include fontSpectralSC;
     }
 
-    .topSection {
+    #topSection {
+        margin: 20px 0;
         display: flex;
 
         .topSubSection {
+            width: 50%;
+            display: flex;
+
+            #mainInfoSection {
+                margin: 10px 5vw 10px auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .infoRow {
+                    .infoTitle {
+                        margin-bottom: 1px;
+                        font-size: 16px;
+                    }
+                    
+                    .infoContent {
+                        margin-left: 12px;
+                        font-style: italic;
+                    }
+                }
+            }
+            
             #imageContainer {
                 position: relative;
-                height: 280px;
+                width: 178px;
+                height: 260px;
+                margin: 0 auto 0 5vw;
                 display: flex;
                 overflow: hidden;
-
-                #mainImage,
-                #skullImage, {
-                }
-                
+               
                 #mainImage {
                     height: 100%;
                     position: relative;
                     opacity: 1;
-                    z-index: 1;
                 }
 
                 #skullImage {
                     position: absolute;
                     height: 73%;
                     left: -2px;
-                    top: 27px;
+                    top: 26px;
                     transform: rotateZ(-4deg);
                     opacity: 1;
                 }
             }
+        }
+    }
+
+    #stackSection {
+        h3 {
+            text-align: center;
+        }
+
+        #primaryStack {
+            
+        }
+
+        #secondaryStack {
+
         }
     }
 }

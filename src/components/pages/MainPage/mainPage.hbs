@@ -1,9 +1,28 @@
-<section class="topSection">
-    <div class="topSubSection">
-        {{test}}
-    </div>
+<section id="topSection">
+    <section class="topSubSection">
+        <div id="mainInfoSection">
+            {{#each this.topArticle}}
+                <div class="infoRow">
+                    <h3 class="infoTitle">{{this.title}}:</h3>
+                    <p class="infoContent">{{this.content}}</p>
+                </div>
+            {{/each}}
+        </div>
+    </section>
 
     <section class="topSubSection">
         <div id="imageContainer"></div>
     </section>
+</section>
+
+<section id="stackSection">
+    <h3>{{this.stackArticle.title}}</h3>
+    
+    <div id="primaryStack">
+        
+    </div>
+
+    <div id="secondaryStack">
+        
+    </div>
 </section>

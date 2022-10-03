@@ -1,3 +1,9 @@
+export let coreComponents = {};
+
+export const setCoreComponents = (components) => {
+    coreComponents = components;
+};
+
 export const capitalise = (text) => {
     return text.charAt(0).toLocaleUpperCase() + text.slice(1);
 };
@@ -31,9 +37,8 @@ export const pageTransition = ({ targetSection, fogCanvas, header, footer }, pag
     };
 };
 
-export const langTransition = ({ targetSection, fogCanvas, header, footer }, page) => {
-    fogCanvas.siblings = [header, targetSection, footer];
-    fogCanvas.isVisible = true;
-    fogCanvas.fadeIn = true;
-    fogCanvas.page = page;
+export const langTransition = ({ targetSection, mainCanvas, header, footer }, page) => {
+    mainCanvas.siblings = [header, targetSection, footer];
+    mainCanvas.fogAnimationRunning = true;
+    mainCanvas.page = page;
 };

@@ -12,7 +12,7 @@ class FogParticle {
 		this.delayCount = 0;
 		this.x = x;
 		this.y = y;
-		this.particleCutoff = .1;
+		this.particleCutoff = .2;
 		this.minX = -Math.ceil(size * this.particleCutoff);
 		this.minY = -Math.ceil(size * this.particleCutoff);
 		this.maxX = maxX + Math.floor(size * this.particleCutoff);
@@ -50,15 +50,17 @@ class FogParticle {
 	handleAlpha() {
 		if (this.fadeIn) {
 			if (this.alphaDelay > this.delayCount) this.delayCount++;
+
 			if (this.alphaDelay === this.delayCount && this.alpha < 1) {
 				this.alpha += this.alphaIncrement;
 				if (this.alpha + this.alphaIncrement > 1) this.alpha = 1;
 			};
 		} else {
 			if (this.delayCount > 0) this.delayCount--;
+			
 			if (this.delayCount === 0 && this.alpha > 0) {
 				this.alpha -= this.alphaIncrement;
-				if (this.alpha - this.alphaIncrement < 0) this.alpha = 0;
+				if (this.alpha < 0) this.alpha = 0;
 			};
 		};
 	};

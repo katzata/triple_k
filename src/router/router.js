@@ -1,7 +1,7 @@
 import routes from "./routes";
 import { toggleHomeLinkVisibility, pageTransition } from "../utils/utils";
+import { coreComponents } from "../utils/utils";
 
-let coreComponents = {};
 let routing = false;
 
 export const route = (callback) => {
@@ -22,10 +22,6 @@ export const route = (callback) => {
         console.log("wrong path", path);
         routing = false;
     };
-};
-
-export const setCoreComponents = (components) => {
-    coreComponents = components;
 };
 
 export const updateLocation = (url) => {
