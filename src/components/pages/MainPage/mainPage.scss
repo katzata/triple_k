@@ -2,6 +2,8 @@
 
 #mainPage {
     width: 100%;
+    max-width: 1400px;
+    margin: auto;
     color: rgba(255, 255, 255, .95);
     
     h2 {
@@ -11,7 +13,7 @@
     }
 
     #topSection {
-        margin: 20px 0;
+        margin: 30px 0;
         display: flex;
 
         .topSubSection {
@@ -64,16 +66,44 @@
     }
 
     #stackSection {
+        width: 100%;
+
         h3 {
+            margin: 100px 0 40px;
             text-align: center;
         }
 
-        #primaryStack {
+        .stackRow {
+            width: 100%;
+            margin-bottom: 40px;
+            display: flex;
             
-        }
+            h4 {
+                width: 50%;
+                padding-right: 8vw;
+                margin: auto 0;
+                font-size: 20px;
+                text-align: right;
+            }
 
-        #secondaryStack {
+            .stackIconsContainer {
+                width: 50%;
+                padding-left: 8vw;
+                display: flex;
+                flex-wrap: wrap;
 
+                .stackIcon {
+                    height: 22px;
+                    margin: 14px 28px 14px 0;
+                    filter: drop-shadow(0px 0px 6px rgba(0, 0, 0, 1));
+
+                    &[title="Handlebars"] {
+                        height: 20px;
+                        margin: 11px 20px 11px 0;
+                    }
+                }
+
+            }
         }
     }
 }

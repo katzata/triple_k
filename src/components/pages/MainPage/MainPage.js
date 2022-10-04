@@ -12,8 +12,14 @@ class MainPage extends BaseComponent {
         this.component = document.createElement("section");
         this.template = mainPageTemplate;
         this.templateData = () => {
+            const stackIcons = Object.entries(this.generateIcons());
+            
+            for (const [section, icons] of stackIcons) {
+                this.currentLang.mainPage.stackArticle.content[section].content = icons;
+            };
             this.currentLang.mainPage.topArticle.age.content = `${this.setAge()}`;
-            return this.currentLang.mainPage;
+            
+            return { ...this.currentLang.mainPage, ...this.generateIcons() };
         };
         this.distortionCanvas = new DistortionCanvas();
         this.childSubComponents = [
@@ -63,39 +69,41 @@ class MainPage extends BaseComponent {
         
         if (running) {
             if (!this.distortionCanvas.isVisible) this.distortionCanvas.isVisible = true;
-            this.distortionCanvas.animationRunning = true;
+            if (!this.distortionCanvas.animationRunning) this.distortionCanvas.animationRunning = true;
             this.distortionCanvas.alpha = alpha / 2;
         } else {
             if (this.distortionCanvas.animationRunning) this.distortionCanvas.animationRunning = false;
         };
-        // console.log(alpha, alphaMax);
-        if (alpha !== 0) {
-            const random = Math.random();
-            const posX = this.random(alpha * 5);
-            const posY = 0/* this.random(3) + 3 */;
-            const skewX = -random * (alpha * 6);
-            const skewY = 0;
-            const mainOpacity = random > .5 ? (random + .4) : (1 - (alpha - .2));
-            const mainHue = this.random(0);
 
-            mainImage.style.transform = `translate(${posX}px, ${posY}px) skew(${skewX}deg, ${skewY}deg)`;
-            mainImage.style.filter = `hue-rotate(${mainHue}deg)`;
-            mainImage.style.opacity = `${mainOpacity}`;
-            
-            skullImage.style.transform = `rotateZ(-4deg) translate(${posX}px, ${posY}px) skew(${skewX}deg, ${skewY}deg)`;
-        } else {
-            if (mainImage && mainImage.style.opacity !== "1") {
-                mainImage.style.transform = `translate(0px, 0px) skew(0deg, 0deg)`;
-                mainImage.style.filter = `hue-rotate(0deg)`;
-                mainImage.style.opacity = "1";
+        if (mainImage && skullImage) {
+            if (alpha !== 0) {
+                const random = Math.random();
+                const posX = this.random(alpha * 5);
+                const posY = 0/* this.random(3) + 3 */;
+                const skewX = -random * (alpha * 6);
+                const skewY = 0;
+                const mainOpacity = random > .5 ? (random + .4) : (1 - (alpha - .2));
+                const mainHue = this.random(0);
+    
+                mainImage.style.transform = `translate(${posX}px, ${posY}px) skew(${skewX}deg, ${skewY}deg)`;
+                mainImage.style.filter = `hue-rotate(${mainHue}deg)`;
+                mainImage.style.opacity = `${mainOpacity}`;
                 
-                skullImage.style.transform = `rotateZ(-4deg) translate(0px, 0px) skew(0deg, 0deg)`;
+                skullImage.style.transform = `rotateZ(-4deg) translate(${posX}px, ${posY}px) skew(${skewX}deg, ${skewY}deg)`;
+            } else {
+                if (mainImage && mainImage.style.opacity !== "1") {
+                    mainImage.style.transform = `translate(0px, 0px) skew(0deg, 0deg)`;
+                    mainImage.style.filter = `hue-rotate(0deg)`;
+                    mainImage.style.opacity = "1";
+                    
+                    skullImage.style.transform = `rotateZ(-4deg) translate(0px, 0px) skew(0deg, 0deg)`;
+                };
             };
         };
     };
 
     generateIcons() {
-        const icons = {
+        /* const icons = {
             HTML: "../assets/gfx/icons/html.svg",
             CSS: "../assets/gfx/icons/css.svg",
             JavaScript: "../assets/gfx/icons/js.svg",
@@ -103,7 +111,7 @@ class MainPage extends BaseComponent {
             React: "../assets/gfx/icons/react.svg",
             Redux: "../assets/gfx/icons/redux.svg",
             PixiJs: "../assets/gfx/icons/pixi.svg",
-
+            Nodejs: "../assets/gfx/icons/nodejs.svg",
 
             Handlebars: "../assets/gfx/icons/handlebars.svg",
             Sass: "../assets/gfx/icons/sass.svg",
@@ -111,29 +119,90 @@ class MainPage extends BaseComponent {
             TypeScript: "../assets/gfx/icons/ts.svg",
             jQuery: "../assets/gfx/icons/jquery.svg",
             Angular: "../assets/gfx/icons/angular.svg",
-            Nodejs: "../assets/gfx/icons/nodejs.svg",
             Express: "../assets/gfx/icons/express.svg",
             php: "../assets/gfx/icons/php.svg",
-            Laravel: "../assets/gfx/icons/laravel.svg",
             
             Git: "../assets/gfx/icons/git.svg"
-        };
+        }; */
 
         const primaryStack = [
-            "../assets/gfx/icons/html.svg",
-            "../assets/gfx/icons/css.svg",
-            "../assets/gfx/icons/sass.svg",
-            "../assets/gfx/icons/bootstrap.svg",
-            "../assets/gfx/icons/js.svg",
-            "../assets/gfx/icons/ts.svg",
-            "../assets/gfx/icons/react.svg",
-            "../assets/gfx/icons/redux.svg",
-            "../assets/gfx/icons/pixi.svg",
-            "../assets/gfx/icons/webpack.svg",
-            "../assets/gfx/icons/nodejs.svg",
-            "../assets/gfx/icons/git.svg"
+            {
+                title: "HTML",
+                icon: "../../../assets/gfx/icons/stack/html.svg"
+            },
+            {
+                title: "CSS",
+                icon: "../../../assets/gfx/icons/stack/css.svg"
+            },
+            {
+                title: "JavaScript",
+                icon: "../../../assets/gfx/icons/stack/js.svg"
+            },
+            {
+                title: "webpack",
+                icon: "../../../assets/gfx/icons/stack/webpack.svg"
+            },
+            {
+                title: "React",
+                icon: "../../../assets/gfx/icons/stack/react.svg"
+            },
+            {
+                title: "Redux",
+                icon: "../../../assets/gfx/icons/stack/redux.svg"
+            },
+            {
+                title: "PixiJS",
+                icon: "../../../assets/gfx/icons/stack/pixi.svg"
+            },
+            {
+                title: "Node.js",
+                icon: "../../../assets/gfx/icons/stack/nodejs.svg"
+            }
         ];
 
+        const discreteUse = [
+            {
+                title: "Handlebars",
+                icon: "../../../assets/gfx/icons/stack/handlebars.svg"
+            },
+            {
+                title: "Sass",
+                icon: "../../../assets/gfx/icons/stack/sass.svg"
+            },
+            {
+                title: "Bootstrap",
+                icon: "../../../assets/gfx/icons/stack/bootstrap.svg"
+            },
+            {
+                title: "TypeScript",
+                icon: "../../../assets/gfx/icons/stack/ts.svg"
+            },
+            {
+                title: "Angular",
+                icon: "../../../assets/gfx/icons/stack/angular.svg"
+            },
+            {
+                title: "Express",
+                icon: "../../../assets/gfx/icons/stack/express.svg"
+            },
+            {
+                title: "PHP",
+                icon: "../../../assets/gfx/icons/stack/php.svg"
+            },
+            {
+                title: "MySQL",
+                icon: "../../../assets/gfx/icons/stack/mysql.svg"
+            },
+        ];
+
+        const versionControlSystems = [
+            {
+                title: "Git",
+                icon: "../../../assets/gfx/icons/stack/git.svg"
+            }
+        ];
+
+        return { primaryStack, discreteUse, versionControlSystems };
     };
 };
 

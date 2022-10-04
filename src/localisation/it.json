@@ -3,7 +3,7 @@
 		"title": "KAMEN KASHCHIEV",
 		"nav": {
 			"navL": {
-				"title": "EXTRA",
+				"title": "ALTRA INFO",
 				"content": {
 					"Certificati": "/certificates",
 					"C.V. Interattivo": "/interactivecv"
@@ -26,7 +26,6 @@
 		}
 	},
 	"mainPage": {
-		"test": "ehila",
 		"topArticle": {
 			"name": {
 				"title": "Nome",
@@ -34,7 +33,7 @@
 			},
 			"age": {
 				"title": "Età",
-				"content": "`${getAge()}`"
+				"content": "getAge"
 			},
 			"location": {
 				"title": "Località",
@@ -43,6 +42,20 @@
 			"education": {
 				"title": "Titolo di studio",
 				"content": "Diploma di scuola secondaria superiore"
+			}
+		},
+		"stackArticle": {
+			"title": "Tech stack",
+			"content": {
+				"primaryStack": { 
+					"title": "Stack primario"
+				},
+				"discreteUse": { 
+					"title": "Uso discreto"
+				},
+				"versionControlSystems": { 
+					"title": "Sistemi di controllo della versione"
+				}
 			}
 		},
 		"bottomArticle": {

@@ -3,7 +3,7 @@
 		"title": "КАМЕН КАШЧИЕВ",
 		"nav": {
 			"navL": {
-				"title": "ПОВЕЧЕ",
+				"title": "ОЩЕ ИНФО",
 				"content": {
 					"Сертификати": "/certificates",
 					"Интерактивно C.V.": "/interactivecv"
@@ -26,7 +26,6 @@
 		}
 	},
 	"mainPage": {
-		"test": "ура",
 		"topArticle": {
 			"name": {
 				"title": "Име",
@@ -43,6 +42,20 @@
 			"education": {
 				"title": "Oбразование",
 				"content": "Средно образование"
+			}
+		},
+		"stackArticle": {
+			"title": "Tech stack",
+			"content": {
+				"primaryStack": { 
+					"title": "Основен stack"
+				},
+				"discreteUse": { 
+					"title": "Дискретна употреба"
+				},
+				"versionControlSystems": { 
+					"title": "Системи за контрол на версиите"
+				}
 			}
 		},
 		"bottomArticle": {

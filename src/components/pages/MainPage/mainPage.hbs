@@ -17,12 +17,20 @@
 
 <section id="stackSection">
     <h3>{{this.stackArticle.title}}</h3>
-    
-    <div id="primaryStack">
-        
-    </div>
 
-    <div id="secondaryStack">
-        
-    </div>
+    {{#each this.stackArticle.content}}
+        <div class="stackRow">
+            <h4>{{title}}</h4>
+
+            <div class="stackIconsContainer">
+                {{#each content}}
+                    <img class="stackIcon" title="{{this.title}}" src="{{this.icon}}" />
+                {{/each}}
+            </div>
+        </div>
+    {{/each}}
+</section>
+
+<section>
+    
 </section>

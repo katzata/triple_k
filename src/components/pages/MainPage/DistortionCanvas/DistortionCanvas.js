@@ -50,26 +50,11 @@ class DistortionCanvas extends BaseComponent {
         } else {
             if (this.component.style.zIndex !== "0") this.component.style.zIndex = "0";
         };
-        // if (this._isVisible) {
-        //     this.animationRunning = true;
-            
-        //     if (this.alpha < this.alphaMax) {
-        //         this.alpha += this.alphaIncrement;
-        //         if (this.alpha > this.alphaMax) this.alpha = this.alphaMax;
-        //     };
-
-        //     if (this.component.style.zIndex !== "2") this.component.style.zIndex = "2";
-        // } else {
-        //     this.alpha = 0;
-        //     this.animationRunning = false;
-        //     if (this.component.style.zIndex !== "0") this.component.style.zIndex = "0";
-        // };
     };
 
     handleSize() {
-        this.component.width = this.component.parentElement.offsetWidth;
-        this.component.height = this.component.parentElement.offsetHeight;
-        // console.log("x", this.component.parentElement);
+        this.component.width = this.component.parentElement ? this.component.parentElement.offsetWidth : 0;
+        this.component.height = this.component.parentElement ? this.component.parentElement.offsetHeight : 0;
     };
 
     handleAnimation() {

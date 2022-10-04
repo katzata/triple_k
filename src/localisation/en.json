@@ -45,7 +45,18 @@
 			}
 		},
 		"stackArticle": {
-			"title": "Tech stack"
+			"title": "Tech stack",
+			"content": {
+				"primaryStack": { 
+					"title": "Primary stack"
+				},
+				"discreteUse": { 
+					"title": "Discrete use"
+				},
+				"versionControlSystems": { 
+					"title": "Version Control Systems"
+				}
+			}
 		},
 		"bottomArticle": {
 			"title": "About me",

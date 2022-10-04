@@ -81,31 +81,37 @@ class HumanShapeAnimation {
     };
 
     handleIfObscured(initialX, initialY, mainWidth, mainHeight) {
-        const { x, y, width, height } = document.querySelector("#imageContainer").getBoundingClientRect();
-        const minX = x - this.renderWidth;
-        const maxX = x + width;
-        const minY = y - this.renderHeight;
-        const maxY = y + height;
+        const imageContainer = document.querySelector("#imageContainer");
+        
+        if (imageContainer) {
+            const { x, y, width, height } = imageContainer.getBoundingClientRect();
+            const minX = x - this.renderWidth;
+            const maxX = x + width;
+            const minY = y - this.renderHeight;
+            const maxY = y + height;
 
-        const coords = {
-            finalX: initialX,
-            finalY: initialY
-        };
-
-        if (initialX >= minX && initialX <= maxX &&
-            initialY >= minY && initialY <= maxY)
-            {
-
-            if (maxX + this.renderWidth > mainWidth) {
-                coords.finalX = minX;
-            } else {
-                coords.finalX = maxX;
+            const coords = {
+                finalX: initialX,
+                finalY: initialY
             };
 
-            if (maxY + this.renderHeight < mainHeight) coords.finalY = maxY;
-        };
+            if (initialX >= minX && initialX <= maxX &&
+                initialY >= minY && initialY <= maxY)
+                {
 
-        return coords;
+                if (maxX + this.renderWidth > mainWidth) {
+                    coords.finalX = minX;
+                } else {
+                    coords.finalX = maxX;
+                };
+
+                if (maxY + this.renderHeight < mainHeight) coords.finalY = maxY;
+            };
+
+            return coords;
+        } else {
+            return { finalX: window.innerWidth / 4, finalY: window.innerHeight / 2 };
+        };
     };
 
     handleFade() {

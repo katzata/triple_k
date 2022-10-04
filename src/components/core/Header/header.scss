@@ -20,16 +20,6 @@ header {
     align-items: center;
     justify-content: center;
     z-index: 201;
-
-    &:after {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 100%;
-        width: calc(100% - 10px);
-        height: 14px;
-        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
-    }
     
     #headerTitle,
     #headerGhostTitle {
@@ -47,12 +37,13 @@ header {
         text-shadow: 0 0 2px rgba(255, 255, 255, .25);
     }
 
-    hr {
+    #hrTop {
     	position: absolute;
         bottom: -1px;
     	width: 100%;
     	height: 1px;
     	background-color: black;
+        overflow: visible;
         z-index: 1;
     	background-image: linear-gradient(
             to right,
@@ -61,6 +52,21 @@ header {
             rgba(255, 255, 255, 0.75),
             rgba(0, 0, 0, 0)
         );
+
+        &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 100%;
+            width: calc(100% - 10px);
+            height: 14px;
+            background-image: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 1),
+                rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0)
+            );
+        }
     }
 
     nav {
@@ -87,8 +93,6 @@ header {
             width: 100%;
             height: 22px;
             margin-bottom: auto;
-            background-color: $nav-bg;
-            box-shadow: $nav-box-shadow;
             font-family: "SpectralSC-light";
             text-align: center;
             transition-duration: $buttons-transition-duration;
@@ -114,8 +118,11 @@ header {
                 position: relative;
                 width: 100%;
                 display: inline-block;
+                background-color: $nav-bg;
+                box-shadow: $nav-box-shadow;
                 text-align: center;
-                border-radius: 8px;
+                text-shadow: 0 0 2px rgba(0, 0, 0, 1);
+                border-radius: 3px;
                 z-index: 3;
             }
         
@@ -184,20 +191,6 @@ header {
                 }
             }
         }
-    }
-
-
-
-    ///////////////////////////////////////////////
-    /// 
-    /// 
-    /// 
-    /// testButton
-    #testButton {
-        position: absolute;
-        left: 0;
-        width: 70px;
-        height: 100%;
     }
 }
 

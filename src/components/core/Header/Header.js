@@ -2,6 +2,8 @@ import BaseComponent from "../BaseComponent/BaseComponent";
 import headerTemplate from "./header.hbs";
 import "./header.scss";
 
+import { coreComponents } from "../../../utils/utils";
+
 import LanguageBar from "./LanguageBar/LanguageBar";
 
 class Header extends BaseComponent {
@@ -22,6 +24,7 @@ class Header extends BaseComponent {
         ];
         this.navHovering = null;
         this.generateTempalte = headerTemplate;
+        this.ghostTitleOffset = null;
         
         this.animationsLoop([
             this.animateGhostTitle,
@@ -66,15 +69,16 @@ class Header extends BaseComponent {
         return this.createElement("nav", {}, sections);
     };
 
-    animateGhostTitle() {
+    animateGhostTitle = () => {
         const ghostTitle = document.querySelector("#headerGhostTitle");
-        
+        const { alpha } = coreComponents.mainCanvas.humanShapeAnimation;
+
         if (ghostTitle) {
-            const offset = ghostTitle.offsetHeight - 12;
+            const offset = ghostTitle.offsetHeight - (12 - 15 * alpha);
             const posX = super.random(offset);
             const posY = super.random(offset);
 
-            ghostTitle.style.transform = `translate(${posX}px, ${posY}px)`;
+            ghostTitle.style.transform = `translate(${posX}px, ${posY}px) skewX(-${alpha * 20}deg) scale(${1 + (alpha / 2)}, ${1 + (alpha / 2)})`;
         };
     };
 

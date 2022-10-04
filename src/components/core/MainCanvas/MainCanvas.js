@@ -1,6 +1,7 @@
 import BaseComponent from "../BaseComponent/BaseComponent";
 import "./mainCanvas.scss";
 
+import Background from "./Background/Background";
 import HumanShapeAnimation from "./HumanShapeAnimation/HumanShapeAnimation";
 import HaloAnimation from "./HaloAnimation/HaloAnimation";
 import FogAnimation from "./FogAnimation/FogAnimation";
@@ -20,8 +21,7 @@ class MainCanvas extends BaseComponent {
 
         this.ctx = this.component.getContext("2d");
 
-        this.bgWidth = 966;
-        this.bgHeight = 563;
+        this.background = new Background();
         
         this.fogAnimation = new FogAnimation();
         this.fogAnimationRunning = false;
@@ -47,13 +47,14 @@ class MainCanvas extends BaseComponent {
         if (this.fogAnimationRunning || this.humanShapeAnimation.running) {
             this.ctx.clearRect(0, 0, this.component.width, this.component.height);
         };
-        this.handleBg();
-
+        
         if (this.fogAnimationRunning) this.handleFog();
         if (!this.fogAnimationRunning) {
+            this.handleBg();
             this.handleHumanShape()
             this.handleBloodTrails();
             this.handleHalo();
+            this.handleNonSiblings();
         };
     };
 
@@ -110,6 +111,36 @@ class MainCanvas extends BaseComponent {
         };
     };
 
+    handleNonSiblings() {
+        if (this.humanShapeAnimation.running) {
+            const navTitles = Array.from(document.querySelectorAll(".navSectionTitle"));
+            const hrTop = document.querySelector("#hrTop");
+            const hrBottom = document.querySelector("#hrBottom");
+            
+            if (this.humanShapeAnimation.alpha > this.humanShapeAnimation.alphaIncrement) {
+                const alphaCalc = Math.random() >= .5 ? 1 - (this.humanShapeAnimation.alpha + .5) : 0;
+
+                hrTop.style.opacity = alphaCalc;
+                hrBottom.style.opacity = alphaCalc;
+                
+                for (const navTitle of navTitles) {
+                    navTitle.style.backgroundColor = `rgba(0, 0, 0, ${alphaCalc})`;
+                    navTitle.style.boxShadow = `0 0 3px 2px rgba(0, 0, 0, ${alphaCalc})`;
+                };
+            } else {
+                if (hrTop.style.opacity !== 1) {
+                    hrTop.style.opacity = 1;
+                    hrBottom.style.opacity = 1;
+
+                    for (const navTitle of navTitles) {
+                        navTitle.style.backgroundColor = `rgba(0, 0, 0, 1)`;
+                        navTitle.style.boxShadow = `0 0 3px 2px rgba(0, 0, 0, 1)`;
+                    };
+                };
+            };
+        };
+    };
+
     handleHumanShape() {
         if (this.humanShapeAnimationIntervalSet && !this.humanShapeAnimation.running && this.humanShapeAnimation.maxOpacityDurationCounter === 0) {
             this.humanShapeAnimationIntervalSet = false;
@@ -141,50 +172,10 @@ class MainCanvas extends BaseComponent {
     };
 
     handleBg() {
-        const { innerWidth, innerHeight } = window;
-        const screenCalc = innerWidth / innerHeight;
-        const widthCalc = this.component.height * (this.bgWidth / this.bgHeight);
-        const heightCalc = this.component.width * (this.bgHeight / this.bgWidth);
-        const posX = this.component.width / 2;
-        const posY = this.component.height / 2;
-        const translate = screenCalc >= 1.48 ? [-(this.component.width / 2), -(heightCalc / 2)] : [-(widthCalc / 2), -(this.component.height / 2)];
-        const bgImage = (x, y) => this.ctx.drawImage(
-            bg,
-            0,
-            0,
-            this.bgWidth,
-            this.bgHeight,
-            x ? x : posX,
-            y ? y : posY,
-            screenCalc >= 1.7 ? this.component.width : widthCalc,
-            screenCalc < 1.7 ? this.component.height : heightCalc
-        );
-        // console.log(screenCalc);
-        this.ctx.save();
-        this.ctx.translate(...translate);
-        this.ctx.globalAlpha = this.humanShapeAnimation.alpha / 2.2;
-        bgImage();
-        // this.ctx.drawImage(
-        //     bg,
-        //     0,
-        //     0,
-        //     this.bgWidth,
-        //     this.bgHeight,
-        //     posX,
-        //     posY,
-        //     screenCalc >= 1.48 ? this.component.width : widthCalc,
-        //     screenCalc < 1.48 ? this.component.height : heightCalc
-        // );
-        this.ctx.restore();
-
-        this.ctx.save();
-        this.ctx.translate(...translate);
-        this.ctx.globalAlpha = 0/* this.humanShapeAnimation.alpha / 2.2 */;
-        const testX = this.component.width / 2 + this.random(2);
-        const testY = this.component.height / 2 + this.random(2);
-
-        bgImage(testX, testY);
-        this.ctx.restore();
+        if (this.humanShapeAnimation.running) {
+            this.background.alpha = this.humanShapeAnimation.alpha;
+            this.background.draw(this.ctx);
+        };
     };
 
     handleBloodTrails() {
