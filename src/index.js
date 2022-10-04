@@ -2,7 +2,7 @@ import "./index.scss";
 
 import { pageTransition } from "./utils/utils";
 import { checkLanguages } from "./localisation/langs";
-import { /* setCoreComponents, */ route } from "./router/router";
+import { route } from "./router/router";
 import { setCoreComponents } from "./utils/utils";
 
 import Header from "./components/core/Header/Header";

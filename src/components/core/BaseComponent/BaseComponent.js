@@ -1,5 +1,4 @@
 import langs, {checkLanguages} from "../../../localisation/langs";
-import { addGlobalListener } from "../../../utils/globalListeners";
 
 class BaseComponent {
     constructor() {
@@ -13,7 +12,7 @@ class BaseComponent {
         this.shadowElements = [];
         this.langs = langs;
         this.events = [];
-        this.runAnimations = false;
+        this.isAttached = () => this.component.id && document.querySelector(`#${this.component.id}`);
     };
 
     animationsLoop(animations, customDelay) {
@@ -23,15 +22,15 @@ class BaseComponent {
         const loop = () => {
             if (animations) {
                 const currentTime = new Date().getTime();
+                if (!this.animationsRunning) this.animationsRunning = true;
 
                 if (currentTime - prevTime > delay) {
                     prevTime = currentTime;
-
                     for (const animation of animations) animation();
                 };
             };
 
-            window.requestAnimationFrame(loop);
+            if (this.isAttached() !== null) window.requestAnimationFrame(loop);
         };
 
         loop();
@@ -66,8 +65,6 @@ class BaseComponent {
                         break;
                     };
                 };
-                
-                // this.component.appendChild(component() || component);
             };
         };
     };
@@ -96,7 +93,7 @@ class BaseComponent {
         return !num ? Math.random() : Math.ceil((Math.random() * num) - (num / 2));
     };
 
-    addListeners() {
+    addEventHandlers() {
         // console.log(this.events);
         for (const { item, event, handler } of this.events) {
             item[event] = handler;
@@ -114,14 +111,16 @@ class BaseComponent {
 
     render = () => {
         this.currentLang = checkLanguages();
-
+        
         if (this.component.id !== this.id) this.component.id = this.id;
         if (this.templateData) this.component.innerHTML = this.template(this.templateData());
         if (this.subComponents !== null) this.addSubComponents(this.subComponents);
         if (this.childSubComponents !== null) this.addChildSubComponents(this.childSubComponents);
-        // if (this.shadowElements.length > 0) this.shadowElements.forEach(([el, text]) => {
-            
-        // });
+
+        if (this.component.id === "mainPage") {
+            // console.log("asd", this.distortionCanvas);
+            // console.log("x", this.component.parentElement, this.component.id && document.querySelector(`#${this.component.id}`));
+        };
 
         const existingComponent = document.querySelector(`#${this.id}`);
         if (existingComponent && this.component.children.length > 0) {
