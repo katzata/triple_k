@@ -109,7 +109,7 @@ class BaseComponent {
         document.querySelector("#root").appendChild(this.component);
     };
 
-    render = () => {
+    render() {
         this.currentLang = checkLanguages();
         
         if (this.component.id !== this.id) this.component.id = this.id;

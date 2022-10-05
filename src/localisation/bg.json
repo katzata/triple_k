@@ -65,11 +65,18 @@
 	},
 	"certificatesSection": {
 		"sections": {
-			"Markup": "Markup",
-			"JavaScript": "JavaScript",
-			"Other": "Други"
+			"Markup": {
+				"title": "Markup"
+			},
+			"JavaScript": {
+				"title": "JavaScript"
+			},
+			"Other": {
+				"title": "Други"
+			}
 		},
-		"downloadButton": "Download PDF"
+		"zoomButton": "Увеличи",
+		"downloadButton": "Изтегли PDF"
 	},
 	"footer": {
 		"main": {

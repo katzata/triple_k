@@ -31,70 +31,154 @@
     
             .certificatesRow {
                 width: 100%;
-                height: 21vw;
-                min-height: 280px;
-                padding: 1.2vw 0vw 3vw;
+                padding: 20px 0;
                 margin: 0 0 20px;
                 display: flex;
-                overflow: auto;
+                overflow-x: auto;
+                overflow-y: visible;
     
-                .certificateContainer {
+                .certificateSlot {
                     position: relative;
-                    height: 100%;
-                    margin: 0 24px;
-                    display: flex;
-    
-                    &:hover .thumb_f {
-                        transform: scale(1.15, 1.15);
-                        transition-delay: .2s;
+                    padding: 40px 10px;
+
+                    &:hover .certificateContainer {
+                        transform: scale(1.12, 1.12);
                     }
-    
-                    &:hover .thumb_b {
-                        transform: scale(1.15, 1.15);
-                        transition-delay: .2s;
+
+                    &:hover .zoomButton {
+                        opacity: 1;
                     }
-    
-                    &:hover .test {
-                        width: 500%;
-                        height: 500%;
+
+                    &:hover .certificateContainer .thumb_f,
+                    &:hover .certificateContainer .thumb_b {
+                        animation-name: testA;
                     }
-    
-                    .thumb_b,
-                    .thumb_f {
-                        height: 100%;
-                        transition-duration: .2s;
-                        transition-delay: 0s;
-                    }
-    
-                    .thumb_f {
-                        position: relative;
-                        transform: scale(1, 1);
-                        // transform: rotateY(0deg) scale(1, 1);
-                        backface-visibility: hidden;
-                    }
-                    
-                    .thumb_b {
+
+                    &>svg {
                         position: absolute;
                         left: 0;
                         top: 0;
-                        transform: scale(1, 1);
-                        // transform: rotateY(180deg) scale(1, 1);
-                        backface-visibility: visible;
-                    };
-    
-                    // .test {
-                    //     position: absolute;
-                    //     left: -1.6vw;
-                    //     top: -2vw;
-                    //     width: 0;
-                    //     height: 0;
-                    //     transition-duration: .2s;
-                    //     transition-delay: .4s;
-                    //     background-color: red;
-                    //     border: 1px solid rgb(23, 23, 23);
-                    // }
+                        width: auto;
+                        height: 100%;
+                        transition-duration: .2s;
+                    }
+
+                    &:hover svg {
+                        box-shadow: 0 0 4px 3px rgba(0, 0, 0, 1);
+                    }
+
+                    #line1 {
+                        transition: 2s;
+                    }
+
+                    &:hover svg #line1 {
+                        d: path("M 0,640 0,0 466,0");
+                    }
+
+                    &:hover svg #line2 {
+                        d: path("M 0,640 466,640 466,0");
+                    }
+                    
+                    .certificateContainer {
+                        position: relative;
+                        height: 100%;
+                        height: 320px;
+                        margin: 0 24px;
+                        display: flex;
+                        transition-duration: .2s;
+        
+                        .thumb_b,
+                        .thumb_f {
+                            left: 0;
+                            width: auto;
+                            height: 100%;
+                            animation-duration: 10s;
+                            animation-iteration-count: infinite;
+                            animation-timing-function: linear;
+                        }
+        
+                        .thumb_f {
+                            position: relative;
+                            transform: translate(-4%, -2.8%) rotateY(0deg);
+                            backface-visibility: hidden;
+                        }
+                        
+                        .thumb_b {
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            transform: translate(4%, 2.8%) rotateY(180deg);
+                            animation-delay: -5s;
+                            backface-visibility: visible;
+                        }
+                    }
+
+                    .zoomButton {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        padding: 8px 8px 6px 10px;
+                        background-color: rgba(0, 0, 0, .7);
+                        font-family: "SpectralSC-extra-light";
+                        // font-style: italic;
+                        font-size: 14px;
+                        color: white;
+                        transform: translate(10%, -50%);
+                        transition-duration: .7s;
+                        border-radius: 3px;
+                        border: 1px solid rgba(66, 66, 66, 1);
+                        box-shadow: 0 0 4px 3px rgba(0, 0, 0, 1);
+                        opacity: 1;
+
+                        &:hover {
+                            color: white;
+                        }
+
+                        svg {
+                            width: 24px;
+                            height: auto;
+                            box-shadow: 0 0 4px 3px rgba(0, 0, 0, 1);
+                            background-color: black;
+                        }
+                    }
                 }
             }
         }
     }
+}
+
+@keyframes testA {
+    0%{
+        transform: translate(-4%, -2.8%) rotateY(0deg);
+        backface-visibility: hidden;
+        z-index: 1;
+    }
+    48%{
+        transform: translate(-0%, -0%) rotateY(0deg);
+        backface-visibility: hidden;
+        z-index: 1;
+    }
+    50%{
+        transform: translate(4%, 2.8%) rotateY(180deg);
+        backface-visibility: visible;
+        z-index: 0;
+    }
+    98%{
+        transform: translate(0%, 0%) rotateY(180deg);
+        backface-visibility: visible;
+        z-index: 0;
+    }
+    100%{
+        transform: translate(-4%, -2.8%) rotateY(0deg);
+        backface-visibility: hidden;
+        z-index: 1;
+    }
+}
+
+@keyframes testB {
+    0%{transform: translate(4%, 2.8%);}
+    100%{transform: translate(-4%, -2.8%);}
+    // 0%{transform: translateX(0) rotateY(-180deg) scale(1, 1); }
+    // 50%{transform: translateX(115%) rotateY(0deg) scale(1.15, 1.15); backface-visibility: visible;}
+    // 100%{transform: translateX(115%) rotateY(0deg) scale(1.15, 1.15); backface-visibility: hidden;}
 }

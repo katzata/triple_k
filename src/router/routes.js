@@ -2,8 +2,7 @@ import MainPage from "../components/pages/mainPage/MainPage";
 import CertificatesPage from "../components/pages/CertificatesPage/CertificatesPage";
 
 // const routes = {
-//     "/": () => new CertificatesPage(),
-//     "/certificates": () => new CertificatesPage()
+//     "/": () => new CertificatesPage()
 // };
 const routes = {
     "/": () => new MainPage(),

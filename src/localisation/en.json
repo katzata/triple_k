@@ -65,10 +65,17 @@
 	},
 	"certificatesSection": {
 		"sections": {
-			"Markup": "Markup",
-			"JavaScript": "JavaScript",
-			"Other": "Other"
+			"Markup": {
+				"title": "Markup"
+			},
+			"JavaScript": {
+				"title": "JavaScript"
+			},
+			"Other": {
+				"title": "Other"
+			}
 		},
+		"zoomButton": "Zoom in",
 		"downloadButton": "Download PDF"
 	},
 	"footer": {

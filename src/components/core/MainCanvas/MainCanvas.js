@@ -120,12 +120,14 @@ class MainCanvas extends BaseComponent {
             if (this.humanShapeAnimation.alpha > this.humanShapeAnimation.alphaIncrement) {
                 const alphaCalc = Math.random() >= .5 ? 1 - (this.humanShapeAnimation.alpha + .5) : 0;
 
-                hrTop.style.opacity = alphaCalc;
-                hrBottom.style.opacity = alphaCalc;
-                
-                for (const navTitle of navTitles) {
-                    navTitle.style.backgroundColor = `rgba(0, 0, 0, ${alphaCalc})`;
-                    navTitle.style.boxShadow = `0 0 3px 2px rgba(0, 0, 0, ${alphaCalc})`;
+                if (alphaCalc >= 0) {
+                    hrTop.style.opacity = alphaCalc;
+                    hrBottom.style.opacity = alphaCalc;
+                    
+                    for (const navTitle of navTitles) {
+                        navTitle.style.backgroundColor = `rgba(0, 0, 0, ${alphaCalc})`;
+                        navTitle.style.boxShadow = `0 0 3px 2px rgba(0, 0, 0, ${alphaCalc})`;
+                    };
                 };
             } else {
                 if (hrTop.style.opacity !== 1) {
