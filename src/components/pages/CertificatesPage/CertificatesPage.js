@@ -20,11 +20,22 @@ class CertificatesPage extends BaseComponent {
 
             return {sections, zoomButton, downloadButton};
         };
+
+        this.eventHandlers = [
+            { targetClass: ".certificateSlot", event: "onmouseenter", handler: this.svgOutlinesOnHover },
+            { targetClass: ".certificateSlot", event: "onmouseleave", handler: this.svgOutlinesOnHover }
+        ];
     };
-    
-    render() {
-        
-        return super.render();
+
+    svgOutlinesOnHover(e) {
+        const { type } = e;
+        console.log(type, e);
+
+        if (type === "mouseenter") {
+            
+        } else {
+
+        };
     };
 };
 

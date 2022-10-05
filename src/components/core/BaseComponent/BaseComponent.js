@@ -11,7 +11,7 @@ class BaseComponent {
         this.childSubComponents = null;
         this.shadowElements = [];
         this.langs = langs;
-        this.events = [];
+        this.eventHandlers = null;
         this.isAttached = () => this.component.id && document.querySelector(`#${this.component.id}`);
     };
 
@@ -94,11 +94,12 @@ class BaseComponent {
     };
 
     addEventHandlers() {
-        // console.log(this.events);
-        for (const { item, event, handler } of this.events) {
-            item[event] = handler;
-            // console.log(item[event]);
-        }
+        for (const { targetId, targetClass, event, handler } of this.eventHandlers) {
+            const selector = targetId ? "querySelector" : "querySelectorAll";
+            const element = this.component[selector](`${targetId || targetClass}`);
+            
+            if (element) element[event] = handler;
+        };
     };
 
     remove() {
@@ -116,11 +117,7 @@ class BaseComponent {
         if (this.templateData) this.component.innerHTML = this.template(this.templateData());
         if (this.subComponents !== null) this.addSubComponents(this.subComponents);
         if (this.childSubComponents !== null) this.addChildSubComponents(this.childSubComponents);
-
-        if (this.component.id === "mainPage") {
-            // console.log("asd", this.distortionCanvas);
-            // console.log("x", this.component.parentElement, this.component.id && document.querySelector(`#${this.component.id}`));
-        };
+        if (this.eventHandlers) this.addEventHandlers();
 
         const existingComponent = document.querySelector(`#${this.id}`);
         if (existingComponent && this.component.children.length > 0) {
