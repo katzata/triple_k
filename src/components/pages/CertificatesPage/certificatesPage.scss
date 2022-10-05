@@ -71,13 +71,13 @@
                         transition: 2s;
                     }
 
-                    &:hover svg #line1 {
-                        d: path("M 0,640 0,0 466,0");
-                    }
+                    // &:hover svg #line1 {
+                    //     d: path("M 0,640 0,0 466,0");
+                    // }
 
-                    &:hover svg #line2 {
-                        d: path("M 0,640 466,640 466,0");
-                    }
+                    // &:hover svg #line2 {
+                    //     d: path("M 0,640 466,640 466,0");
+                    // }
                     
                     .certificateContainer {
                         position: relative;

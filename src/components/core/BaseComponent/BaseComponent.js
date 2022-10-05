@@ -96,9 +96,14 @@ class BaseComponent {
     addEventHandlers() {
         for (const { targetId, targetClass, event, handler } of this.eventHandlers) {
             const selector = targetId ? "querySelector" : "querySelectorAll";
-            const element = this.component[selector](`${targetId || targetClass}`);
-            
-            if (element) element[event] = handler;
+            const selected = this.component[selector](`${targetId || targetClass}`);
+            if (selected instanceof HTMLElement) {
+                selected[event] = handler;
+            } else {
+                for (const item of Array.from(selected)) {
+                    item[event] = handler;
+                }
+            };
         };
     };
 

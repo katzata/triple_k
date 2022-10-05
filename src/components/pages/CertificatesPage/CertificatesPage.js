@@ -22,6 +22,8 @@ class CertificatesPage extends BaseComponent {
         };
 
         this.eventHandlers = [
+            // { targetId: "#line1", event: "onmouseenter", handler: this.svgOutlinesOnHover },
+            // { targetId: "#line1", event: "onmouseleave", handler: this.svgOutlinesOnHover }
             { targetClass: ".certificateSlot", event: "onmouseenter", handler: this.svgOutlinesOnHover },
             { targetClass: ".certificateSlot", event: "onmouseleave", handler: this.svgOutlinesOnHover }
         ];
