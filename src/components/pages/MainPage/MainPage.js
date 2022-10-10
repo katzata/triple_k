@@ -2,8 +2,6 @@ import BaseComponent from "../../core/BaseComponent/BaseComponent";
 import mainPageTemplate from "./mainPage.hbs";
 import "./mainPage.scss";
 
-import noiseFrames from "../../../assets/gfx/img/noise.png";
-
 import { coreComponents } from "../../../utils/utils";
 
 class MainPage extends BaseComponent {
@@ -11,6 +9,7 @@ class MainPage extends BaseComponent {
         super();
 
         this.component = this.createElement("section");
+        this.id = "mainPage";
         this.template = mainPageTemplate;
         this.templateData = () => {
             const stackIcons = Object.entries(this.generateIcons());
@@ -32,7 +31,12 @@ class MainPage extends BaseComponent {
         this.distortionCanvasOffsetY = 3;
         this.distortionCanvasAlpha = 0;
 
+        this.selectedStackIcon = null;
+        this.stackIconsDelay = false;
+        this.stackIconCounterAlpha = .2;
         this.iconsHoverEnabled = false;
+        this.pentagramIconDelay = 3;
+        this.pentagramIconCount = 0;
 
         this.childSubComponents = [];
 
@@ -41,7 +45,8 @@ class MainPage extends BaseComponent {
         this.animationsLoop([
             this.handleImages,
             this.toggleIconSectionHover,
-            this.handleDistortionCanvas
+            this.handleDistortionCanvas,
+            this.handleStackIcons
         ]);
     };
 
@@ -71,23 +76,22 @@ class MainPage extends BaseComponent {
 
         const skullImage = this.createElement("img", skullAttr);
 
-        this.childSubComponents.push(["imageContainer", skullImage]);
-        this.childSubComponents.push(["imageContainer", mainImage]);
+        this.childSubComponents.push(["#imageContainer", skullImage]);
+        this.childSubComponents.push(["#imageContainer", mainImage]);
     };
 
     generateDistortionCanvas() {
         this.distortionCanvas = this.createElement("canvas", { id: "distortionCanvas" });
         this.distortionCanvasCtx = this.distortionCanvas.getContext("2d");
-        this.childSubComponents.push(["imageContainer", this.distortionCanvas]);
-        
-        this.distortionCanvasImage.src = noiseFrames;
+        this.childSubComponents.push(["#imageContainer", this.distortionCanvas]);
+        this.distortionCanvasImage.src = "../../../assets/gfx/img/noise.png";
     };
 
     handleImages = () => {
         const mainImage = this.component.querySelector("#mainImage");
         const skullImage = this.component.querySelector("#skullImage");
         const { mainCanvas } = coreComponents;
-        const { alpha, alphaMax, running } = mainCanvas.humanShapeAnimation;
+        const { alpha } = mainCanvas.humanShapeAnimation;
 
         if (mainImage && skullImage) {
             if (alpha !== 0) {
@@ -205,19 +209,73 @@ class MainPage extends BaseComponent {
     };
 
     toggleIconSectionHover = () => {
-        const { scrollTop, offsetHeight } = document.querySelector("main");
-        const scrollOffset = Math.floor(scrollTop) + offsetHeight;
+        // const { scrollTop, offsetHeight } = document.querySelector("main");
+        // const scrollOffset = Math.floor(scrollTop) + offsetHeight;
 
-        if (scrollOffset >= 735) {
-            if (!this.iconsHoverEnabled) this.iconsHoverEnabled = true;
-            console.log(Math.floor(scrollTop) + offsetHeight, window.innerHeight);
+        // if (scrollOffset >= 735) {
+        //     if (!this.iconsHoverEnabled) this.iconsHoverEnabled = true;
+        //     console.log(Math.floor(scrollTop) + offsetHeight, window.innerHeight);
+        // } else {
+        //     if (this.iconsHoverEnabled) this.iconsHoverEnabled = false;
+        // };
+    };
+
+    handleStackIcons = () => {
+        const { mainCanvas } = coreComponents;
+        const { alpha, alphaMax, running } = mainCanvas.humanShapeAnimation;
+
+        if (running) {
+            const stackIcons = Array.from(this.component.querySelectorAll(".stackIcon"));
+            const count = stackIcons.length;
+
+            for (let i = 0; i < count; i++) {
+                if (!this.stackIconsDelay) stackIcons[i].style.animationDuration = `${Math.random() * 2.8}s`;
+
+                stackIcons[i].style.transform = `translate(${this.random(1 + Math.floor(alpha * 2.4))}px, ${this.random(1 + Math.floor(alpha * 2.4))}px)`
+                
+                if (i === (count - 1) && !this.stackIconsDelay) this.stackIconsDelay = true;
+            };
         } else {
-            if (this.iconsHoverEnabled) this.iconsHoverEnabled = false;
+            if (this.stackIconsDelay) {
+                const stackIcons = Array.from(this.component.querySelectorAll(".stackIcon"));
+
+                for (let i = 0; i < stackIcons.length; i++) {
+                    stackIcons[i].style.animationDuration = "0s";
+                 };
+
+                this.stackIconsDelay = false;
+            };
         };
     };
 
-    handleIconSectionHover() {
+    handlePentagramIcon() {
+        if (alpha > .05) {
 
+            const { x, y, width, height, top, bottom, left, right } = stackIcons[index].getBoundingClientRect();
+            const posX = x - Math.ceil(Math.abs(pentagramIcons.offsetWidth - width) / 2);
+            const posY = y - Math.ceil(Math.abs(pentagramIcons.offsetHeight - height) / 2);
+
+            if (pentagramIcons.style.display !== "block") pentagramIcons.style.display = "block";
+            if (this.pentagramIconCount < this.pentagramIconDelay) {
+                
+                this.pentagramIconCount++;
+                
+                if (this.pentagramIconDelay === this.pentagramIconDelay) {
+                    pentagramIcons.style.transform = `translate(${posX}px, ${posY}px)`;
+                };
+            };
+            pentagramIcons.style.opacity = `${alpha + .1}`;
+
+            stackIcons[index].style.opacity = `${alphaMax - alpha}`;
+        } else {
+            if (stackIcons[index] && stackIcons[index].style.opacity !== "1") stackIcons[index].style.opacity = "1";
+
+            if (pentagramIcons.style.opacity !== "0") {
+                // pentagramIcons.style.transform = `translate(${posX}px, ${posY}px)`;
+                pentagramIcons.style.opacity = "0";
+                pentagramIcons.style.display = "none";
+            };
+        };
     };
 };
 

@@ -24,7 +24,6 @@
             padding: 1vw 1.5vw;
 
             h3 {
-                // margin-left: 3vw;
                 font-family: "SpectralSC-extra-light";
                 font-weight: 400;
             }
@@ -49,67 +48,65 @@
                         opacity: 1;
                     }
 
-                    &:hover .certificateContainer .thumb_f,
-                    &:hover .certificateContainer .thumb_b {
-                        animation-name: testA;
+                    &:hover .certificateContainer .thumb_f_container,
+                    &:hover .certificateContainer .thumb_b_container {
+                        animation-name: certificatesFlip;
                     }
 
-                    &>svg {
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        width: auto;
-                        height: 100%;
-                        transition-duration: .2s;
+                    &:hover .certificateContainer .thumb_f_container {
+                        animation-name: certificatesFlip;
                     }
-
-                    &:hover svg {
-                        box-shadow: 0 0 4px 3px rgba(0, 0, 0, 1);
-                    }
-
-                    #line1 {
-                        transition: 2s;
-                    }
-
-                    // &:hover svg #line1 {
-                    //     d: path("M 0,640 0,0 466,0");
-                    // }
-
-                    // &:hover svg #line2 {
-                    //     d: path("M 0,640 466,640 466,0");
-                    // }
-                    
+                   
                     .certificateContainer {
                         position: relative;
-                        height: 100%;
                         height: 320px;
                         margin: 0 24px;
-                        display: flex;
                         transition-duration: .2s;
         
-                        .thumb_b,
-                        .thumb_f {
-                            left: 0;
-                            width: auto;
-                            height: 100%;
-                            animation-duration: 10s;
-                            animation-iteration-count: infinite;
-                            animation-timing-function: linear;
-                        }
-        
-                        .thumb_f {
-                            position: relative;
+                        .thumb_f_container {
                             transform: translate(-4%, -2.8%) rotateY(0deg);
                             backface-visibility: hidden;
                         }
-                        
-                        .thumb_b {
+
+                        .thumb_b_container {
                             position: absolute;
                             left: 0;
                             top: 0;
-                            transform: translate(4%, 2.8%) rotateY(180deg);
                             animation-delay: -5s;
+                            transform: translate(4%, 2.8%) rotateY(180deg);
                             backface-visibility: visible;
+                        }
+
+                        .thumb_f_container,
+                        .thumb_b_container {
+                            height: 320px;
+                            display: flex;
+                            animation-duration: 10s;
+                            animation-iteration-count: infinite;
+                            animation-timing-function: linear;
+
+                            .thumb_b,
+                            .thumb_f {
+                                left: 0;
+                                width: auto;
+                                height: 100%;
+                            }
+                            
+                            // .thumb_f {
+                            //     position: relative;
+                            //     // transform: translate(-4%, -2.8%) rotateY(0deg);
+                            //     // backface-visibility: hidden;
+                            // }
+                            
+                            // .thumb_b {
+                                
+                            //     // transform: translate(4%, 2.8%) rotateY(180deg);
+                            //     animation-delay: -5s;
+                            //     // backface-visibility: visible;
+                            // }
+
+                            #burnAnimation {
+                            }
                         }
                     }
 
@@ -119,10 +116,6 @@
                         right: 0;
                         padding: 8px 8px 6px 10px;
                         background-color: rgba(0, 0, 0, .7);
-                        font-family: "SpectralSC-extra-light";
-                        // font-style: italic;
-                        font-size: 14px;
-                        color: white;
                         transform: translate(10%, -50%);
                         transition-duration: .7s;
                         border-radius: 3px;
@@ -147,7 +140,7 @@
     }
 }
 
-@keyframes testA {
+@keyframes certificatesFlip {
     0%{
         transform: translate(-4%, -2.8%) rotateY(0deg);
         backface-visibility: hidden;
@@ -175,10 +168,12 @@
     }
 }
 
-@keyframes testB {
-    0%{transform: translate(4%, 2.8%);}
-    100%{transform: translate(-4%, -2.8%);}
-    // 0%{transform: translateX(0) rotateY(-180deg) scale(1, 1); }
-    // 50%{transform: translateX(115%) rotateY(0deg) scale(1.15, 1.15); backface-visibility: visible;}
-    // 100%{transform: translateX(115%) rotateY(0deg) scale(1.15, 1.15); backface-visibility: hidden;}
+@keyframes test1 {
+    0%{d: path("M 0,640");}
+    100%{d: path("M 0,640 0,0 466,0");}
+}
+
+@keyframes test2 {
+    0%{d: path("M 0,640");}
+    100%{d: path("M 0,640 466,640 466,0");}
 }

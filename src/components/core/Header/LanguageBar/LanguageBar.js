@@ -9,13 +9,14 @@ class LanguageBar extends BaseComponent {
         super();
 
         this.component = this.createElement("section", {zIndex: "3"});
+        this.id = "languageBar";
         this.isVisible = false;
         this.events = [];
         this.subComponents = [
             () => this.generateToggleButton(),
             () => this.generateLangButtons()
         ];
-        this.component.onblur = () => console.log("x");
+        // this.component.onblur = () => console.log("x");
     };
 
     generateToggleButton = () => {

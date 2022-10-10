@@ -11,6 +11,7 @@ class Header extends BaseComponent {
         super();
 
         this.component = this.createElement("header");
+        this.id = "header";
         this.template = headerTemplate;
         this.templateData = () => {
             const { title, nav } = this.currentLang.header;

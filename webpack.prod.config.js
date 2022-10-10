@@ -1,8 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-// const Handlebars = require("handlebars");
-// const HandlebarsPlugin = require("handlebars-webpack-plugin");
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -11,19 +9,8 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.(png|jpg|ttf|woff|woff2|pdf)$/,
-				loader: "file-loader",
-				options: {
-					outputPath: "assets",
-					name: '[name].[ext]'
-				},
-			},
-			{
-				test: /\.(png|jpg|ttf|woff|woff2|pdf)$/,
-				loader: "file-loader",
-				options: {
-					outputPath: "assets",
-				},
+				test: /\.(jpe?g|svg|png|gif|ico|eot|ttf|woff2?)(\?v=\d+\.\d+\.\d+)?$/i,
+				type: 'asset/resource',
 			},
 			{
 				test: /\.(css|s[ac]ss)$/,

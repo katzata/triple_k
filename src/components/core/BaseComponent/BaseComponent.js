@@ -3,7 +3,7 @@ import langs, {checkLanguages} from "../../../localisation/langs";
 class BaseComponent {
     constructor() {
         this.component = null;
-        this.id = this.constructor.name[0].toLocaleLowerCase() + this.constructor.name.slice(1);
+        this.id = "";
         this.currentLang = null;
         this.template = null;
         this.templateData = null;
@@ -18,7 +18,7 @@ class BaseComponent {
     animationsLoop(animations, customDelay) {
         const delay = customDelay ? customDelay : Math.floor(1000 / 60);
         let prevTime = new Date().getTime();
-
+        
         const loop = () => {
             if (animations) {
                 const currentTime = new Date().getTime();
@@ -49,23 +49,11 @@ class BaseComponent {
     };
 
     addChildSubComponents = (components) => {
-        const componentChildren = Array.from(this.component.children);
-
         for (const [target, component] of components) {
-            if (component instanceof Array) {
-                component.map(el => {
-                    // this.component.appendChild(el)
-                });
-            } else {
-                for (const child of componentChildren) {
-                    const targetChild = child.querySelector("#imageContainer");
+            const selector = target.charAt(0) !== "." ? "querySelector" : "querySelectorAll";
+            const subChild = this.component.querySelector(target);
 
-                    if (targetChild) {
-                        targetChild.appendChild(component);
-                        break;
-                    };
-                };
-            };
+            if (subChild) subChild.appendChild(component);
         };
     };
 
@@ -97,11 +85,14 @@ class BaseComponent {
         for (const { targetId, targetClass, event, handler } of this.eventHandlers) {
             const selector = targetId ? "querySelector" : "querySelectorAll";
             const selected = this.component[selector](`${targetId || targetClass}`);
+
             if (selected instanceof HTMLElement) {
                 selected[event] = handler;
             } else {
-                for (const item of Array.from(selected)) {
-                    item[event] = handler;
+                const items = Array.from(selected);
+
+                for (let i = 0; i < items.length; i++) {
+                    items[i][event] = handler;
                 }
             };
         };
@@ -119,17 +110,19 @@ class BaseComponent {
         this.currentLang = checkLanguages();
         
         if (this.component.id !== this.id) this.component.id = this.id;
-        if (this.templateData) this.component.innerHTML = this.template(this.templateData());
+        if (this.template !== null) this.component.innerHTML = this.template(this.templateData ? this.templateData() : null);
         if (this.subComponents !== null) this.addSubComponents(this.subComponents);
         if (this.childSubComponents !== null) this.addChildSubComponents(this.childSubComponents);
         if (this.eventHandlers) this.addEventHandlers();
 
-        const existingComponent = document.querySelector(`#${this.id}`);
-        if (existingComponent && this.component.children.length > 0) {
-            existingComponent.replaceChildren(...this.component.children);
-        } else {
-            return this.component;
-        };
+        // const existingComponent = document.querySelector(`#${this.id}`);
+        // if (existingComponent && this.component.children.length > 0) {
+        //     existingComponent.replaceChildren(...this.component.children);
+        // } else {
+        //     return this.component;
+        // };
+
+        return this.component;
     };
 
     get className() {

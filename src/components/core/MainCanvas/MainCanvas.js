@@ -7,15 +7,13 @@ import HaloAnimation from "./HaloAnimation/HaloAnimation";
 import FogAnimation from "./FogAnimation/FogAnimation";
 import BloodTrails from "./BloodTrails/BloodTrails";
 
-const bg = new Image();
-bg.src = "../../../../assets/gfx/img/canvas_bg.png";
-
 class MainCanvas extends BaseComponent {
     constructor() {
         super();
         const { innerWidth, innerHeight } = window;
 
         this.component = this.createElement("canvas");
+        this.id = "mainCanvas";
         this.component.width = innerWidth;
 		this.component.height = innerHeight;
 
@@ -44,12 +42,15 @@ class MainCanvas extends BaseComponent {
         this.handleDimentions();
         this.handleVisibility();
 
+
+        
         if (this.fogAnimationRunning || this.humanShapeAnimation.running) {
             this.ctx.clearRect(0, 0, this.component.width, this.component.height);
         };
         
         if (this.fogAnimationRunning) this.handleFog();
         if (!this.fogAnimationRunning) {
+            
             this.handleBg();
             this.handleHumanShape()
             this.handleBloodTrails();
@@ -175,7 +176,7 @@ class MainCanvas extends BaseComponent {
 
     handleBg() {
         if (this.humanShapeAnimation.running) {
-            this.background.alpha = this.humanShapeAnimation.alpha;
+            this.background.alpha = this.humanShapeAnimation.alpha + .2;
             this.background.draw(this.ctx);
         };
     };

@@ -1,4 +1,5 @@
 import "./index.scss";
+import "./utils/handlebarsHelpers";
 
 import { pageTransition } from "./utils/utils";
 import { checkLanguages } from "./localisation/langs";

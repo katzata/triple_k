@@ -1,11 +1,10 @@
-const bg = new Image();
-bg.src = "../../../../../assets/gfx/img/canvas_bg.png";
-
 class Background {
     constructor() {
         this.alpha = 0;
         this.width = 966;
         this.height = 563;
+        this.bg = new Image();
+        this.bg.src = "../../../../../assets/gfx/img/canvas_bg.png";
     };
 
     draw(ctx) {
@@ -21,7 +20,7 @@ class Background {
         ctx.translate(...translate);
         ctx.globalAlpha = this.alpha / 2.4;
         ctx.drawImage(
-            bg,
+            this.bg,
             0,
             0,
             this.width,

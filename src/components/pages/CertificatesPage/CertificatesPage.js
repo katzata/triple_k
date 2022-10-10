@@ -4,40 +4,62 @@ import "./certificatesPage.scss";
 
 import { certificates } from "../../../assets/assets";
 
+import BurnAnimation from "./BurnAnimation/BurnAnimation";
+
 class CertificatesPage extends BaseComponent {
     constructor() {
         super();
         
         this.component = document.createElement("section");
-        this.component.id = "certificatesPage";
+        this.id = "certificatesPage";
         this.template = certificatesPageTemplate;
         this.templateData = () => {
             const { sections, zoomButton, downloadButton } = this.currentLang.certificatesSection;
+            const burnAnimation = new BurnAnimation().render();
 
             for (const [section, content] of Object.entries(certificates)) {
                 sections[section].content = content;
-            };
 
-            return {sections, zoomButton, downloadButton};
+                const toggles = [...Array(content.length).fill(false)];
+                this.svgHoverToggles.push(...toggles);
+            };
+            
+            return { sections, zoomButton, burnAnimation, downloadButton};
         };
+
+        this.svgHoverToggles = [];
+        this.offsetsX = [];
+        this.offsetsY = [];
+
+        this.childSubComponents = [
+           [".thumb_b_container", new BurnAnimation().render()],
+           [".thumb_f_container", new BurnAnimation().render()]
+        ];
 
         this.eventHandlers = [
-            // { targetId: "#line1", event: "onmouseenter", handler: this.svgOutlinesOnHover },
-            // { targetId: "#line1", event: "onmouseleave", handler: this.svgOutlinesOnHover }
-            { targetClass: ".certificateSlot", event: "onmouseenter", handler: this.svgOutlinesOnHover },
-            { targetClass: ".certificateSlot", event: "onmouseleave", handler: this.svgOutlinesOnHover }
+            { targetClass: ".certificateSlot", event: "onmouseenter", handler: this.slotOnHover },
+            { targetClass: ".certificateSlot", event: "onmouseleave", handler: this.slotOnHover }
         ];
+
+        this.animationsLoop([
+            this.flameParticlesAnimation
+        ]);
     };
 
-    svgOutlinesOnHover(e) {
+    slotOnHover = (e) => {
         const { type } = e;
-        console.log(type, e);
+        const { index } = e.target.dataset;
 
         if (type === "mouseenter") {
-            
+            this.svgHoverToggles[index] = true;
+            // console.log(this.component.querySelectorAll(".certificateSlot svg"));
         } else {
-
+            this.svgHoverToggles[index] = false;
         };
+    };
+
+    flameParticlesAnimation = () => {
+
     };
 };
 

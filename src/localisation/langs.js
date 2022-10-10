@@ -5,12 +5,7 @@ import langIt from "./it.json";
 import { langTransition } from "../utils/utils";
 import { updateLocation, route } from "../router/router";
 
-// import Header from "../components/core/Header/Header";
-// import Footer from "../components/core/Footer/Footer";
-// import FogCanvas from "../components/core/FogCanvas/FogCanvas";
-
-// const fogCanvas = new FogCanvas();
-const lang = navigator.language.toLocaleLowerCase();
+const lang = "x";
 const userLang = lang.includes("-") ? lang.split("-")[0] : lang;
 
 const langs = {
@@ -38,7 +33,7 @@ export const setLang = () => {
 };
 
 export const checkLanguages = () => {
-    const language = navigator.language.toLocaleLowerCase();
+    const language = "x";
     const userLang = language.includes("-") ? language.split("-")[0] : language;
     let setLang = langs[localStorage.lang] || langs.en;
 

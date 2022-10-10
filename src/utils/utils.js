@@ -22,6 +22,8 @@ export const pageTransition = ({ targetSection, fogCanvas, header, footer }, pag
 
     targetSection.onanimationend = (e) => {
         if (e.animationName === "sectionFadeOut") {
+            // const newPage = page.render();
+            // console.log(newPage);
             e.target.replaceChildren(page.render());
             e.target.className = "sectionFadeIn";
         };

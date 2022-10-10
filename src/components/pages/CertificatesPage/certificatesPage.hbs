@@ -1,23 +1,38 @@
 <h2>Certificates</h2>
 
 <div class="certificatesSection">
+    <div id="burnAnimationWrapper"></div>
+
     {{#each sections}}
+    {{baseIndexes @index}}
         <div class="rowWrapper">
             <h3>{{this.title}}</h3>
 
             <div class="certificatesRow">
                 {{#each this.content}}
-                    <div class="certificateSlot">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="466" height="640" viewBox="0 0 466 640">
-                            <g fill="none" stroke="rgba(66, 66, 66, 1)" stroke-width="4">
-                                <path id="line1" d="M 0,640" ></path>
-                                <path id="line2" d="M 0,640" ></path>
-                            </g>
-                        </svg>
+                    <div class="certificateSlot" data-index="{{setIndexes ../ baseIndexes @index}}">
+                        {{!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="466" height="640" viewBox="0 0 466 640">
+                            {{#each ../../ particles}}
+                                <circle fill="rgba(230, 230, 0, 1)" cx="{{@index}}" cy="640" r="50">
+                                    <animate
+                                        attributeName="cy"
+                                        values="10;50;10"
+                                        dur="2s"
+                                        repeatCount="indefinite" />
+                                </circle>
+                            {{/each}}
+                        </svg> --}}
                         
                         <div class="certificateContainer">
-                            <img class="thumb_b" src="../../../assets/certificates/img/{{this}}_b.png">
-                            <img class="thumb_f" src="../../../assets/certificates/img/{{this}}_f.png">
+                            <div class="thumb_b_container">
+                                <img class="thumb_b" src="../../../assets/certificates/img/{{this}}_b.png">
+                                {{../../ burnAnimation.innerHtml}}
+                            </div>
+
+                            <div class="thumb_f_container">
+                                <img class="thumb_f" src="../../../assets/certificates/img/{{this}}_f.png">
+                                {{../../ burnAnimation.innerHtml}}
+                            </div>
                         </div>
 
                         <button class="zoomButton">

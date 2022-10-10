@@ -11,6 +11,7 @@ class Footer extends BaseComponent {
         super();
 
         this.component = document.createElement("footer");
+        this.id = "footer";
         this.template = footerTemplate;
         this.templateData = () => {
             const { main } = this.currentLang.footer;
