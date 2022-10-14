@@ -17,7 +17,7 @@
 @mixin simpleFadeOut {
     opacity: 0;
     animation-name: simpleFadeOut;
-    animation-duration: .9s;
+    animation-duration: .7s;
     animation-iteration-count: 1;
     animation-timing-function: linear;
 }
@@ -25,7 +25,7 @@
 @mixin simpleFadeIn {
     opacity: 1;
     animation-name: simpleFadeIn;
-    animation-duration: .9s;
+    animation-duration: .7s;
     animation-iteration-count: 1;
     animation-timing-function: linear;
 }

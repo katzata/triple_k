@@ -8,15 +8,6 @@ export const capitalise = (text) => {
     return text.charAt(0).toLocaleUpperCase() + text.slice(1);
 };
 
-export const toggleHomeLinkVisibility = (url = "/") => {
-    const path = url.split("/").pop();
-    const navMain = document.querySelector(".navMain");
-    
-    navMain.style.transform = path === "" ? "translateY(0)" : "translateY(100%)";
-    navMain.style.opacity = path === "" ? "0" : "1";
-    navMain.style.zIndex = path === "" ? "-1" : "0";
-};
-
 export const pageTransition = ({ targetSection, fogCanvas, header, footer }, page, endRouting) => {
     const currentPage = targetSection.firstChild;
 

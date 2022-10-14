@@ -64,6 +64,7 @@
 		}
 	},
 	"certificatesSection": {
+		"title": "Certificates",
 		"sections": {
 			"Markup": {
 				"title": "Markup"
@@ -77,6 +78,24 @@
 		},
 		"zoomButton": "Zoom in",
 		"downloadButton": "Download PDF"
+	},
+	"projectsSection": {
+		"title": "Projects",
+		"content": [
+			{
+                "title": "Games Store (SoftUni course project)",
+				"img": "games_store",
+                "url": {
+					"title": "Visit",
+					"content": "https://react-course-project.kashchiev.com/"
+				},
+                "repo": {
+					"title": "GitHub",
+					"content": "https://github.com/katzata/React-course-project"
+				},
+				"description": "Online game store whitch uses a database from \"igdb\" and \"Twitch\"."
+            }
+		]
 	},
 	"footer": {
 		"main": {

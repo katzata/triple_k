@@ -1,14 +1,13 @@
 import routes from "./routes";
-import { toggleHomeLinkVisibility, pageTransition } from "../utils/utils";
+import { pageTransition } from "../utils/utils";
 import { coreComponents } from "../utils/utils";
 
 let routing = false;
 
 export const route = (callback) => {
-    const targetSection = document.querySelector("main");
+    const targetSection = coreComponents.mainSection;
     const path = window.location.pathname;
     const keys = Object.keys(routes);
-    toggleHomeLinkVisibility(path);
 
     if (keys.includes(path)) {
         const newPage = routes[path]();
@@ -19,7 +18,9 @@ export const route = (callback) => {
             targetSection.replaceChildren(newPage.render());
         };
     } else {
-        console.log("wrong path", path);
+        const newPage = routes["/404"]();
+        targetSection.replaceChildren(newPage.render());
+
         routing = false;
     };
 };
@@ -48,12 +49,12 @@ const updateDocumentTitle = (path) => {
 };
 
 window.addEventListener("click", (e) => {
-    const { tagName, href } = e.target;
+    const { tagName, href, dataset } = e.target;
 
     if (tagName === "A") {
         const link = href.split("/").pop();
 
-        if (link !== "katzata") {
+        if (dataset.route !== "ignore") {
             e.preventDefault();
             if (href !== window.location.href) updateLocation(href);
         };

@@ -1,0 +1,24 @@
+.burntPage {
+    position: absolute;
+    width: 224px;
+    height: 322px;
+    display: flex;
+    // transform: translateX(100%);
+    z-index: 3;
+
+    svg {
+        width: 100%;
+        height: 100%;
+
+        .unitology {
+            font-family: "Unitology";
+            color: rgb(110, 0, 0);
+            fill: rgb(110, 0, 0);
+            text-anchor: middle;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+    }
+}

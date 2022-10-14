@@ -51,9 +51,15 @@ class BaseComponent {
     addChildSubComponents = (components) => {
         for (const [target, component] of components) {
             const selector = target.charAt(0) !== "." ? "querySelector" : "querySelectorAll";
-            const subChild = this.component.querySelector(target);
+            const subChild = this.component[selector](target);
 
-            if (subChild) subChild.appendChild(component);
+            if (subChild) {
+                if (selector === "querySelector") {
+                    subChild.appendChild(component);
+                } else {
+                    Array.from(subChild).forEach(el => el.appendChild(component));
+                };
+            };
         };
     };
 
@@ -92,8 +98,8 @@ class BaseComponent {
                 const items = Array.from(selected);
 
                 for (let i = 0; i < items.length; i++) {
-                    items[i][event] = handler;
-                }
+                    items[i][event] = (e) => handler(e, i);
+                };
             };
         };
     };
@@ -108,7 +114,7 @@ class BaseComponent {
 
     render() {
         this.currentLang = checkLanguages();
-        
+
         if (this.component.id !== this.id) this.component.id = this.id;
         if (this.template !== null) this.component.innerHTML = this.template(this.templateData ? this.templateData() : null);
         if (this.subComponents !== null) this.addSubComponents(this.subComponents);

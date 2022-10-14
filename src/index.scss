@@ -35,16 +35,6 @@
 	src: url("./assets/fonts/SpectralSC-ExtraLight.woff2") format("woff2");
 }
 
-// @font-face {
-// 	font-family: "Unitology";
-// 	src: url("./Unitology.ttf") format("ttf");
-// }
-
-// @font-face {
-// 	font-family: "Unitology2";
-// 	src: url("./Unitology.woff2") format("woff2");
-// }
-
 $main-text-shadow: 0 0 3px black;
 $main-background: black;
 $main-transition-duration: .8s;
@@ -117,8 +107,8 @@ html {
 ::-webkit-scrollbar {
 	width: 10px;
 	height: 10px;
-  }
-  
+}
+
 /* Track */
 ::-webkit-scrollbar-track {
 	background: #000000;

@@ -5,8 +5,8 @@ import langIt from "./it.json";
 import { langTransition } from "../utils/utils";
 import { updateLocation, route } from "../router/router";
 
-const lang = "x";
-const userLang = lang.includes("-") ? lang.split("-")[0] : lang;
+// const lang = "x";
+// const userLang = lang.includes("-") ? lang.split("-")[0] : lang;
 
 const langs = {
     bg: langBg,
@@ -33,7 +33,7 @@ export const setLang = () => {
 };
 
 export const checkLanguages = () => {
-    const language = "x";
+    const language = "";
     const userLang = language.includes("-") ? language.split("-")[0] : language;
     let setLang = langs[localStorage.lang] || langs.en;
 
@@ -53,7 +53,9 @@ export const checkLanguages = () => {
     return setLang;
 };
 
-export const changeLanguage = (lang) => {
+export const changeLanguage = (e) => {
+    const lang = e.target.textContent.toLocaleLowerCase();
+
     if (localStorage.lang !== lang) {
         localStorage.setItem("lang", lang);
         route(langTransition);

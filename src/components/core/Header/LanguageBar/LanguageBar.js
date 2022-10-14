@@ -1,5 +1,5 @@
 import BaseComponent from "../../BaseComponent/BaseComponent";
-import arrowTemplate from "./arrow.hbs";
+import languageBarTemplate from "./languageBar.hbs";
 import "./languageBar.scss";
 
 import { changeLanguage } from "../../../../localisation/langs";
@@ -10,46 +10,14 @@ class LanguageBar extends BaseComponent {
 
         this.component = this.createElement("section", {zIndex: "3"});
         this.id = "languageBar";
+        this.template = languageBarTemplate;
+        this.templateData = () => ({ langs: this.langs });
         this.isVisible = false;
-        this.events = [];
-        this.subComponents = [
-            () => this.generateToggleButton(),
-            () => this.generateLangButtons()
+
+        this.eventHandlers = [
+            { targetId: "#langsToggle", event: "onclick", handler: this.toggleLanguageBar },
+            { targetClass: ".langButton", event: "onclick", handler: changeLanguage },
         ];
-        // this.component.onblur = () => console.log("x");
-    };
-
-    generateToggleButton = () => {
-        const arrow = arrowTemplate();
-        const button = this.createElement("button", { id: "langsToggle", innerHTML: arrow });
-
-        this.events.push({ item: button, event: "onclick", handler: this.toggleLanguageBar});
-        button.onclick = this.toggleLanguageBar;
-        // button.onblur = () => this.toggleLanguageBar(false);
-
-        return button;
-    };
-
-    generateLangButtons = () => {
-        const languages =  Object.keys(this.langs).map(key => {
-            const imgAttr = {
-                className: "langIcon",
-                src: `../../../assets/gfx/icons/langs/${key}.svg`,
-                alt: `${key} icon`
-            };
-
-            const img = this.createElement("img", imgAttr);
-            const span = this.createElement("span", { className: "langTitle", textContent: key.toLocaleUpperCase() });
-            const button = this.createElement("button", { className: "langButton" }, [img, span]);
-
-            button.onclick = () => {
-                const isChanging = changeLanguage(key);
-                if (isChanging) this.toggleLanguageBar(false);
-            };
-            return button;
-        });
-
-        return this.createElement("div", { id: "langsContainer" }, languages);
     };
 
     toggleLanguageBar = (_, toggle = null) => {
@@ -76,7 +44,7 @@ class LanguageBar extends BaseComponent {
     };
     
     arrowHandler = () => {
-        const arrow = document.querySelector("#toggleArrow");
+        const arrow = this.component.querySelector("#toggleArrow");
 
         if (this.isVisible) {    
             arrow.points[0].x = 13;

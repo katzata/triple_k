@@ -10,18 +10,18 @@
 
     .certificatesSection {
         width: 100%;
-        padding: 20px;
+        // padding: 20px;
         display: flex;
         flex-direction: column;
 
         .rowWrapper {
+            padding: 1.2vw calc(1.5vw + 20px);
             background-image: linear-gradient(
                 to bottom,
                 rgba(0, 0, 0, 0),
                 rgba(23, 23, 23, 1),
                 rgba(23, 23, 23, 0)
             );
-            padding: 1vw 1.5vw;
 
             h3 {
                 font-family: "SpectralSC-extra-light";
@@ -30,8 +30,8 @@
     
             .certificatesRow {
                 width: 100%;
-                padding: 20px 0;
-                margin: 0 0 20px;
+                padding: 10px 0 20px;
+                margin-bottom: 40px;
                 display: flex;
                 overflow-x: auto;
                 overflow-y: visible;
@@ -40,29 +40,20 @@
                     position: relative;
                     padding: 40px 10px;
 
-                    &:hover .certificateContainer {
-                        transform: scale(1.12, 1.12);
-                    }
-
                     &:hover .zoomButton {
                         opacity: 1;
-                    }
-
-                    &:hover .certificateContainer .thumb_f_container,
-                    &:hover .certificateContainer .thumb_b_container {
-                        animation-name: certificatesFlip;
-                    }
-
-                    &:hover .certificateContainer .thumb_f_container {
-                        animation-name: certificatesFlip;
                     }
                    
                     .certificateContainer {
                         position: relative;
                         height: 320px;
                         margin: 0 24px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                         transition-duration: .2s;
-        
+                        transform: scale(1, 1);
+      
                         .thumb_f_container {
                             transform: translate(-4%, -2.8%) rotateY(0deg);
                             backface-visibility: hidden;
@@ -72,7 +63,7 @@
                             position: absolute;
                             left: 0;
                             top: 0;
-                            animation-delay: -5s;
+                            animation-delay: -4s;
                             transform: translate(4%, 2.8%) rotateY(180deg);
                             backface-visibility: visible;
                         }
@@ -81,39 +72,96 @@
                         .thumb_b_container {
                             height: 320px;
                             display: flex;
-                            animation-duration: 10s;
+                            animation-duration: 8s;
                             animation-iteration-count: infinite;
                             animation-timing-function: linear;
 
                             .thumb_b,
                             .thumb_f {
-                                left: 0;
                                 width: auto;
-                                height: 100%;
+                                height: 320px;
                             }
-                            
-                            // .thumb_f {
-                            //     position: relative;
-                            //     // transform: translate(-4%, -2.8%) rotateY(0deg);
-                            //     // backface-visibility: hidden;
-                            // }
-                            
-                            // .thumb_b {
-                                
-                            //     // transform: translate(4%, 2.8%) rotateY(180deg);
-                            //     animation-delay: -5s;
-                            //     // backface-visibility: visible;
-                            // }
 
-                            #burnAnimation {
+                            .burntPage {
+                                top: -2px;
+                                left: -2px;
                             }
+                        }
+                    }
+
+                    .fixed {
+                        position: fixed;
+                        left: -24px;
+                        top: 66px;
+                        width: 100%;
+                        height: calc(100% - 106px);
+                        padding: 5vw;
+                        background-color: rgba(0, 0, 0, .85);
+                        box-shadow: inset 0 0 10px 6px black;
+                        z-index: 100;
+                        flex-direction: row-reverse;
+
+                        #bigCertificateButtonsContainer {
+                            position: absolute;
+                            right: 14px;
+                            top: 14px;
+                            width: 50px;
+                            
+                            .bigCertificateButtons {
+                                width: 50px;
+                                height: 50px;
+                                background-color: transparent;
+                                border: 1px solid rgba(66, 66, 66, 1);
+                                border-radius: 4px;
+                            }
+                            
+                            #closeButton,
+                            #downloadPdf {
+                                padding: 10px;
+                                display: flex;
+                                
+                                img {
+                                    width: 100%;
+                                    height: auto;
+                                }
+                            }
+
+                            #closeButton {
+                                margin-bottom: 20px;
+                            }
+                        }
+
+                        .thumb_f_container,
+                        .thumb_b_container {
+                            position: relative;
+                            width: auto;
+                            height: 100%;
+                            transform: none;
+                            animation-iteration-count: 0;
+
+                            .thumbWrapper {
+                                .thumb_b,
+                                .thumb_f {
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: contain;
+                                }
+                            }
+                        }
+
+                        .thumb_f_container {
+                            margin-left: auto;
+                        }
+
+                        .thumb_b_container {
+                            margin-right: auto;
                         }
                     }
 
                     .zoomButton {
                         position: absolute;
-                        top: 0;
-                        right: 0;
+                        top: 12px;
+                        right: 12px;
                         padding: 8px 8px 6px 10px;
                         background-color: rgba(0, 0, 0, .7);
                         transform: translate(10%, -50%);
@@ -121,10 +169,12 @@
                         border-radius: 3px;
                         border: 1px solid rgba(66, 66, 66, 1);
                         box-shadow: 0 0 4px 3px rgba(0, 0, 0, 1);
-                        opacity: 1;
+                        opacity: 0;
 
                         &:hover {
                             color: white;
+                            border: 1px solid rgba(116, 116, 116, 1);
+                            background-color: rgba(0, 0, 0, .8);
                         }
 
                         svg {
@@ -137,6 +187,26 @@
                 }
             }
         }
+    }
+}
+
+@media screen and (max-width: 640px) {
+    #certificatesPage .certificatesSection .rowWrapper .certificatesRow .certificateSlot {
+        padding: 30px 0px;
+    }
+
+    #certificatesPage .certificatesSection .rowWrapper .certificatesRow .certificateSlot .certificateContainer {
+        height: 280px;
+    }
+    
+    #certificatesPage .certificatesSection .rowWrapper .certificatesRow .certificateSlot .certificateContainer .thumb_f_container,
+    #certificatesPage .certificatesSection .rowWrapper .certificatesRow .certificateSlot .certificateContainer .thumb_b_container {
+        height: 280px;
+    }
+
+    #certificatesPage .certificatesSection .rowWrapper .certificatesRow .certificateSlot .certificateContainer .thumb_f_container .thumb_b, #certificatesPage .certificatesSection .rowWrapper .certificatesRow .certificateSlot .certificateContainer .thumb_f_container .thumb_f, #certificatesPage .certificatesSection .rowWrapper .certificatesRow .certificateSlot .certificateContainer .thumb_b_container .thumb_b,
+    #certificatesPage .certificatesSection .rowWrapper .certificatesRow .certificateSlot .certificateContainer .thumb_b_container .thumb_f {
+        height: 280px;
     }
 }
 
@@ -166,14 +236,4 @@
         backface-visibility: hidden;
         z-index: 1;
     }
-}
-
-@keyframes test1 {
-    0%{d: path("M 0,640");}
-    100%{d: path("M 0,640 0,0 466,0");}
-}
-
-@keyframes test2 {
-    0%{d: path("M 0,640");}
-    100%{d: path("M 0,640 466,640 466,0");}
 }

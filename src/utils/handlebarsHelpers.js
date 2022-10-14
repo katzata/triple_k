@@ -1,12 +1,7 @@
 import Handlebars from "handlebars/runtime";
 
 Handlebars.registerHelper("baseIndexes", function(sectionIndex) {
-    
-    // console.log("xasdasdasd", sectionIndex, sectionItems);
-    // this.index = Number(sectionIndex);
-    // console.log(typeof sectionIndex);
     this.baseIndexes = sectionIndex;
-    // console.log(typeof this.baseIndexes);
 });
 
 let indexHolder = 0;
@@ -26,4 +21,8 @@ Handlebars.registerHelper("calc", function(value1, operator, value2, ceil) {
     };
 
     return ceil === true ? Math.ceil(operations[operator]) : Math.floor(operations[operator]);
+});
+
+Handlebars.registerHelper("capialiseAll", function(text) {
+    return text.toLocaleUpperCase();
 });

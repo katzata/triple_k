@@ -7,7 +7,7 @@ class FogAnimation {
         this._fadeIn = false;
         this.particleSize = 0;
         this.density = 0;
-        this.velocity = 6;
+        this.velocity = 5;
         this.particles = [];
         this.prepped = false;
         this._allParticlesVisible = false;
@@ -20,8 +20,8 @@ class FogAnimation {
 
     setDensity() {
         const { innerWidth, innerHeight } = window;
-        const density = Math.ceil((innerWidth > innerHeight ? innerWidth : innerHeight) / 6);
-        this.density = density < 100 ? 100 : density;
+        const density = Math.ceil((innerWidth > innerHeight ? innerWidth : innerHeight) / 7);
+        this.density = density < 115 ? 115 : density;
     };
 
     setTriggerParticle() {

@@ -74,7 +74,7 @@ header {
         bottom: 0px;
         height: 22px;
         display: grid;
-        grid-template-columns: 122px 70px 122px;
+        grid-template-columns: 125px 70px 125px;
         grid-template-rows: 22px;
         justify-items: center;
         color: $base-nav-font-color;
@@ -144,7 +144,7 @@ header {
                     padding: 1px 4px;
                     margin: auto;
                     background-color: $nav-bg;
-                    font-size: calc($nav-font-size - 3px);
+                    font-size: calc($nav-font-size - 5px);
                     line-height: calc($nav-font-size);
                     color: $base-nav-font-color;
                     box-shadow: $button-box-shadow;
@@ -196,8 +196,26 @@ header {
 
 
 
-@media screen and (max-width: 1000px) {
-    
+@media screen and (max-width: 480px) {
+    header {
+        nav {
+            grid-template-columns: 105px 50px 105px;
+            
+            .navSectionTitle {
+                font-size: 14px;
+            }
+
+            .navSectionL,
+            .navSectionR {
+                .linksContainer {
+
+                    .navLinks {
+                        font-size: 8px;
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media screen and (max-height: 375px) {

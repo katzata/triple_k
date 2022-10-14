@@ -20,58 +20,33 @@ class Header extends BaseComponent {
             return { title, navL, main, navR, langs: this.langs };
         };
         this.subComponents = [
-            this.generateNav,
             () => new LanguageBar().render(),
         ];
         this.navHovering = null;
         this.generateTempalte = headerTemplate;
         this.ghostTitleOffset = null;
         
+        this.eventHandlers = [
+            { targetClass: ".pageNavLinks", event: "onmouseenter", handler: (e) => {this.navHovering = e.target} },
+            { targetClass: ".pageNavLinks", event: "onmouseleave", handler: (e) => {
+                this.navHovering = null;
+
+                e.target.style.transitionDuration = "0.2s";
+                e.target.style.opacity = "1";
+                e.target.style.textShadow = "none";
+                e.target.style.transform = `translate(0px, 0px) skew(0deg, 0deg)`;
+            }},
+        ];
+
         this.animationsLoop([
             this.animateGhostTitle,
-            this.animateNavLinks
+            this.animateNavLinks,
+            this.handleMainLink
         ]);
     };
 
-    generateNav = () => {
-        const { nav } = this.currentLang.header;
-        
-        const content = [nav.navL, nav.main, nav.navR].map((el, idx) => {
-            const links = Object.entries(el.content).map(([title, href]) => {
-               const link = this.createElement("a", { href, className: "navLinks", textContent: title });
-
-                link.onmouseenter = (e) => {this.navHovering = e.target};
-                link.onmouseleave = (e) => {
-                    this.navHovering = null;
-
-                    e.target.style.transitionDuration = "0.2s";
-                    e.target.style.opacity = "1";
-                    e.target.style.textShadow = "none";
-                    e.target.style.transform = `translate(0px, 0px) skew(0deg, 0deg)`;
-                };
-
-                return link;
-            });
-
-            if (idx !== 1) {
-                return [
-                    this.createElement("p", { className: "navSectionTitle", textContent: el.title }),
-                    this.createElement("div", { className: "linksContainer" }, links)
-                ];
-            } else {
-                return [this.createElement("a", { href: "/", className: "navLinks navMain", textContent: el.title })];
-            };
-        });
-
-        const sections = ["navSectionL", "navSectionM", "navSectionR"].map((el, idx) => {
-            return this.createElement("div", { className: `navSections ${el}` }, content[idx]);
-        });
-
-        return this.createElement("nav", {}, sections);
-    };
-
     animateGhostTitle = () => {
-        const ghostTitle = document.querySelector("#headerGhostTitle");
+        const ghostTitle = this.component.querySelector("#headerGhostTitle");
         const { alpha } = coreComponents.mainCanvas.humanShapeAnimation;
 
         if (ghostTitle) {
@@ -96,6 +71,15 @@ class Header extends BaseComponent {
             this.navHovering.style.textShadow = "0 0 3px white";
             this.navHovering.style.transform = `translate(${posX}px, ${posY}px) skew(${skewX}deg, ${skewY}deg)`;
         };
+    };
+
+    handleMainLink = () => {
+        const path = window.location.pathname.split("/").pop();
+        const navMain = this.component.querySelector(".navMain");
+        
+        navMain.style.transform = path === "" ? "translateY(0)" : "translateY(100%)";
+        navMain.style.opacity = path === "" ? "0" : "1";
+        navMain.style.zIndex = path === "" ? "-1" : "0";
     };
 };
 

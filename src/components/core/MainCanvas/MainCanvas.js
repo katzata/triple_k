@@ -41,18 +41,16 @@ class MainCanvas extends BaseComponent {
     canvasHandler = () => {
         this.handleDimentions();
         this.handleVisibility();
-
-
         
         if (this.fogAnimationRunning || this.humanShapeAnimation.running) {
             this.ctx.clearRect(0, 0, this.component.width, this.component.height);
         };
         
         if (this.fogAnimationRunning) this.handleFog();
+        
         if (!this.fogAnimationRunning) {
-            
             this.handleBg();
-            this.handleHumanShape()
+            this.handleHumanShape();
             this.handleBloodTrails();
             this.handleHalo();
             this.handleNonSiblings();
@@ -98,7 +96,7 @@ class MainCanvas extends BaseComponent {
                         if (this.siblings[i].tagName !== "MAIN") {
                             this.siblings[i].render();
                         } else {
-                            this.page.render();
+                            this.siblings[i].replaceChildren(this.page.render());
                         };
 
                         if (i === this.siblings.length - 1) this.siblingsReady = true;

@@ -1,4 +1,29 @@
 <p id="headerGhostTitle">{{title}}</p>
 <h1 id="headerTitle">{{title}}</h1>
 
+<nav>
+    <div class="navSections navSectionL">
+        <p class="navSectionTitle">{{navL.title}}</p>
+        
+        <div class="linksContainer">
+            {{#each navL.content}}
+                <a href="{{this}}" class="navLinks pageNavLinks">{{@key}}</a>
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="navSections navSectionM">
+        <a href="/" class="navLinks navMain" style="transform: translateY(0px); opacity: 0; z-index: -1;">MAIN</a>
+    </div>
+
+    <div class="navSections navSectionR">
+        <p class="navSectionTitle">{{navR.title}}</p>
+        
+        <div class="linksContainer">
+            <a href="/projects" class="navLinks pageNavLinks">Projects</a>
+            <a target="_blank" href="https://github.com/katzata" data-route="ignore" class="navLinks pageNavLinks">GitHub</a>
+        </div>
+    </div>
+</nav>
+
 <hr id="hrTop">

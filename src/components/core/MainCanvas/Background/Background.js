@@ -14,7 +14,7 @@ class Background {
         const heightCalc = innerWidth * (this.height / this.width);
         const posX = innerWidth / 2;
         const posY = innerHeight / 2;
-        const translate = screenCalc >= 1.48 ? [-(innerWidth / 2), -(heightCalc / 2)] : [-(widthCalc / 2), -(innerHeight / 2)];
+        const translate = screenCalc >= 1.71 ? [-(innerWidth / 2), -(heightCalc / 2)] : [-(widthCalc / 2), -(innerHeight / 2)];
         
         ctx.save();
         ctx.translate(...translate);

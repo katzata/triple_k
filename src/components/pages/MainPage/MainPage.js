@@ -35,8 +35,6 @@ class MainPage extends BaseComponent {
         this.stackIconsDelay = false;
         this.stackIconCounterAlpha = .2;
         this.iconsHoverEnabled = false;
-        this.pentagramIconDelay = 3;
-        this.pentagramIconCount = 0;
 
         this.childSubComponents = [];
 
@@ -244,36 +242,6 @@ class MainPage extends BaseComponent {
                  };
 
                 this.stackIconsDelay = false;
-            };
-        };
-    };
-
-    handlePentagramIcon() {
-        if (alpha > .05) {
-
-            const { x, y, width, height, top, bottom, left, right } = stackIcons[index].getBoundingClientRect();
-            const posX = x - Math.ceil(Math.abs(pentagramIcons.offsetWidth - width) / 2);
-            const posY = y - Math.ceil(Math.abs(pentagramIcons.offsetHeight - height) / 2);
-
-            if (pentagramIcons.style.display !== "block") pentagramIcons.style.display = "block";
-            if (this.pentagramIconCount < this.pentagramIconDelay) {
-                
-                this.pentagramIconCount++;
-                
-                if (this.pentagramIconDelay === this.pentagramIconDelay) {
-                    pentagramIcons.style.transform = `translate(${posX}px, ${posY}px)`;
-                };
-            };
-            pentagramIcons.style.opacity = `${alpha + .1}`;
-
-            stackIcons[index].style.opacity = `${alphaMax - alpha}`;
-        } else {
-            if (stackIcons[index] && stackIcons[index].style.opacity !== "1") stackIcons[index].style.opacity = "1";
-
-            if (pentagramIcons.style.opacity !== "0") {
-                // pentagramIcons.style.transform = `translate(${posX}px, ${posY}px)`;
-                pentagramIcons.style.opacity = "0";
-                pentagramIcons.style.display = "none";
             };
         };
     };

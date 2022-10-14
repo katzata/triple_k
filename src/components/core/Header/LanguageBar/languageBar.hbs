@@ -1,0 +1,14 @@
+<button id="langsToggle">
+    <svg width="93px" height="300px" viewBox="0 0 93 300">
+        <polyline id="toggleArrow" points="80,13 13,150 80,287" fill="none" stroke="white" stroke-width="16" stroke-linecap="round"></polyline>
+    </svg>
+</button>
+
+<div id="langsContainer">
+    {{#each langs}}
+        <button class="langButton">
+            <img class="langIcon" src="../../../assets/gfx/icons/langs/{{@key}}.svg" alt="en icon">
+            <span class="langTitle">{{capialiseAll @key}}</span>
+        </button>
+    {{/each}}
+</div>
