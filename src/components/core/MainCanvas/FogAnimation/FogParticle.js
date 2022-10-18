@@ -1,7 +1,30 @@
 const fog = new Image();
-fog.src = "../../../../assets/gfx/img/fog1.png";
-
+fog.src = "../../../../assets/gfx/img/fog.png";
+/**
+ * FogParticle creates a new fog particle from an image.
+ * @class
+ */ 
 class FogParticle {
+	/**
+	 * @param {Object} initialValues An object containig the initial values for the current fog particle.
+	 * @constructor
+	 * @param {HTMLImageElement} image An image of the fog particle.
+	 * @param {Number} size The size of the fog particle.
+	 * @param {Boolean} fadeIn A toggle handling the particle alpha and wether it should be increased or decreased.
+	 * @param {Number} alpha The alpha for the current fog partile (floating point number with a max of 1).
+	 * @param {Number} alphaIncrement The value that will be added or subtracted to the alpha (floating point number).
+	 * @param {Number} alphaDelay A delay (represented in frames) slowing each individual fog particle. This way the particles fade in and out one after the other instead of at the same time.
+	 * @param {Number} delayCount A counter to handle the delay.
+	 * @param {Number} x The initial x coordinate on the fog particle on the canvas (MainCanvas).
+	 * @param {Number} y The initial y coordinate on the fog particle on the canvas (MainCanvas).
+	 * @param {Number} particleCutoff A percentage of the image that is allowed to leave the screen.
+	 * @param {Number} minX The minimum allowed x coordinate of the fog particle on the canvas (MainCanvas).
+	 * @param {Number} minY The minimum allowed y coordinate of the fog particle on the canvas (MainCanvas).
+	 * @param {Number} maxX The maximum allowed x coordinate of the fog particle on the canvas (MainCanvas).
+	 * @param {Number} maxY The maximum allowed y coordinate of the fog particle on the canvas (MainCanvas).
+	 * @param {Number} velocityX The velocity at which the current fog particle will be moving.
+	 * @param {Number} velocityY The velocity at which the current fog particle will be moving.
+	 */
 	constructor({ size, alphaDelay, x, y, maxX, maxY, velocityX, velocityY }) {
 		this.image = fog;
 		this.size = size;
@@ -21,13 +44,20 @@ class FogParticle {
 		this.velocityY = velocityY;
 	};
 
-	handleDimentions() {
+	/**
+	 * Method handling the minimum and maximum allowed x and y coordinates.
+	 */
+	handleLimits() {
 		this.minX = -Math.floor(this.size * this.particleCutoff);
 		this.minY = -Math.floor(this.size * this.particleCutoff);
 		this.maxX = window.innerWidth - (this.size - Math.ceil(this.size * this.particleCutoff));
 		this.maxY = window.innerHeight - (this.size - Math.ceil(this.size * this.particleCutoff));
 	};
 
+	/**
+	 * Method handling the x and y coordinates of the current particle on the canvas.
+	 * When a minimum or maximum is reached the velocity x and y values get inverted.
+	 */
 	handleMovement() {
 		this.x += this.velocityX;
 		this.y += this.velocityY;
@@ -47,6 +77,10 @@ class FogParticle {
 		};
 	};
 
+	/**
+	 * Method handling the increase or deacrease of the current particle's alpha.
+	 * Based on the fade in toggle (this.fadeIn).
+	 */
 	handleAlpha() {
 		if (this.fadeIn) {
 			if (this.alphaDelay > this.delayCount) this.delayCount++;
@@ -65,10 +99,16 @@ class FogParticle {
 		};
 	};
 
-	render(ctx) {
+	/**
+	 * Method handling the coordinate limits, movement, alpha and drawing of the current fog particle.
+	 * The context which will be used is passed down from the parent so that the FogParticle class doesn't nedd to cnow anything about the canvas that its drwing on.
+	 * @param {CanvasRenderingContext2D} ctx The main canvas context (MainCanvas).
+	 * @returns Nothing if there is no image (early exit);
+	 */
+	draw(ctx) {
 		if (!this.image) return;
 
-		this.handleDimentions();
+		this.handleLimits();
 		this.handleMovement();
 		this.handleAlpha();
 

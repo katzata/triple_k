@@ -88,7 +88,7 @@
                 .linksContainer {
                     position: absolute;
                     right: 0;
-                    top: 330px;
+                    top: 10%;
                     height: 66px;
                     padding: 6px 14px 6px 10px;
                     display: flex;
@@ -132,3 +132,30 @@
         }
     }
 }
+
+@media screen and (max-width: 520px) {
+    #projectsPage #projectsSection .containerWrapper {
+        h4 {
+            font-size: 13px;
+        }
+
+        .projectContainer .description {
+            padding: 4px 8px;
+            font-size: 14px
+        }
+    }
+
+    #projectsPage #projectsSection .containerWrapper .projectContainer .linksContainer {
+        height: 62px;
+
+        a {
+            font-size: 13px;
+            line-height: 18px;
+            
+            img {
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+};

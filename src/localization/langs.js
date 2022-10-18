@@ -3,35 +3,25 @@ import langBg from "./bg.json";
 import langIt from "./it.json";
 
 import { langTransition } from "../utils/utils";
-import { updateLocation, route } from "../router/router";
+import { route } from "../router/router";
 
-// const lang = "x";
-// const userLang = lang.includes("-") ? lang.split("-")[0] : lang;
-
+/**
+ * A list of available languages (json files).
+ */
 const langs = {
     bg: langBg,
     en: langEn,
     it: langIt
 };
 
-export let setLanguage = "";
+let setLanguage = "";
 
-export const setLang = () => {
-    let setLang = "en";
-
-    for (const lang of Object.keys(langs)) {
-        if (langs[localStorage.lang]) {
-            return localStorage.lang;
-        };
-
-        if (lang === userLang) {
-            return userLang;
-        };
-    };
-
-    return setLang;
-};
-
+/**
+ * Function that sets the current language from a list of available languages.
+ * The check is done based on the Navigator.language property. If the value corresponds to an entry in the languagegs list it's automatically set as default.
+ * The default value is "en".
+ * @returns The currently set language (json object).
+ */
 export const checkLanguages = () => {
     const language = "";
     const userLang = language.includes("-") ? language.split("-")[0] : language;
@@ -53,6 +43,15 @@ export const checkLanguages = () => {
     return setLang;
 };
 
+/**
+ * Function handling the language change.
+ * It takes it's language value from the clicked language button.
+ * Runs the route function in order to update the page section, and passes in it the langTransition callback.
+ * @see router.js
+ * @see utils.js
+ * @param {Event} e The click event from the language buttons.
+ * @see LanguageBar
+ */
 export const changeLanguage = (e) => {
     const lang = e.target.textContent.toLocaleLowerCase();
 

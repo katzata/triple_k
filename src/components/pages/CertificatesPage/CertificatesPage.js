@@ -7,14 +7,34 @@ import { coreComponents } from "../../../utils/utils";
 
 import BurntPage from "./BurntPage/BurntPage";
 
+/**
+ * CertificatesPage creates a new HTMLElement (section).
+ * @class
+ * @extends BaseComponent
+ */
 class CertificatesPage extends BaseComponent {
+    /**
+     * @see BaseComponent.component
+     * @see BaseComponent.id
+     * @see BaseComponent.template
+     * @see BaseComponent.templateData
+     * 
+     * @param {Array} svgHoverToggles An array containing booleans that trigger the hovering effect.
+     * @param {Array} burntPages To be changed on account that the animation performance degrades if left to run for about 10 minutes.
+     * The degraded performance do not recover until the page has been reloaded.
+     * 
+     * @param {Array} burntPages Not active at the moment and will probably be removed.
+     * @param {Array} disolveCertificate Not active at the moment.
+     * 
+     * @see BaseComponent.eventHandlers
+     * @see BaseComponent.animationsLoop
+     */
     constructor() {
         super();
         
         this.component = document.createElement("section");
         this.id = "certificatesPage";
         this.template = certificatesPageTemplate;
-        this.burntPages = [];
         this.templateData = () => {
             const { title, sections, zoomButton, downloadButton } = this.currentLang.certificatesSection;
 
@@ -47,6 +67,12 @@ class CertificatesPage extends BaseComponent {
         ]);
     };
 
+    /**
+     * Method handling the hover animation of the specific certificate slot.
+     * It toggles the appropriate hover toggle (this.svgHoverToggles).
+     * @param {Event} e The currently fired event. Used to determine the event type and to extract the index from the current HTMLElement dataset attribute.
+     * Arrow function to keep the scope here.
+     */
     slotOnHover = (e) => {
         const { type } = e;
         const { index } = e.target.dataset;
@@ -58,8 +84,13 @@ class CertificatesPage extends BaseComponent {
         };
     };
 
+    /**
+     * Method handling the "certificateRow" background opacity during the human shape animation.
+     * Arrow function to keep the scope here.
+     */
     handleRowsBg = () => {
         const { running, alpha } = coreComponents.mainCanvas.humanShapeAnimation;
+
         if (running) {
             const rows = this.component.querySelectorAll(".rowWrapper");
             const count = rows.length;
@@ -71,10 +102,14 @@ class CertificatesPage extends BaseComponent {
                     rgba(23, 23, 23, ${1 - alpha}),
                     rgba(0, 0, 0, 0)
                 )`;
-            }
-        }
+            };
+        };
     };
 
+    /**
+     * Method handling the certificate animation when hovered upon.
+     * Arrow function to keep the scope here.
+     */
     handleCertificates = () => {
         const count = this.svgHoverToggles.length;
         const certificateContainers = this.component.querySelectorAll(".certificateContainer");
@@ -110,6 +145,14 @@ class CertificatesPage extends BaseComponent {
         }
     };
 
+    /**
+     * !!!
+     * Disabled at the moment.
+     * Will probbaly be completly changed.
+     * !!!
+     * Method handling the burnt pages that will appear over the certificates.
+     * Arrow function to keep the scope here.
+     */
     handleBurntPages = () => {
         for (let i = 0; i < this.svgHoverToggles.length; i++) {
             const container = this.component.querySelectorAll(".certificateContainer");
@@ -154,9 +197,16 @@ class CertificatesPage extends BaseComponent {
         };
     };
 
+    /**
+     * !!!
+     * Disabled at the moment.
+     * Will probbaly be completly changed.
+     * !!!
+     * Method handling the certificate mask.
+     * Arrow function to keep the scope here.
+     */
     handleCertificateMask = () => {
         if (this.burntPages.length > 0) {
-            console.log("x", this.burntPages[0].frameIndex);
             for (let i = 0; i < this.burntPages.length; i++) {
                 const { index } = this.burntPages[i];
                 
@@ -170,7 +220,13 @@ class CertificatesPage extends BaseComponent {
         };
     };
  
-    onClickZoomButton = (e, index) => {
+    /**
+     * Method handling the transition from a small to big certificates.
+     * The transition is done by adding a new css class (fixed) to the certificateContainer element.
+     * @param {Event} _ Not intended to be used in any way, hence the "_".
+     * @param {Number} index A number indicating which zoom button was clicked so that the appropriate certificate will be enlarged.
+     */
+    onClickZoomButton = (_, index) => {
         const certificateContainer = this.component.querySelectorAll(".certificateContainer")[index];
         const buttonsContainer = this.generateBigCertificateButtons(certificateContainer, index);
 
@@ -179,6 +235,13 @@ class CertificatesPage extends BaseComponent {
         certificateContainer.nextElementSibling.style.display = "none";
     };
 
+    /**
+     * Method generating the needed buttons for the enlarged certificate (close button and download pdf button).
+     * Also adds the needed event listeners for them.
+     * @param {HTMLElement} certificateContainer The parent container to be manipulated (add/remove "fixed" css class).
+     * @param {Number} index The index indicating which parent container should be manipulated.
+     * @returns {HTMLElement} The button container and buttons appended.
+     */
     generateBigCertificateButtons(certificateContainer, index) {
         const handleToggles = () => this.svgHoverToggles[index] = false;
 

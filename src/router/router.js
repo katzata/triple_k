@@ -1,9 +1,16 @@
 import routes from "./routes";
-import { pageTransition } from "../utils/utils";
-import { coreComponents } from "../utils/utils";
+import { pageTransition, coreComponents } from "../utils/utils";
 
+/**
+ * Indicates if there is currently running routing.
+ * Needed for the page fades.
+ */
 let routing = false;
 
+/**
+ * Function handling the routing when the url cahnges.
+ * @param {Function} callback A function to be executed if passed in.
+ */
 export const route = (callback) => {
     const targetSection = coreComponents.mainSection;
     const path = window.location.pathname;
@@ -25,6 +32,13 @@ export const route = (callback) => {
     };
 };
 
+/**
+ * Function that updates the window.history.
+ * Runs the updateDocumentTitle function.
+ * Runs the route function.
+ * @see route
+ * @param {String} url window.location.pathname.
+ */
 export const updateLocation = (url) => {
     if (!routing && url) {
         const pageTitle = url.split("/").pop();
@@ -36,6 +50,10 @@ export const updateLocation = (url) => {
     };
 };
 
+/**
+ * Function that updates the document title accourdingly when navigating to different pages.
+ * @param {String} path windows.location.pathname (windows.location.pathname.split("/").pop()).
+ */
 const updateDocumentTitle = (path) => {
     const subtitles = {
         "": "",
@@ -48,12 +66,14 @@ const updateDocumentTitle = (path) => {
     document.title = `Triple K ${subtitles[path]}`;
 };
 
+/**
+ * A global click event listener to help a bit with the routing.
+ * In order for a link (a tag) to be ignored by the router, it should have a data-route attribute to "ignore".
+ */
 window.addEventListener("click", (e) => {
     const { tagName, href, dataset } = e.target;
 
     if (tagName === "A") {
-        const link = href.split("/").pop();
-
         if (dataset.route !== "ignore") {
             e.preventDefault();
             if (href !== window.location.href) updateLocation(href);
@@ -61,7 +81,11 @@ window.addEventListener("click", (e) => {
     };
 });
 
-
+/**
+ * A global popstate event listener to help a bit with the routing.
+ * Handling the page transitions, document title, routing and the home page link when the user clicks on the back button in the browser.
+ * 
+ */
 window.addEventListener("popstate", (e) => {
     const { pathname } = e.target.location;
 

@@ -1,4 +1,14 @@
+/**
+ * Background creates a new CanvasRenderingContext2D element.
+ * @class
+ */
 class Background {
+    /**
+     * @param {Number} alpha The background alpha.
+     * @param {Number} width The background original width.
+     * @param {Number} height The background original height.
+     * @param {HTMLImageElement} bg The background image.
+     */
     constructor() {
         this.alpha = 0;
         this.width = 966;
@@ -7,6 +17,13 @@ class Background {
         this.bg.src = "../../../../../assets/gfx/img/canvas_bg.png";
     };
 
+    /**
+     * Method handling the width, height, x and y coordinates, translate transformation and drawing of the background.
+     * The background size is constantly calculated in order to keep the aspect ratio of the image and to make sure it always fills the screen and that is centered.
+     * the calculations are based on the screen and original image sizes.
+     * The context which will be used is passed down from the parent so that the FogParticle class doesn't nedd to cnow anything about the canvas that its drwing on.
+	 * @param {CanvasRenderingContext2D} ctx The main canvas context (MainCanvas).
+     */
     draw(ctx) {
         const { innerWidth, innerHeight } = window;
         const screenCalc = innerWidth / innerHeight;
@@ -27,8 +44,8 @@ class Background {
             this.height,
             posX,
             posY,
-            screenCalc >= 1.48 ? innerWidth : widthCalc,
-            screenCalc < 1.48 ? innerHeight : heightCalc
+            screenCalc >= 1.71 ? innerWidth : widthCalc,
+            screenCalc < 1.71 ? innerHeight : heightCalc
         );
 
         ctx.restore();

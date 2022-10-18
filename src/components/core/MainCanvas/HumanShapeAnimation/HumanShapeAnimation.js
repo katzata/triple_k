@@ -1,14 +1,39 @@
 const humanShape = new Image();
 humanShape.src = "../../../../assets/gfx/img/human_shape.png";
 
+/**
+ * HumanShapeAnimation is a class that handles the human shape animation.
+ */
 class HumanShapeAnimation {
+    /**
+     * @param {Number} baseWidth The original image width.
+     * @param {Number} baseHeight The original image height.
+     * @param {Number} renderWidth The image render width on the canvas.
+     * @param {Number} renderHeight The image render height on the canvas.
+     * @param {Number} posX The x coordinates of the rendered image on the canvas.
+     * @param {Number} posY The y coordinates of the rendered image on the canvas.
+     * @param {Number} offsetX Additional offset to the x coordinate to create a trembling effect.
+     * @param {Number} offsetY Additional offset to the y coordinate to create a trembling effect.
+     * @param {Number} currentFrame The curent animation frame.
+     * @param {Number} delay Animation delay (frames).
+     * @param {Number} delayFrame A counter for the delay.
+     * @param {Boolean} renderCoordsSet An indicator to wether the render coordinates have been set.
+     * @param {Boolean} running A trigger toggling the running state.
+     * @param {Boolean} _fadeIn A trigger toggling the fadeIn state.
+     * @param {Number} alpha The animation alpha value.
+     * @param {Number} alphaMax The maximum allowed alpha value.
+     * @param {Number} alphaIncrement The amount that will be added or subtracted from the animation alpha value.
+     * @param {Number} maxOpacityDuration The duration of the animation maximum alpha stage (before it starts to fade out).
+     * @param {Number} maxOpacityDurationCounter The maximum alpha stage counter.
+     * @param {Array} sequence The x and y coordinates of the frames on the tile set ordered to create a custom animation instead of just sliding throu all thi images.
+     */
     constructor() {
         this.baseWidth = 256;
         this.baseHeight = 512;
         this.renderWidth = 256;
         this.renderHeight = 512;
-        this.posX = 220;
-        this.posY = 220;
+        this.posX = 0;
+        this.posY = 0;
         this.offsetX = 0;
         this.offsetY = 0;
 
@@ -36,6 +61,9 @@ class HumanShapeAnimation {
         ];
     };
 
+    /**
+     * Method handling the render size (width and height) of the human shape animation.
+     */
     setSize() {
         const divider = 5;
         const calcX = Math.floor((window.innerHeight / divider) / 2);
@@ -45,6 +73,10 @@ class HumanShapeAnimation {
         if (this.renderHeight !== calcY) this.renderHeight = calcY;
     };
 
+    /**
+     * Method handling the frame sequence of the human shape animation.
+     * Handles the currentFrame and delayFrame;
+     */
     handleFrames() {
         if (this.delayFrame < this.delay) {
             this.delayFrame++
@@ -56,6 +88,10 @@ class HumanShapeAnimation {
         if (this.currentFrame === 4) this.currentFrame = 0;
     };
 
+    /**
+     * Method handling the animation x and y coordinates and offsets on the canvas.
+     * Runs the handleIfObscured method to move the render coordinates if the fall under the main image (my photo) on the main page.
+     */
     handleRenderPosition() {
         const random = (range, divide) => {
             if (divide) {
@@ -80,8 +116,16 @@ class HumanShapeAnimation {
         this.offsetY = random(3, true);
     };
 
+    /**
+     * Method that changes te initially generated x and y coordinates if the animation is considered to be obscured (currently by my photo on the main page).
+     * @param {Number} initialX The initially generated x coordinates.
+     * @param {Number} initialY The initially generated y coordinates.
+     * @param {Number} mainWidth The initial animation width.
+     * @param {Number} mainHeight The initial animation height.
+     * @returns Either the initially generated coordinates or newly generated coordinates so that the animation will not be obscured.
+     */
     handleIfObscured(initialX, initialY, mainWidth, mainHeight) {
-        const imageContainer = document.querySelector("#imageContainer");
+        const imageContainer = document.getElementById("imageContainer");
         
         if (imageContainer) {
             const { x, y, width, height } = imageContainer.getBoundingClientRect();
@@ -114,6 +158,11 @@ class HumanShapeAnimation {
         };
     };
 
+    /**
+     * Method handling the fade in and out stages of the animation.
+     * Keeps the alpha from going to absurd nubers when surpassing the maximum values.
+     * Also unsets the render coordinates (this.renderCoordsSet).
+     */
     handleFade() {
         if (this.running) {
             if (this.fadeIn && this.alpha < 1) {
@@ -138,6 +187,11 @@ class HumanShapeAnimation {
         };
     };
 
+    /**
+     * Method handling the drawing of the animation.
+     * Runs this.setSize, this.handleRenderPosition, this.handleFade and this.handleFrames.
+     * @param {CanvasRenderingContext2D} ctx The canvas context.
+     */
     draw(ctx) {
         const [frameX, frameY] = this.sequence[this.currentFrame];
         this.setSize();
@@ -163,10 +217,17 @@ class HumanShapeAnimation {
         this.handleFrames();
     };
 
+    /**
+     * Sets the fade in/out state.
+     * @param {Boolean} state The current fade state.
+     */
     set fadeIn(state) {
         this._fadeIn = state;
     };
     
+    /**
+     * Gets the fade in/out state.
+     */
     get fadeIn() {
         return this._fadeIn;
     };

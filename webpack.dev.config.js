@@ -14,7 +14,8 @@ module.exports = {
 		compress: true,
 		hot: true,
 		port: 9000,
-		liveReload: true
+		liveReload: true,
+		open: true,
 	},
 	target: "web",
 	module: {

@@ -6,7 +6,22 @@ import { coreComponents } from "../../../utils/utils";
 
 import LanguageBar from "./LanguageBar/LanguageBar";
 
+/**
+ * Header creates a new HTMLHeader element.
+ * @class
+ * @extends BaseComponent
+ */
 class Header extends BaseComponent {
+    /**
+     * @see BaseComponent.component
+     * @see BaseComponent.id
+     * @see BaseComponent.template
+     * @see BaseComponent.templateData
+     * @see BaseComponent.subComponents
+     * @param {Boolean} navHovering A refference to the current "navLink" HTMLElement that is hovered on. For animation purpouses.
+     * @see BaseComponent.eventHandlers
+     * @see BaseComponent.animationsLoop 
+     */
     constructor() {
         super();
 
@@ -23,9 +38,13 @@ class Header extends BaseComponent {
             () => new LanguageBar().render(),
         ];
         this.navHovering = null;
-        this.generateTempalte = headerTemplate;
-        this.ghostTitleOffset = null;
         
+        /**
+         * All values need to be reset so it doesnt remain a in some random position with some random opacity.
+         * The transitionDuration is set back to .2s.
+         * The textShadow is removed.
+         * The opacity is set to 1.
+         */
         this.eventHandlers = [
             { targetClass: ".pageNavLinks", event: "onmouseenter", handler: (e) => {this.navHovering = e.target} },
             { targetClass: ".pageNavLinks", event: "onmouseleave", handler: (e) => {
@@ -45,6 +64,13 @@ class Header extends BaseComponent {
         ]);
     };
 
+    /**
+     * Method applying a style transform (translate, skewX, scale) to the secondary header title of the current component "this.component".
+     * The values are randomly generated using the helper "this.random" function.
+     * @see BaseComponent.random
+     * Checks if the "ghostTitle" exists in order to manipulate it.
+     * Checks if the imported coreComponents.mainCanvas.humanShapeAnimation is running in order to add a bigger offset to the randomly generated values.
+     */
     animateGhostTitle = () => {
         const ghostTitle = this.component.querySelector("#headerGhostTitle");
         const { alpha } = coreComponents.mainCanvas.humanShapeAnimation;
@@ -58,6 +84,13 @@ class Header extends BaseComponent {
         };
     };
 
+    /**
+     * Method applying a style transform, opacity change, and a textShadow (translate, skew) to the current "navLink" that the mouse is hovering over "this.navHovering" of the current component "this.component".
+     * The values are randomly generated using the helper "this.random" function.
+     * The opacity has a minimum of .5.
+     * @see BaseComponent.random
+     * Sets the transition duration to 0s while animating on account that it initially is at .2s which is needed for the dropdown transition (done with css).
+     */
     animateNavLinks = () => {
         if (this.navHovering !== null) {
             const offset = 2;
@@ -73,6 +106,11 @@ class Header extends BaseComponent {
         };
     };
 
+    /**
+     * Method checking the current path in order to show or hide the main page link.
+     * Applying a style transform, opacity change, and a zIndex change based on the currrent path.
+     * Link enters and exits with a slide animation.
+     */
     handleMainLink = () => {
         const path = window.location.pathname.split("/").pop();
         const navMain = this.component.querySelector(".navMain");

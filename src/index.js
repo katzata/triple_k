@@ -1,10 +1,8 @@
 import "./index.scss";
 import "./utils/handlebarsHelpers";
 
-import { pageTransition } from "./utils/utils";
-import { checkLanguages } from "./localisation/langs";
+import { pageTransition, setCoreComponents } from "./utils/utils";
 import { route } from "./router/router";
-import { setCoreComponents } from "./utils/utils";
 
 import Header from "./components/core/Header/Header";
 import Footer from "./components/core/Footer/Footer";
@@ -15,17 +13,18 @@ const footer = new Footer();
 const mainCanvas = new MainCanvas();
 
 const init = () => {
-    const root = document.querySelector("#root");
+    const root = document.getElementById("root");
     const mainSection = document.createElement("main");
-
-    checkLanguages();
 
     root.appendChild(mainCanvas.render());
     root.appendChild(header.render());
     root.appendChild(mainSection);
     root.appendChild(footer.render());
 
-    setCoreComponents({ header, mainSection, footer, mainCanvas })
+    // Store references to these 4 components for use by other components avoiding some DOM traversals and additional instancing.
+    setCoreComponents({ header, mainSection, footer, mainCanvas });
+
+    // Routing starts asap .
     route(pageTransition);
 };
 
