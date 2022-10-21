@@ -56,7 +56,7 @@ class CertificatesPage extends BaseComponent {
         this.eventHandlers = [
             { targetClass: ".certificateSlot", event: "onmouseenter", handler: this.slotOnHover },
             { targetClass: ".certificateSlot", event: "onmouseleave", handler: this.slotOnHover },
-            { targetClass: ".zoomButton", event: "onclick", handler: this.onClickZoomButton },
+            { targetClass: ".zoomButton", event: "onclick", handler: this.onZoomButtonClick },
         ];
 
         this.animationsLoop([
@@ -226,7 +226,7 @@ class CertificatesPage extends BaseComponent {
      * @param {Event} _ Not intended to be used in any way, hence the "_".
      * @param {Number} index A number indicating which zoom button was clicked so that the appropriate certificate will be enlarged.
      */
-    onClickZoomButton = (_, index) => {
+    onZoomButtonClick = (_, index) => {
         const certificateContainer = this.component.querySelectorAll(".certificateContainer")[index];
         const buttonsContainer = this.generateBigCertificateButtons(certificateContainer, index);
 
@@ -243,21 +243,14 @@ class CertificatesPage extends BaseComponent {
      * @returns {HTMLElement} The button container and buttons appended.
      */
     generateBigCertificateButtons(certificateContainer, index) {
-        const handleToggles = () => this.svgHoverToggles[index] = false;
-
+        const handleClick = (parentElement) => this.onCloseButtonClick(certificateContainer, index,parentElement);
         const closeButton = this.createElement(
             "button", 
             {
                 id: "closeButton",
                 className: "bigCertificateButtons",
                 onclick: function() {
-                    certificateContainer.nextElementSibling.style.display = "block";
-                    certificateContainer.classList.remove("fixed");
-                    
-                    this.parentElement.remove();
-
-                    Array.from(certificateContainer.children).forEach(el => el.style.animationName = "");
-                    handleToggles();
+                    handleClick(this.parentElement)
                 }
             },
             [this.createElement("img", { src: "../../../assets/gfx/icons/shared/close.svg" })]
@@ -278,6 +271,22 @@ class CertificatesPage extends BaseComponent {
         const buttonsContainer = this.createElement("div", { id: "bigCertificateButtonsContainer"})
         buttonsContainer.replaceChildren(closeButton, downloadPdf);
         return buttonsContainer;
+    };
+
+    /**
+     * Method handling the the certificateContainer and removing some of its schildren when closed.
+     * @param {HTMLDivElement} certificateContainer The certificate container that is to receive the class ".fixed";
+     * @param {Number} index The index of the current certificateContainer that is being manipulated.
+     * @param {HTMLDivElement} buttonContianer A newly created element contianing 2 buttons (close, download pdf) that will be removed.
+     */
+    onCloseButtonClick = (certificateContainer, index, buttonContianer) => {
+        certificateContainer.nextElementSibling.style.display = "block";
+        certificateContainer.classList.remove("fixed");
+        
+        buttonContianer.remove();
+        
+        Array.from(certificateContainer.children).forEach(el => el.style.animationName = "");
+        this.svgHoverToggles[index] = false;
     };
 };
 

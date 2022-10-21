@@ -53,6 +53,9 @@
 				"discreteUse": { 
 					"title": "Discrete use"
 				},
+				"testingFrameworks": { 
+					"title": "Testing frameworks"
+				},
 				"versionControlSystems": { 
 					"title": "Version Control Systems"
 				}
@@ -93,7 +96,7 @@
 					"title": "GitHub",
 					"content": "https://github.com/katzata/React-course-project"
 				},
-				"description": "Online game store whitch uses a database from \"igdb\" and \"Twitch\"."
+				"description": "Online game store whitch uses a database from \"igdb\" and \"Twitch\". Written in \"React\" with the addition of \"Redux\". \"back4app\" was used as backend."
             }
 		]
 	},

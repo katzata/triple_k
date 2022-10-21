@@ -53,6 +53,9 @@
 				"discreteUse": { 
 					"title": "Uso discreto"
 				},
+				"testingFrameworks": { 
+					"title": "Frameworks per testing"
+				},
 				"versionControlSystems": { 
 					"title": "Sistemi di controllo della versione"
 				}
@@ -93,7 +96,7 @@
 					"title": "GitHub",
 					"content": "https://github.com/katzata/React-course-project"
 				},
-				"description": "Online negozio di giochi che usa la database di \"igdb\" e \"Twitch\"."
+				"description": "Online negozio di giochi che usa la database di \"igdb\" e \"Twitch\". Scritto in \"React\" con la addizione di \"Redux\". Come backend e stato usato \"back4app\"."
             }
 		]
 	},

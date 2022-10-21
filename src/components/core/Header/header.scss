@@ -91,15 +91,11 @@ header {
             position: relative;
             top: 0;
             width: 100%;
-            height: 22px;
+            height: 30px;
             margin-bottom: auto;
             font-family: "SpectralSC-light";
             text-align: center;
             transition-duration: $buttons-transition-duration;
-        
-            &:hover {
-                height: 60px;
-            }
             
             &:hover .navSectionTitle {
                 color: $hover-font-color;
@@ -165,6 +161,10 @@ header {
                     }
                 }   
             }
+        }
+
+        .navSectionHover {
+            height: 60px;
         }
     
         .navSectionM {

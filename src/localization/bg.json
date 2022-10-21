@@ -33,7 +33,7 @@
 			},
 			"age": {
 				"title": "Години",
-				"content": "`${getAge()}`"
+				"content": "getAge"
 			},
 			"location": {
 				"title": "Местоположение",
@@ -52,6 +52,9 @@
 				},
 				"discreteUse": { 
 					"title": "Дискретна употреба"
+				},
+				"testingFrameworks": { 
+					"title": "Фреймуърци за тестване"
 				},
 				"versionControlSystems": { 
 					"title": "Системи за контрол на версиите"
@@ -87,7 +90,7 @@
 				"img": "games_store",
                 "url": {
 					"title": "Посети",
-					"content": "https://react-course-project.kashchiev.com/"
+					"content": "https://react-course-project.kashchiev.com"
 				},
                 "repo": {
 					"title": "GitHub",

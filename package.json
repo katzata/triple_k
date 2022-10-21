@@ -4,7 +4,7 @@
   "description": "For development purpouses the cvSection2 content (DoomCV) can be obtained from the respective repository and should be placed in the dist folder with an absolute path.",
   "main": "index.js",
   "scripts": {
-    "test": "",
+    "test": "npx cypress open",
     "dev": "npx webpack serve --config ./webpack.dev.config.js",
     "build": "webpack --config ./webpack.prod.config.js"
   },

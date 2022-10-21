@@ -3,6 +3,7 @@ import mainPageTemplate from "./mainPage.hbs";
 import "./mainPage.scss";
 
 import { coreComponents } from "../../../utils/utils";
+import assets from "../../../assets/assets";
 
 /**
  * MainPage creates a new HTMLElement.
@@ -45,7 +46,7 @@ class MainPage extends BaseComponent {
             };
             this.currentLang.mainPage.topArticle.age.content = `${this.setAge()}`;
             
-            return { ...this.currentLang.mainPage, ...this.generateIcons() };
+            return { ...this.currentLang.mainPage };
         };
 
         this.distortionCanvas = null;
@@ -230,33 +231,14 @@ class MainPage extends BaseComponent {
      * @returns {Object} All generated stack icons grooped in sections.
      */
     generateIcons() {
-        const primaryStack = [
-            { title: "HTML", icon: "../../../assets/gfx/icons/stack/html.svg" },
-            { title: "CSS", icon: "../../../assets/gfx/icons/stack/css.svg" },
-            { title: "JavaScript", icon: "../../../assets/gfx/icons/stack/js.svg" },
-            { title: "webpack", icon: "../../../assets/gfx/icons/stack/webpack.svg" },
-            { title: "React", icon: "../../../assets/gfx/icons/stack/react.svg" },
-            { title: "Redux", icon: "../../../assets/gfx/icons/stack/redux.svg" },
-            { title: "PixiJS", icon: "../../../assets/gfx/icons/stack/pixi.svg" },
-            { title: "Node.js", icon: "../../../assets/gfx/icons/stack/nodejs.svg" }
-        ];
+        const { stackIcons } = assets;
+        const [primaryStack, discreteUse, testingFrameworks, versionControlSystems] = Object.keys(this.currentLang.mainPage.stackArticle.content).map(section => {
+            return stackIcons[section].map(el => ({
+                title: el.title, icon: `../../../assets/gfx/icons/stack/${el.icon}.svg`
+            }));
+        });
 
-        const discreteUse = [
-            { title: "Handlebars", icon: "../../../assets/gfx/icons/stack/handlebars.svg" },
-            { title: "Sass", icon: "../../../assets/gfx/icons/stack/sass.svg" },
-            { title: "Bootstrap", icon: "../../../assets/gfx/icons/stack/bootstrap.svg" },
-            { title: "TypeScript", icon: "../../../assets/gfx/icons/stack/ts.svg" },
-            { title: "Angular", icon: "../../../assets/gfx/icons/stack/angular.svg" },
-            { title: "Express", icon: "../../../assets/gfx/icons/stack/express.svg" },
-            { title: "PHP", icon: "../../../assets/gfx/icons/stack/php.svg" },
-            { title: "MySQL", icon: "../../../assets/gfx/icons/stack/mysql.svg" },
-        ];
-
-        const versionControlSystems = [
-            { title: "Git", icon: "../../../assets/gfx/icons/stack/git.svg" }
-        ];
-
-        return { primaryStack, discreteUse, versionControlSystems };
+        return { primaryStack, discreteUse, testingFrameworks, versionControlSystems };
     };
 
     /**

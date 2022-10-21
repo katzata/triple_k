@@ -31,7 +31,7 @@ class Header extends BaseComponent {
         this.templateData = () => {
             const { title, nav } = this.currentLang.header;
             const { navL, main, navR } = nav;
-            
+            navR.content.title = Object.keys(navR.content)[0];
             return { title, navL, main, navR, langs: this.langs };
         };
         this.subComponents = [
@@ -46,6 +46,13 @@ class Header extends BaseComponent {
          * The opacity is set to 1.
          */
         this.eventHandlers = [
+            { targetClass: ".navSections", event: "onmouseenter", handler: (e) => {
+                if (!e.target.className.includes("navSectionM")) e.target.classList.add("navSectionHover")
+            }},
+            { targetClass: ".navSections", event: "onmouseleave", handler: (e) => {
+                if (!e.target.className.includes("navSectionM")) e.target.classList.remove("navSectionHover")
+            }},
+
             { targetClass: ".pageNavLinks", event: "onmouseenter", handler: (e) => {this.navHovering = e.target} },
             { targetClass: ".pageNavLinks", event: "onmouseleave", handler: (e) => {
                 this.navHovering = null;
