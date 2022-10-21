@@ -51,7 +51,7 @@ root
             - [x] *Nav Github link connects (200), and has the propper attributes*
         - ***Nav main link***
             - [x] *Main link shows and hides appropriately across all pages*
-    </br>
+
     - ***Language bar***
         - ***Language bar content***
             - [x] *Language bar has the correct children and child count*
