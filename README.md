@@ -42,7 +42,7 @@ root
     - ***Header tests***
         - [x] *Header has the correct children and child count*
         - [x] *Header ghost title works*
-    </br>
+
     - ***Nav***
         - ***Nav content***
             - [x] *Nav has the correct children and child count*
