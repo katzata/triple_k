@@ -7,6 +7,8 @@ A personal website/portfolio written using webpack and vanilla JS.
 ### Dependencies
 - Handlebars 4.7.7 (currently installed globaly, therefore is unlisted in package.json).
 - cypress
+- chai
+- mocha
 
 #### Details
 - Further details about the functionality can be found within the components themselves.
