@@ -1,4 +1,4 @@
-describe("Projects page", () => {
+describe("Projects page tests", () => {
     before(() => {
         cy.get(".navLinks").contains("Projects").click({force: true});
         cy.wait(200);

@@ -3,7 +3,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="file:///c:\Users\Katzata\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.6.3\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
       
       
       
@@ -261,7 +261,7 @@ pre[data-line] .line-highlight[data-end]:after {
     </head>
     <body for="html-export">
       <div class="mume markdown-preview  ">
-      <h1 class="mume-header" id="kahschievcom"><a href="http://kahschiev.com">kahschiev.com</a></h1>
+      <div><h1 class="mume-header" id="kahschievcom"><a href="http://kahschiev.com">kahschiev.com</a></h1>
 
 <p>A personal website/portfolio written using webpack and vanilla JS.</p>
 <br>
@@ -293,44 +293,131 @@ pre[data-line] .line-highlight[data-end]:after {
 &#x2502;   &#x2514;&#x2500;&#x2500;&#x2500;localization
 &#x2502;   &#x2514;&#x2500;&#x2500;&#x2500;router
 </code></pre><p><br><br></p>
-<h3 class="mume-header" id="integration-tests">Integration tests</h3>
+<h2 class="mume-header" id="integration-tests">Integration tests</h2>
 
 <h4 class="mume-header" id="core">Core</h4>
 
-<h4 class="mume-header" id="header">Header</h4>
+<ul>
+<li><em><strong>#root tests</strong></em>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> #root has the correct children and child count<br>
+<br><br></li>
+</ul>
+</li>
+<li><strong>Header</strong>
+<ul>
+<li><em><strong>Header tests</strong></em>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Header has the correct children and child count</em></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Header ghost title works</em><br>
+<br></li>
+</ul>
+</li>
+<li><em><strong>Nav</strong></em>
+<ul>
+<li><em><strong>Nav content</strong></em>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Nav has the correct children and child count</em></li>
+</ul>
+</li>
+<li><em><strong>Nav links url change</strong></em>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Nav links change the url appropriately</em></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Nav Github link connects (200), and has the propper attributes</em></li>
+</ul>
+</li>
+<li><em><strong>Nav main link</strong></em>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Main link shows and hides appropriately across all pages</em><br>
+<br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em><strong>Language bar</strong></em>
+<ul>
+<li><em><strong>Language bar content</strong></em>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Language bar has the correct children and child count</em></li>
+</ul>
+</li>
+<li><em><strong>Language bar toggle</strong></em>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Language bar opens and closes correctly</em></li>
+</ul>
+</li>
+<li><em><strong>Language bar arrow</strong></em>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Language bar arrow switches points correctly</em></li>
+</ul>
+</li>
+<li><em><strong>Language change</strong></em>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Language changes correctly on all dynamic pages and core components EN -&gt; BG -&gt; IT -&gt; EN</em><br>
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Footer</strong>
+<ul>
+<li><em><strong>Footer tests</strong></em>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Footer has the correct children and child count</em><br>
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 class="mume-header" id="pages">Pages</h4>
 
 <ul>
-<li><strong>Nav</strong></li>
-<li>
+<li><strong>Main page</strong>
 <ul>
-<li>Nav content<br>
--- Nav has the correct children and child count<br>
-<br></li>
-</ul>
-</li>
-<li>
+<li><em><strong>Main page tests</strong></em>
 <ul>
-<li>Nav links url change<br>
--- Nav links change the url appropriately<br>
-<br></li>
-</ul>
-</li>
-<li>
-<ul>
-<li>Nav links Github link<br>
--- Nav link connects (200), and has the propper attributes<br>
-<br></li>
-</ul>
-</li>
-<li>
-<ul>
-<li>Nav main link<br>
--- Main link shows and hides appropriately<br>
-<br></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Main has the correct children and child count</em></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Main top section has the correct children</em></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Main stack section has the correct children</em><br>
+<br><br></li>
 </ul>
 </li>
 </ul>
-
+</li>
+<li><strong>Certificates page</strong>
+<ul>
+<li><strong>Certificates page has the correct children and child count</strong>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Title</em></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Section</em></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Rows all present</em></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Certificates all present, and are the correct ones</em></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Certificate zoom buttons all present</em><br>
+<br></li>
+</ul>
+</li>
+<li><strong>Big certificates</strong>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Big certificates all display correctly, are the correct ones, and have the correct pdfs</em><br>
+<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Projects page</strong>
+<ul>
+<li><strong>Projects page tests</strong>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" checked> <em>Projects page has the correct children, and links work propperly</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
       </div>
       
       
