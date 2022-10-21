@@ -6,6 +6,7 @@ A personal website/portfolio written using webpack and vanilla JS.
 
 ### Dependencies
 - Handlebars 4.7.7 (currently installed globaly, therefore is unlisted in package.json).
+- cypress
 
 #### Details
 - Further details about the functionality can be found within the components themselves.
@@ -30,6 +31,8 @@ root
 </br></br>
 
 ## Integration tests
+***Tests done with cypress***
+</br>
 
 #### Core
 - ***#root tests***
