@@ -34,14 +34,12 @@ root
 #### Core
 - ***#root tests***
     * [x] #root has the correct children and child count
-
-    </br>
+    </br></br>
 - **Header**
     - ***Header tests***
         * [x] *Header has the correct children and child count*
         * [x] *Header ghost title works*
-    
-    </br>
+    </br></br>
     - ***Nav***
         - *Nav content*
             * [x] *Nav has the correct children and child count*
@@ -52,8 +50,7 @@ root
 
         - *Nav main link*
             * [x] *Main link shows and hides appropriately across all pages*
-    
-    </br>
+    </br></br>
     - ***Language bar***
         - *Language bar content*
             * [x] *Language bar has the correct children and child count*
@@ -65,8 +62,7 @@ root
             
         - *Language change*
             * [x] *Language changes correctly on all dynamic pages and core components EN -> BG -> IT -> EN*
-
-    </br>
+    </br></br>
 - **Footer**
     - ***Footer tests***
         * [x] *Footer has the correct children and child count*
