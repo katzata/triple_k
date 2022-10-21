@@ -7,7 +7,7 @@
     "test": "npx cypress open",
     "dev": "npx webpack serve --config ./webpack.dev.config.js",
     "build": "webpack --config ./webpack.prod.config.js",
-    "quickpush": "git add . && git commit -m \"Minor changes commit\" && git push"
+    "push": "git add . && git commit -m \"Minor changes commit.\" && git push"
   },
   "repository": {
     "type": "git",
