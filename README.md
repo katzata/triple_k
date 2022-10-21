@@ -81,7 +81,7 @@ root
         - [x] *Rows all present*
         - [x] *Certificates all present, and are the correct ones*
         - [x] *Certificate zoom buttons all present*
-    </br>
+
     - **Big certificates**
         - [x] *Big certificates all display correctly, are the correct ones, and have the correct pdfs*
     </br></br>
