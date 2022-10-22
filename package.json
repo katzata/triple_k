@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "npx cypress open",
-    "unitTests": "mocha ./cypress/e2e/unit/indexSpec.js",
     "dev": "npx webpack serve --config ./webpack.dev.config.js",
     "build": "webpack --config ./webpack.prod.config.js",
-    "push": "git add . && git commit -m \"Minor changes commit.\" && git push"
+    "push": "git add . && git commit -m \"Minor changes commit.\" && git push",
+    "pushUnitTests": "git add . && git commit -m \"Added more unit tests.\" && git push",
+    "pushIntTests": "git add . && git commit -m \"Added more integration tests.\" && git push"
   },
   "repository": {
     "type": "git",
