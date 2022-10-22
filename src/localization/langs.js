@@ -3,7 +3,6 @@ import langBg from "./bg.json";
 import langIt from "./it.json";
 
 import { langTransition } from "../utils/utils";
-import { route } from "../router/router";
 
 /**
  * A list of available languages (json files).
@@ -50,14 +49,15 @@ export const checkLanguages = () => {
  * @see router.js
  * @see utils.js
  * @param {Event} e The click event from the language buttons.
+ * @param {Function} callback The route function will be passed in order to execute the language transition function.
  * @see LanguageBar
  */
-export const changeLanguage = (e) => {
+export const changeLanguage = (e, routeCallback) => {
     const lang = e.target.textContent.toLocaleLowerCase();
 
     if (localStorage.lang !== lang) {
         localStorage.setItem("lang", lang);
-        route(langTransition);
+        routeCallback(langTransition);
     };
 };
 

@@ -16,12 +16,4 @@ const routes = {
     "/404": () => new NotFound()
 };
 
-// const routes = {
-//     "/": () => new CertificatesPage(),
-//     "/certificates": () => new MainPage(),
-//     "/interactivecv": () => new InteractiveCv(),
-//     "/projects": () => new Projects(),
-//     "/404": () => new NotFound()
-// };
-
 export default routes;

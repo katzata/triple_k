@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx cypress open",
+    "unitTests": "mocha ./cypress/e2e/unit/indexSpec.js",
     "dev": "npx webpack serve --config ./webpack.dev.config.js",
     "build": "webpack --config ./webpack.prod.config.js",
     "push": "git add . && git commit -m \"Minor changes commit.\" && git push"
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@babel/core": "^7.19.0",
     "@babel/preset-env": "^7.19.0",
+    "@cypress/webpack-preprocessor": "^5.15.0",
     "babel-jest": "^29.2.0",
     "babel-loader": "^8.2.5",
     "chai": "^4.3.6",

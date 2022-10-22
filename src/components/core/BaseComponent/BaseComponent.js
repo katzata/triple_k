@@ -1,4 +1,4 @@
-import {checkLanguages} from "../../../localization/langs";
+import { checkLanguages } from "../../../localization/langs";
 
 /**
  * Creates a component (HTMLElement) that is ready to append to the dom.
@@ -60,7 +60,7 @@ class BaseComponent {
                 };
             };
 
-            if (this.isAttached() !== null) window.requestAnimationFrame(loop);
+            if (this.isAttached()) window.requestAnimationFrame(loop);
         };
 
         loop();
@@ -74,12 +74,12 @@ class BaseComponent {
      */
     addSubComponents = (components) => {
         for (const component of components) {
-            const rawComponent = component() || component;
+            const rawComponent = component instanceof Function ? component() : component;
             
             if (rawComponent instanceof Array) {
                 rawComponent.map(el => this.component.appendChild(el))
             } else {
-                this.component.appendChild(component() || component);
+                this.component.appendChild(component instanceof Function ? component() : component);
             };
         };
     };
@@ -87,7 +87,7 @@ class BaseComponent {
     /**
      * Adds a child component to elements already appended to the main component (this.component), querying the component itself.
      * Runs wehn the "render" function is called.
-     * @param {Array} components Can take a nested (2d) array of components as functions or HTMLElements.
+     * @param {Array} components Can take a nested (2d) array ["target", component/component()] components as functions or HTMLElements.
      */
     addChildSubComponents = (components) => {
         for (const [target, component] of components) {
@@ -143,7 +143,7 @@ class BaseComponent {
 
     /**
      * Iterates over the provided handlers and adds them to the specified components.
-     * @param {Array} eventHandlers An array of objects consisting of { targetId or targetClass, event, handler }
+     * @param {Array} eventHandlers An array of objects consisting of { "targetId" or "targetClass", "event", handler }
      * @param {String} eventHandler.targetId The target id.
      * @param {String} eventHandler.targetClass The target className.
      * @param {String} eventHandler.event The event name.
@@ -153,7 +153,7 @@ class BaseComponent {
         for (const { targetId, targetClass, event, handler } of eventHandlers) {
             const selector = targetId ? "querySelector" : "querySelectorAll";
             const selected = this.component[selector](`${targetId || targetClass}`);
-
+           
             if (selected instanceof HTMLElement) {
                 selected[event] = handler;
             } else {
