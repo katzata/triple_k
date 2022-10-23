@@ -40,65 +40,75 @@ export default function baseComponentSpec() {
                 cy.wrap(body).find("div#test").should("exist");
                 cy.wrap(body).find("div#test").should("not.exist");
             });
-    
+
             describe("Add sub components method", () => {
                 const baseComponent = new BaseComponent();
-                baseComponent.component = baseComponent.createElement(...testElement("x"));
+                beforeEach(() => baseComponent.component = baseComponent.createElement("main"));
 
                 it("Add function", () => {
-                    baseComponent.addSubComponents([() => baseComponent.createElement(...testElement("y"))]);
-                    expect(baseComponent.component).descendants("div.test-y");
+                    baseComponent.addSubComponents([() => baseComponent.createElement(...testElement("x"))]);
+                    expect(baseComponent.component).descendants("div.test-x");
                 });
 
                 it("Add html element", () => {
-                    baseComponent.addSubComponents([baseComponent.createElement(...testElement("z"))]);
-                    expect(baseComponent.component).descendants("div.test-z");
+                    baseComponent.addSubComponents([baseComponent.createElement(...testElement("x"))]);
+                    expect(baseComponent.component).descendants("div.test-x");
                 });
                 
-                baseComponent.component.replaceChildren();
-
                 it("Add multiple mixed elements (function and html element)", () => {
                     baseComponent.addSubComponents([
-                        () => baseComponent.createElement(...testElement("y")),
-                        baseComponent.createElement(...testElement("z"))
+                        () => baseComponent.createElement(...testElement("x")),
+                        baseComponent.createElement(...testElement("y"))
                     ]);
 
+                    expect(baseComponent.component).descendants("div.test-x");
                     expect(baseComponent.component).descendants("div.test-y");
-                    expect(baseComponent.component).descendants("div.test-z");
                 });
 
                 describe("Add invalid values", () => {
-                    it("Empty array returns undefined (method does not run)", () => {
-                        expect(baseComponent.addSubComponents([])).eq(undefined);
-                    });
+                    const values = [
+                        ["x", TypeError],
+                        [0, TypeError],
+                        [{}, TypeError],
+                        [[], undefined]
+                    ];
 
-                    it("Add an empty array returns undefined (method does not run)", () => {
-                        expect(baseComponent.addSubComponents([[]])).eq(undefined);
-                    });
-
-                    it("Add Number returns TypeError", () => {
-                        expect(baseComponent.addSubComponents(["asd"])).instanceof(TypeError);
-                    });
-
-                    it("Add String returns TypeError", () => {
-                        expect(baseComponent.addSubComponents([1])).instanceof(TypeError);
-                    });
-
-                    it("Add Object returns TypeError", () => {
-                        expect(baseComponent.addSubComponents([1])).instanceof(TypeError);
-                    });
+                    invalidValues(baseComponent.addSubComponents, values);
                 });
             });
 
-            it("Add child sub components method adds element to a child node as expected", () => {
+            describe("Add child sub components method", () => {
                 const baseComponent = new BaseComponent();
+                beforeEach(() => baseComponent.component = baseComponent.createElement("main", {}, [baseComponent.createElement(...testElement("x"))]));
+                
+                it("Add child sub component", () => {
+                    baseComponent.addChildSubComponents([
+                        [".test-x", baseComponent.createElement(...testElement("y"))]
+                    ]);
+    
+                    expect(baseComponent.component).descendants("div.test-x>.test-y");
+                });
 
-                baseComponent.component = baseComponent.createElement(...testElement("x"), [baseComponent.createElement(...testElement("y"))]);
-                baseComponent.addChildSubComponents([
-                    [".test-y", baseComponent.createElement(...testElement("z"))]
-                ]);
+                it("Add multiple child sub component", () => {
+                    baseComponent.addChildSubComponents([
+                        [".test-x", baseComponent.createElement(...testElement("y"))],
+                        [".test-y", baseComponent.createElement(...testElement("z"))]
+                    ]);
+    
+                    expect(baseComponent.component)
+                        .descendants("div.test-x>.test-y")
+                        .descendants("div.test-z");
+                });
 
-                expect(baseComponent.component).descendants("div.test-y>.test-z");
+                describe("Add invalid values", () => {
+                    const values = [
+                        ["x", undefined],
+                        [0, TypeError],
+                        [{}, TypeError],
+                        [[], TypeError]
+                    ];
+                    invalidValues(baseComponent.addChildSubComponents, values);
+                });
             });
     
             describe("Create element method", () => {
@@ -168,4 +178,22 @@ export default function baseComponentSpec() {
             });
         });
     });
+};
+
+function invalidValues(funcReference, values) {
+    it("No values returns undefined (method does not run)", () => {
+        expect(funcReference([])).eq(undefined);
+    });
+
+    for (const [value, expected] of values) {
+        const titleValue = expected ? expected.prototype.name : expected;
+
+        it(`Add ${value.constructor.name} returns ${titleValue}`, () => {
+            if (expected) {
+                expect(funcReference([value])).instanceof(expected);
+            } else {
+                expect(funcReference([value])).eq(expected);
+            };
+        });
+    };
 };

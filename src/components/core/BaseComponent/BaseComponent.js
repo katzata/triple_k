@@ -73,19 +73,18 @@ class BaseComponent {
      * @param {Array} components Can be a nested (2d) array of components as functions or HTMLElements.
      */
     addSubComponents = (components) => {
-        for (const component of components) {
-            const rawComponent = component instanceof Function ? component() : component;
+        try {
+            for (const component of components) {
+                const rawComponent = component instanceof Function ? component() : component;
             
-            try {
                 if (rawComponent instanceof Array) {
                     rawComponent.map(el => this.component.appendChild(el))
                 } else {
                     this.component.appendChild(component instanceof Function ? component() : component);
                 };
-            } catch (err) {
-                return err;
-                // return { type: err.name, message: err.message};
             };
+        } catch (err) {
+            return err;
         };
     };
 
@@ -95,17 +94,21 @@ class BaseComponent {
      * @param {Array} components Can take a nested (2d) array ["target", component/component()] components as functions or HTMLElements.
      */
     addChildSubComponents = (components) => {
-        for (const [target, component] of components) {
-            const selector = target.charAt(0) !== "." ? "querySelector" : "querySelectorAll";
-            const subChild = this.component[selector](target);
-
-            if (subChild) {
-                if (selector === "querySelector") {
-                    subChild.appendChild(component);
-                } else {
-                    Array.from(subChild).forEach(el => el.appendChild(component));
+        try {
+            for (const [target, component] of components) {
+                const selector = target.charAt(0) !== "." ? "querySelector" : "querySelectorAll";
+                const subChild = this.component[selector](target);
+    
+                if (subChild) {
+                    if (selector === "querySelector") {
+                        subChild.appendChild(component);
+                    } else {
+                        Array.from(subChild).forEach(el => el.appendChild(component));
+                    };
                 };
             };
+        } catch (err) {
+            return err;
         };
     };
 
