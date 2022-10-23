@@ -3,23 +3,26 @@ import { expectedProps, expectedMethods, testElement } from "./mockup";
 
 export default function baseComponentSpec() {
     describe("Base component", function () {
-        it("All properties and methods present, initial values as expected", function () {
+        describe("All properties and methods present, initial values as expected", function () {
             const baseComponent = new BaseComponent();
 
             for (const [prop, value] of expectedProps) {
-                expect(baseComponent[prop]).to.eq(value);
+                it(`this.${prop} = ${value}`, function () {
+                    expect(baseComponent[prop]).to.eq(value);
+                });
             };
 
             for (const method of expectedMethods.content) {
-                expect(baseComponent[method]).to.be.instanceof(expectedMethods.type);
+                it(`this.${method} is a function`, function () {
+                    expect(baseComponent[method]).to.be.instanceof(expectedMethods.type);
+                });
+                
+                if (method === "isAttached") {
+                    it(`this.${method} returns null`, function () {
+                        expect(baseComponent[method]()).eq(null);
+                    });
+                };
             };
-        });
-
-        describe("Individual property tests", () => {
-            const baseComponent = new BaseComponent();
-
-
-
         });
 
         describe("Individual method tests", () => {
@@ -38,17 +41,53 @@ export default function baseComponentSpec() {
                 cy.wrap(body).find("div#test").should("not.exist");
             });
     
-            it("Add sub components method adds element as expected", () => {
+            describe("Add sub components method", () => {
                 const baseComponent = new BaseComponent();
-
                 baseComponent.component = baseComponent.createElement(...testElement("x"));
-                baseComponent.addSubComponents([
-                    () => baseComponent.createElement(...testElement("y")),
-                    baseComponent.createElement(...testElement("z"))
-                ]);
+
+                it("Add function", () => {
+                    baseComponent.addSubComponents([() => baseComponent.createElement(...testElement("y"))]);
+                    expect(baseComponent.component).descendants("div.test-y");
+                });
+
+                it("Add html element", () => {
+                    baseComponent.addSubComponents([baseComponent.createElement(...testElement("z"))]);
+                    expect(baseComponent.component).descendants("div.test-z");
+                });
                 
-                expect(baseComponent.component).descendants("div.test-y");
-                expect(baseComponent.component).descendants("div.test-z");
+                baseComponent.component.replaceChildren();
+
+                it("Add multiple mixed elements (function and html element)", () => {
+                    baseComponent.addSubComponents([
+                        () => baseComponent.createElement(...testElement("y")),
+                        baseComponent.createElement(...testElement("z"))
+                    ]);
+
+                    expect(baseComponent.component).descendants("div.test-y");
+                    expect(baseComponent.component).descendants("div.test-z");
+                });
+
+                describe("Add invalid values", () => {
+                    it("Empty array returns undefined (method does not run)", () => {
+                        expect(baseComponent.addSubComponents([])).eq(undefined);
+                    });
+
+                    it("Add an empty array returns undefined (method does not run)", () => {
+                        expect(baseComponent.addSubComponents([[]])).eq(undefined);
+                    });
+
+                    it("Add Number returns TypeError", () => {
+                        expect(baseComponent.addSubComponents(["asd"])).instanceof(TypeError);
+                    });
+
+                    it("Add String returns TypeError", () => {
+                        expect(baseComponent.addSubComponents([1])).instanceof(TypeError);
+                    });
+
+                    it("Add Object returns TypeError", () => {
+                        expect(baseComponent.addSubComponents([1])).instanceof(TypeError);
+                    });
+                });
             });
 
             it("Add child sub components method adds element to a child node as expected", () => {

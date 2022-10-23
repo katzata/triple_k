@@ -37,7 +37,7 @@ class BaseComponent {
          * First checks if the component id is set (means the component has all necessary data), and then thecks if its present in the dom.
          * @returns {boolean}
          */
-        this.isAttached = () => this.component.id && document.getElementById(`${this.component.id}`);
+        this.isAttached = () => this.component && this.component.id && document.getElementById(`${this.component.id}`);
     };
 
     /**
@@ -76,10 +76,15 @@ class BaseComponent {
         for (const component of components) {
             const rawComponent = component instanceof Function ? component() : component;
             
-            if (rawComponent instanceof Array) {
-                rawComponent.map(el => this.component.appendChild(el))
-            } else {
-                this.component.appendChild(component instanceof Function ? component() : component);
+            try {
+                if (rawComponent instanceof Array) {
+                    rawComponent.map(el => this.component.appendChild(el))
+                } else {
+                    this.component.appendChild(component instanceof Function ? component() : component);
+                };
+            } catch (err) {
+                return err;
+                // return { type: err.name, message: err.message};
             };
         };
     };
