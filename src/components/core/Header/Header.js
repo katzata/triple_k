@@ -81,7 +81,7 @@ class Header extends BaseComponent {
     animateGhostTitle = () => {
         const ghostTitle = this.component.querySelector("#headerGhostTitle");
         const { alpha } = coreComponents.mainCanvas.humanShapeAnimation;
-
+        
         if (ghostTitle) {
             const offset = ghostTitle.offsetHeight - (12 - 15 * alpha);
             const posX = super.random(offset);

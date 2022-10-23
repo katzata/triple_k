@@ -59,8 +59,8 @@ class BaseComponent {
                     for (const animation of animations) animation();
                 };
             };
-
-            if (this.isAttached()) window.requestAnimationFrame(loop);
+            
+            if (this.isAttached() !== null) window.requestAnimationFrame(loop);
         };
 
         loop();
@@ -120,23 +120,27 @@ class BaseComponent {
      * @returns {HTMLElement} The newly created html element.
      */
     createElement(type, options, children) {
-        const element = document.createElement(type);
+        try {
+            const element = document.createElement(type);
 
-        if (options) {
-            Object.entries(options).forEach(([attr, value]) => element[attr] = value);
+            if (options) {
+                Object.entries(options).forEach(([attr, value]) => element[attr] = value);
+            };
+
+            if (children) {
+                children.forEach((child) => {
+                    if (child instanceof Array) {
+                        child.forEach(el => element.appendChild(el));
+                    } else {
+                        element.appendChild(child)
+                    };
+                });
+            };
+
+            return element;
+        } catch (err) {
+            return err;
         };
-
-        if (children) {
-            children.forEach((child) => {
-                if (child instanceof Array) {
-                    child.forEach(el => element.appendChild(el));
-                } else {
-                    element.appendChild(child)
-                };
-            });
-        };
-
-        return element;
     };
 
     /**
@@ -158,19 +162,23 @@ class BaseComponent {
      * @param {Function} eventHandler.handler A function reference.
      */
     addEventHandlers(eventHandlers) {
-        for (const { targetId, targetClass, event, handler } of eventHandlers) {
-            const selector = targetId ? "querySelector" : "querySelectorAll";
-            const selected = this.component[selector](`${targetId || targetClass}`);
-           
-            if (selected instanceof HTMLElement) {
-                selected[event] = handler;
-            } else {
-                const items = Array.from(selected);
-
-                for (let i = 0; i < items.length; i++) {
-                    items[i][event] = (e) => handler(e, i);
+        try {
+            for (const { targetId, targetClass, event, handler } of eventHandlers) {
+                const selector = targetId ? "querySelector" : "querySelectorAll";
+                const selected = this.component[selector](`${targetId || targetClass}`);
+               
+                if (selected instanceof HTMLElement) {
+                    selected[event] = handler;
+                } else {
+                    const items = Array.from(selected);
+    
+                    for (let i = 0; i < items.length; i++) {
+                        if ((targetId || targetClass) && event && handler) items[i][event] = (e) => handler(e, i);
+                    };
                 };
             };
+        } catch (err) {
+            return err;
         };
     };
 
@@ -189,7 +197,7 @@ class BaseComponent {
     render() {
         this.currentLang = checkLanguages();
 
-        if (this.component.id !== this.id) this.component.id = this.id;
+        if (this.component && this.component.id !== this.id) this.component.id = this.id;
         if (this.template !== null) this.component.innerHTML = this.template(this.templateData ? this.templateData() : null);
         if (this.subComponents !== null) this.addSubComponents(this.subComponents);
         if (this.childSubComponents !== null) this.addChildSubComponents(this.childSubComponents);

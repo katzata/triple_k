@@ -7,6 +7,13 @@ module.exports = defineConfig({
     },
     viewportWidth: 1920,
     viewportHeight: 1080,
-    nodeVersion: "system"
-  }
+    nodeVersion: "system",
+  },
+  component: {
+    devServer: {
+      webpackConfig: require('./webpack.dev.config.js'),
+      bundler: "webpack",
+    },
+    specPattern: "**/*.cy.js",
+  },
 });
