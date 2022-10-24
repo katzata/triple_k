@@ -2,12 +2,12 @@
 
 function runTests(type) {
     if (type === "all" || type.includes("baseComponent")) {
-        const baseComponentSpec = require("./core/baseComponent/baseComponentSpec.cy");
+        const {baseComponentSpec} = require("./core/baseComponent/baseComponentSpec.cy");
         baseComponentSpec();
     };
 
     if (type === "all" || type.includes("header")) {
-        const headerSpec = require("./core/header/headerSpec.cy");
+        const { headerSpec } = require("./core/header/headerSpec.cy");
         headerSpec();
     };
     

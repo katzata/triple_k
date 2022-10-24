@@ -16,7 +16,7 @@ describe("Projects page tests", () => {
             
             cy.wrap($el).find(".linksContainer")
                 .should("exist")
-                .should("have.css", "transform", `matrix(1, 0, 0, 1, 102.4, 0)`)
+                .should("not.have.css", "transform", `matrix(1, 0, 0, 1, 0, 0)`)
                 .children()
                 .should("have.length", 2);
             
@@ -37,7 +37,7 @@ describe("Projects page tests", () => {
 
             cy.wrap($el).find(".description")
                 .should("contain", projects[$idx].description)
-                .should("have.css", "top", `${height - 2}px`);
+                .should("have.css", "top", `${Math.ceil(height - 2)}px`);
         });
     });
 });

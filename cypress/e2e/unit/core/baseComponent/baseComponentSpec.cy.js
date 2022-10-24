@@ -1,7 +1,7 @@
 import BaseComponent from "../../../../../src/components/core/BaseComponent/BaseComponent";
 import { expectedProps, expectedMethods, testElement } from "./mockup";
 
-export default function baseComponentSpec() {
+export function baseComponentSpec() {
     return (
         describe("Base component", function () {
             describe("All properties and methods present, initial values as expected", function () {

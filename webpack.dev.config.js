@@ -1,15 +1,15 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-	entry: './src/index.js',
+	entry: "./src/index.js",
 	output: {
-		filename: 'index.js',
-		path: path.resolve(__dirname, 'dist'),
+		filename: "index.js",
+		path: path.resolve(__dirname, "dist"),
 	},
-	mode: 'development',
+	mode: "development",
 	devServer: {
 		static: {
-			directory: path.join(__dirname, 'src'),
+			directory: path.join(__dirname, "src"),
 		},
 		compress: true,
 		hot: true,
@@ -22,7 +22,7 @@ module.exports = {
 		rules: [
 			{
 				test: /\.(jpe?g|svg|png|gif|ico|eot|ttf|woff2?)(\?v=\d+\.\d+\.\d+)?$/i,
-				type: 'asset/resource',
+				type: "asset/resource",
 			},
 			{
 				test: /\.(css|s[ac]ss)$/,
@@ -33,10 +33,11 @@ module.exports = {
 			{
 				test: /\.(js)$/,
 				exclude: /node_modules/,
-				use: ['babel-loader']
+				use: ["babel-loader"]
 			},
 			{ 
-				test: /\.(handlebars|hbs)$/, loader: "handlebars-loader"
+				test: /\.(handlebars|hbs)$/,
+				loader: "handlebars-loader"
 			}
 		]
 	}

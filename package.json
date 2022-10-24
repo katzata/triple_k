@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx cypress open",
+    "unitTests": "mocha -r jsdom-global/register --require ignore-styles ./cypress/e2e/unit/indexSpec.js",
     "dev": "npx webpack serve --config ./webpack.dev.config.js",
     "build": "webpack --config ./webpack.prod.config.js",
     "push": "git add . && git commit -m \"Minor changes commit.\" && git push",
@@ -32,9 +33,13 @@
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.0.0",
     "cypress": "^10.10.0",
+    "esm": "^3.2.25",
     "html-webpack-plugin": "^5.5.0",
+    "ignore-styles": "^5.0.1",
+    "jsdom": "^20.0.1",
     "mini-css-extract-plugin": "^2.6.1",
     "mocha": "^8.4.0",
+    "mocha-jsdom": "^2.0.0",
     "mocha-loader": "^5.1.5",
     "sass": "^1.54.9",
     "sass-loader": "^13.0.2",
@@ -47,6 +52,7 @@
   },
   "dependencies": {
     "file-loader": "^6.2.0",
-    "handlebars-loader": "^1.7.2"
+    "handlebars-loader": "^1.7.2",
+    "jsdom-global": "^3.0.2"
   }
 }
