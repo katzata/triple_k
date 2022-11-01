@@ -37,9 +37,10 @@ describe("Nav links url change", () => {
 
     function changePage(link) {
         const { origin } = window.location
+        console.log(origin, link);
         cy.get(`.navLinks[href="${link}"]`).click({force: true});
         cy.url().should("eq", `${origin + link.toLocaleLowerCase()}`);
-        cy.wait(1620);
+        cy.wait(1600);
     };
 });
 
