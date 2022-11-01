@@ -33,11 +33,17 @@ describe("Certificates page has the correct children and child count", () => {
 
         for (let i = 0; i < currentCertificates.length; i++) {
             for (let j = 0; j < currentCertificates[i].length; j++) {
-                cy.get(`.thumb_f_container${i}-${j}`).should("have.attr", "data-title", currentCertificates[i][j]);
-                cy.get(`.thumb_f_container${i}-${j} .thumbWrapper .thumb_f`).should("have.attr", "src", `../../../assets/certificates/img/${currentCertificates[i][j]}_f.png`);
+                cy.get(`.certificateContainer${i}-${j}>.burntPage_f`).should("have.attr", "data-disolve", "0");
+                cy.get(`.certificateContainer${i}-${j}>.burntPage_f>.thumb_f`)
+                    .should("have.attr", "data-file", currentCertificates[i][j]);
+                cy.get(`.certificateContainer${i}-${j}>.burntPage_f>.thumb_f>#${currentCertificates[i][j]}_f`)
+                    .should("have.attr", "href", `../../../../assets/certificates/img/${currentCertificates[i][j]}_f.png`);
                 
-                cy.get(`.thumb_b_container${i}-${j}`).should("have.attr", "data-title", currentCertificates[i][j]);
-                cy.get(`.thumb_b_container${i}-${j} .thumbWrapper .thumb_b`).should("have.attr", "src", `../../../assets/certificates/img/${currentCertificates[i][j]}_b.png`);
+                    cy.get(`.certificateContainer${i}-${j}>.burntPage_b`).should("have.attr", "data-disolve", "0");
+                    cy.get(`.certificateContainer${i}-${j}>.burntPage_b>.thumb_b`)
+                        .should("have.attr", "data-file", currentCertificates[i][j]);
+                    cy.get(`.certificateContainer${i}-${j}>.burntPage_b>.thumb_b>#${currentCertificates[i][j]}_b`)
+                        .should("have.attr", "href", `../../../../assets/certificates/img/${currentCertificates[i][j]}_b.png`);
             };
         };
     });
@@ -66,20 +72,22 @@ describe("Big certificates", () => {
             cy.wrap($el).find(".certificateContainer.fixed")
                 .should("have.css", "transform", "matrix(1, 0, 0, 1, 0, 0)")
                 .should("have.css", "position", "fixed")
-                .should("have.css", "left", "-24px")
+                .should("have.css", "left", "0px")
                 .should("have.css", "top", "66px")
                 .should("not.have.css", "height", "320px")
                 .should("have.css", "flex-direction", "row-reverse")
-                .should("have.css", "z-index", "100");
+                .should("have.css", "z-index", "200");
 
             cy.wrap($el).find(".thumb_f")
                 .should("be.visible")
-                .should("have.attr", "src", `../../../assets/certificates/img/${currentCertificates[$idx]}_f.png`)
-                .should("not.have.css", "height", "320px");
+                .should("not.have.css", "height", "320px")
+                .find(`#${currentCertificates[$idx]}_f`)
+                .should("have.attr", "href", `../../../../assets/certificates/img/${currentCertificates[$idx]}_f.png`)
             cy.wrap($el).find(".thumb_b")
                 .should("be.visible")
-                .should("have.attr", "src", `../../../assets/certificates/img/${currentCertificates[$idx]}_b.png`)
-                .should("not.have.css", "height", "320px");
+                .should("not.have.css", "height", "320px")
+                .find(`#${currentCertificates[$idx]}_b`)
+                .should("have.attr", "href", `../../../../assets/certificates/img/${currentCertificates[$idx]}_b.png`)
             
             // !!! WORKS !!!
             // Enable if PDFs are touched in any way shape or form !!!

@@ -23,11 +23,23 @@ describe("Language bar", () => {
         it("Language bar arrow switches points correctly", () => {
             cy.get("#languageBar #langsToggle").trigger("click");
             cy.wait(200);
-            cy.get("#langsToggle svg #toggleArrow").should("have.attr", "points", "13 13 80 150 13 287");
+            cy.get("#langsToggle svg #toggleArrow")
+                .should("have.attr", "points")
+                .should(($points) => {
+                    expect($points).to.satisfy(function testPoints() {
+                        return $points === "13 13 80 150 13 287" || $points === "13,13 80,150 13,287";
+                    });
+                });
     
             cy.get("#languageBar #langsToggle").trigger("click");
             cy.wait(200);
-            cy.get("#langsToggle svg #toggleArrow").should("have.attr", "points", "80 13 13 150 80 287");
+            cy.get("#langsToggle svg #toggleArrow")
+                .should("have.attr", "points")
+                .should(($points) => {
+                    expect($points).to.satisfy(function testPoints() {
+                        return $points === "80 13 13 150 80 287" || $points === "80,13 13,150 80,287";
+                    });
+                });
         });
     });
 

@@ -4,18 +4,16 @@
 
 .burntPage {
     position: absolute;
-    width: 222px;
-    height: 320px;
+    // width: auto;
+    // height: 320px;
     display: flex;
     z-index: 3;
-    box-shadow: 0 0 2px 1px rgb(255, 255, 255);
 
     .thumb_b,
     .thumb_f {
         width: 100%;
         height: 100%;
         pointer-events: none;
-        shape-rendering: crispEdges;
 
         .svgLink {
             pointer-events: all;
@@ -24,8 +22,10 @@
         
         .unitology {
             font-family: "Unitology";
-            color: rgb(110, 0, 0);
-            fill: rgb(110, 0, 0);
+            // color: rgb(110, 0, 0);
+            // fill: rgb(110, 0, 0);
+            color: rgb(172, 35, 10);
+            fill: rgb(172, 35, 10);
         }
         
         .anchorMiddle {
@@ -38,6 +38,25 @@
 
         .light {
             font-weight: 200;
+        }
+
+        .invisible {
+            display: none;
+        }
+
+        #textShadow {
+            width: 120%;
+            height: 120%;
+        }
+
+        .maskNormalImg,
+        .maskInvertedImg {
+            visibility: hidden;
+        }
+
+        .maskNormalImg0,
+        .maskInvertedImg0 {
+            visibility: visible;
         }
     }
 }

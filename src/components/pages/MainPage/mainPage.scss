@@ -5,6 +5,7 @@
     max-width: 1400px;
     margin: auto;
     color: rgba(255, 255, 255, .95);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 1);
     
     h2 {
         font-family: "SpectralSC-Regular";
@@ -21,15 +22,16 @@
             display: flex;
 
             #mainInfoSection {
-                margin: 10px 5vw 10px auto;
+                margin: 12px 5vw 10px auto;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
 
                 .infoRow {
+                    font-size: 17px;
+
                     .infoTitle {
-                        margin-bottom: 1px;
-                        font-size: 16px;
+                        margin-bottom: 2px;
                     }
                     
                     .infoContent {
@@ -101,7 +103,7 @@
                 .stackIcon {
                     height: 24px;
                     max-width: 24px;
-                    margin: 14px 28px 14px 0;
+                    margin: 14px 14px 14px 14px;
                     animation-name: stackIconBlink;
                     animation-iteration-count: infinite;
                     filter: drop-shadow(0px 0px 6px rgba(0, 0, 0, 1));
@@ -115,7 +117,6 @@
             top: 0;
             width: 36px;
             height: 36px;
-            // display: none;
 
             img {
                 position: absolute;
@@ -162,6 +163,7 @@
 
     #mainPage #stackSection .stackRow h4 {
         padding: 0;
+        margin-bottom: 8px;
         font-size: 18px;
         text-align: center;
     }
@@ -173,6 +175,7 @@
 
     #mainPage #stackSection .stackRow .stackIconsContainer {
         // padding: 0;
+        padding-right: 8vw;
         width: auto;
     }
 }

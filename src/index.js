@@ -1,5 +1,5 @@
 import "./index.scss";
-import "./utils/handlebarsHelpers";
+import "./handlebars/handlebarsHelpers";
 
 import { pageTransition, setCoreComponents } from "./utils/utils";
 import { route } from "./router/router";

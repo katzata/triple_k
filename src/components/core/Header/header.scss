@@ -146,6 +146,7 @@ header {
                     box-shadow: $button-box-shadow;
                     transition-duration: $buttons-transition-duration;
                     border-radius: 4px;
+                    z-index: -2;
                     
                     &:visited {
                         color: $base-nav-font-color;

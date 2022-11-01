@@ -1,0 +1,81 @@
+<svg class="thumb{{certificateClass image}}" viewbox="0 0 780 1122" data-file="{{file}}">
+    <filter id="burntPageFilter">
+        <feColorMatrix
+            in="SourceGraphic"
+            type="matrix"
+            values="0.8 0 0 0 0
+                    0 0.8 0 0 0
+                    0 0 0.8 0 0
+                    0 0 0 1 0"
+        />
+    </filter>
+
+    <filter id="metatronBigFilter">
+        <feColorMatrix
+            in="SourceGraphic"
+            type="matrix"
+            values="0.3 0 0 0 0
+                    0 0.3 0 0 0
+                    0 0 0.3 0 0
+                    0 0 0 0.1 0"
+        />
+    </filter>
+
+    <filter id="textShadow">
+        <feDropShadow dx="0" dy="0" stdDeviation="0.2" flood-color="rgb(0, 0, 0)" />
+    </filter>
+
+    <image id="metatron" x="0" y="0" href="../../../../assets/gfx/img/page.png" width="780" height="1122" filter="url(#burntPageFilter)"/>
+    
+    <g stroke="rgba(100, 0, 0, .3)" stroke-width="2px">
+        {{#if isFront}}
+            <image x="42" y="213" href="../../../../assets/gfx/img/metatron.png" width="696" height="695" filter="url(#metatronBigFilter)"/>
+
+            <image x="312" y="40" href="../../../../assets/gfx/img/metatron.png" width="56" height="56"/>
+            <text x="378" y="62" font-size="18px" class="unitology">Software</text>
+            <text x="378" y="84" font-size="18px" class="unitology">University</text>
+
+            <text x="390" y="300" font-size="63px" class="unitology anchorMiddle bold">CERTIFICATE</text>
+            <text x="390" y="474" font-size="12px" class="unitology anchorMiddle">This certificate is issued by Software University to acknowledge that</text>
+            <text x="390" y="550" font-size="34px" class="unitology anchorMiddle bold">Kamen Kamenov Kashchiev</text>
+            <text x="390" y="611" class="unitology anchorMiddle">has successfully completed a course</text>
+
+            <text x="390" y="676" font-size="30px" class="unitology anchorMiddle bold">{{title}}</text>
+            <text x="390" y="732" font-size="27px" class="unitology anchorMiddle">
+                <tspan font-size="15px">with</tspan>
+                {{grade}}
+            </text>
+
+            <text x="555" y="1018" font-size="11px" class="unitology bold">Svetlin Nakov</text>
+            <text x="555" y="1040" font-size="7px" class="unitology">Manager Training and Inspiration</text>
+        {{else}}
+
+            <text x="390" y="116" font-size="24px" class="unitology anchorMiddle title">COURSE CURRICULUM:</text>
+            
+            <text x="66" y="200" font-size="20px" class="unitology light">Topic</text>
+            <text x="646" y="200" font-size="20px" class="unitology light">Hours</text>
+
+            <line x1="66 " y1="214" x2="727" y2="214" stroke="rgb(110, 0, 0)"/>
+
+            {{#each program}}
+                <text x="68" y="{{offsetTextY 255 @index 43}}" font-size="18px" class="unitology">{{this.topic}}</text>
+                <text x="684" y="{{offsetTextY 255 @index 43}}" font-size="18px" class="unitology">{{this.hours}}</text>
+            {{/each }}
+        {{/if}}
+        
+        <image x="43" y="1002" width="80" height="80" href="../../../../assets/gfx/img/pentagram.png"/>
+
+        <text x="141" y="1018" class="unitology" font-size="12px">Issiue date: 6/6/6</text>
+        <text x="141" y="1047" class="unitology" font-size="12px">Check the validity of this document here:</text>
+    </g>
+    
+    <foreignObject x="141" y="1060" width="160" height="160">
+        <a class="svgLink unitology" href="https://softuni.bg/certificates/details/{{this.href}}" target="_blank">https://softuni.bg/certificates/details/{{this.href}}</a>
+    </foreignObject>
+
+    <mask x="0" y="0" id="burntPageMask{{index}}">
+        <image x="0" y="0" href="../../../../assets/gfx/img/disolve_animation_inverted/burning_paper0.png" width="780" height="1122"/>
+    </mask>
+    
+    <image id="{{image}}" x="0" y="0" href="../../../../assets/certificates/img/{{image}}.png" width="780" height="1122" mask="url(#burntPageMask{{index}})"/>
+</svg>

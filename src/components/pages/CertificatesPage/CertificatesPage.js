@@ -5,7 +5,7 @@ import "./certificatesPage.scss";
 import { certificates } from "../../../assets/assets";
 import { coreComponents } from "../../../utils/utils";
 
-import BurntPage from "./BurntPage/BurntPage";
+import BurntPageSvg from "./BurntPage/BurntPageSvg";
 
 /**
  * CertificatesPage creates a new HTMLElement (section).
@@ -21,10 +21,8 @@ class CertificatesPage extends BaseComponent {
      * 
      * @param {Array} svgHoverToggles An array containing booleans that trigger the hovering effect.
      * @param {Array} burntPages To be changed on account that the animation performance degrades if left to run for about 10 minutes.
-     * The degraded performance do not recover until the page has been reloaded.
      * 
      * @param {Array} burntPages Not active at the moment and will probably be removed.
-     * @param {Array} disolveCertificate Not active at the moment.
      * 
      * @see BaseComponent.eventHandlers
      * @see BaseComponent.animationsLoop
@@ -37,7 +35,7 @@ class CertificatesPage extends BaseComponent {
         this.template = certificatesPageTemplate;
         this.templateData = () => {
             const { title, sections, zoomButton, downloadButton } = this.currentLang.certificatesSection;
-
+            
             for (const [section, content] of Object.entries(certificates)) {
                 sections[section].content = content;
                 
@@ -45,26 +43,63 @@ class CertificatesPage extends BaseComponent {
                 this.svgHoverToggles.push(...toggles);
             };
 
+            this.generateCertificates(sections);
             return { pageTitle: title, sections, zoomButton, downloadButton};
         };
 
         this.svgHoverToggles = [];
         this.burntPages = [];
-        this.pagesAppended = false;
-        this.disolveCertificate = false;
+        this.burntPageDisolving = false;
 
+        this.childSubComponents = [];
+        
         this.eventHandlers = [
+            { targetClass: ".certificateSlot", event: "ontouchend", handler: this.slotOnHover },
+            { targetClass: ".certificateSlot", event: "onblur", handler: this.slotOnHover },
             { targetClass: ".certificateSlot", event: "onmouseenter", handler: this.slotOnHover },
             { targetClass: ".certificateSlot", event: "onmouseleave", handler: this.slotOnHover },
             { targetClass: ".zoomButton", event: "onclick", handler: this.onZoomButtonClick },
+            { targetClass: ".zoomButton", event: "ontransitionend", handler: (e) => {
+                if (e.animationName === "zoomButtonHide") {
+                    e.target.style.display = "none";
+                    e.target.style.transitionDuration = "0s";
+                };
+            }},
+            { targetClass: ".certificateContainer", event: "onanimationend", handler: (e) => {
+                if (e.animationName === "bigCertificateZoomOut") {
+                    e.target.classList.remove("fixed");
+                    e.target.children[0].style.display = "block";
+                    
+                    // Timeout in order to be executed fraction of a second after the "e.target.classList.remove("fixed")"
+                    setTimeout(() => {
+                        e.target.style.transitionDuration = ".2s";
+                    }, 0);
+                };
+            }}
         ];
 
         this.animationsLoop([
-            this.handleRowsBg,
-            // this.handleBurntPages,
+            // this.handleRowsBg,
             // this.handleCertificateMask,
-            this.handleCertificates
+            this.monitorCertificates
         ]);
+
+        /**
+         * Event handler that makes sure that all toggles are off 
+         */
+        document.querySelector("body").ontouchend = (e) => {
+            if (!e.target.className.includes("certificateSlot")) {
+                const certificateContainers = this.component.querySelectorAll(".certificateContainer");
+                const count = this.svgHoverToggles.length;
+                for (let i = 0; i < count; i++) {
+                    if (this.svgHoverToggles[i] !== false) {
+                        this.svgHoverToggles[i] = false;
+                        this.onCertificateHover(certificateContainers[i], false);
+                        this.handleZoomButton(certificateContainers[i].children[0], false);
+                    };
+                };
+            };
+        };
     };
 
     /**
@@ -77,7 +112,7 @@ class CertificatesPage extends BaseComponent {
         const { type } = e;
         const { index } = e.target.dataset;
 
-        if (type === "mouseenter") {
+        if (type === "mouseenter" || type === "touchend") {
             this.svgHoverToggles[index] = true;
         } else {
             this.svgHoverToggles[index] = false;
@@ -106,120 +141,124 @@ class CertificatesPage extends BaseComponent {
         };
     };
 
+    generateCertificates(sections) {
+        const topSections = Object.values(sections);
+
+        for (let i = 0; i < topSections.length; i++) {
+            for (let j = 0; j < topSections[i].content.length; j++) {
+                this.childSubComponents.push([
+                    `.certificateContainer${i}-${j}`,
+                    new BurntPageSvg({image: `${topSections[i].content[j]}_b`, title: topSections[i].content[j], index: `${i}-${j}`}).render()
+                ])
+                this.childSubComponents.push([
+                    `.certificateContainer${i}-${j}`,
+                    new BurntPageSvg({image: `${topSections[i].content[j]}_f`, title: topSections[i].content[j], index: `${i}-${j}`}).render()
+                ])
+            };
+        };
+    };
+
     /**
-     * Method handling the certificate animation when hovered upon.
+     * Method used to monitor the The certificates state.
      * Arrow function to keep the scope here.
      */
-    handleCertificates = () => {
+    monitorCertificates = () => {
         const count = this.svgHoverToggles.length;
-        const certificateContainers = this.component.querySelectorAll(".certificateContainer");
+        const certificateContainers = Array.from(this.component.querySelectorAll(".certificateContainer"));
 
         for (let i = 0; i < count; i++) {
-            if (!certificateContainers[i].className.includes("fixed")) {
+            const container = certificateContainers[i];
+
+            if (!container.className.includes("fixed")) {
                 if (this.svgHoverToggles[i]) {
-                    if (certificateContainers[i].style.transform !== "scale(1.1, 1.1)") {
-                        certificateContainers[i].style.transform = "scale(1.1, 1.1)";
-                        const [thumbB, thumbF] = certificateContainers[i].children;
-
-                        thumbB.style.animationName = "certificatesFlip";
-                        thumbF.style.animationName = "certificatesFlip";
-                    };
+                    this.onCertificateHover(container, this.svgHoverToggles[i]);
+                    this.handleZoomButton(container.children[0], this.svgHoverToggles[i]);
+                    this.handleBurntPages(container, this.svgHoverToggles[i]);
                 } else {
-                    if (certificateContainers[i].style.transform !== "scale(1, 1)") {
-                        certificateContainers[i].style.transform = "scale(1, 1)";
-                        const [thumbB, thumbF] = certificateContainers[i].children;
-
-                        thumbB.style.animationName = "";
-                        thumbF.style.animationName = "";
-                    };
+                    this.onCertificateHover(container, false);
+                    this.handleZoomButton(container.children[0], false);
+                    this.handleBurntPages(container, false);
                 };
             } else {
-                if (certificateContainers[i].style.transform !== "scale(1, 1)") {
-                    certificateContainers[i].style.transform = "scale(1, 1)";
-                    const [thumbB, thumbF] = certificateContainers[i].children;
-
-                    thumbB.style.animationName = "";
-                    thumbF.style.animationName = "";
-                };
-            };
-        }
-    };
-
-    /**
-     * !!!
-     * Disabled at the moment.
-     * Will probbaly be completly changed.
-     * !!!
-     * Method handling the burnt pages that will appear over the certificates.
-     * Arrow function to keep the scope here.
-     */
-    handleBurntPages = () => {
-        for (let i = 0; i < this.svgHoverToggles.length; i++) {
-            const container = this.component.querySelectorAll(".certificateContainer");
-
-            if (this.svgHoverToggles[i] && !container[i].className.includes("fixed")) {
-                const containerF = this.component.querySelectorAll(".thumb_f_container")[i];
-                const containerB = this.component.querySelectorAll(".thumb_b_container")[i];
-
-                if (!this.pagesAppended && coreComponents.mainCanvas.humanShapeAnimation.running) {
-                    const pageF = new BurntPage({ title: containerF.dataset.title, index: i });
-                    const pageB = new BurntPage({ title: containerB.dataset.title, index: i });
+                if (this.svgHoverToggles[i]) {
+                    this.svgHoverToggles[i] = false;
                     
-                    this.burntPages.push(pageF);
-                    this.burntPages.push(pageB);
-
-                    containerF.appendChild(pageF.render());
-                    containerB.appendChild(pageB.render());
-                    
-                    pageF.isVisible = true;
-                    pageB.isVisible = true;
-
-                    this.pagesAppended = true;
-                } else {
-                    if (this.burntPages.length > 0) {
-                        if (!this.burntPages[0].isVisible && this.burntPages[0].frameIndex === 1
-                            && !this.burntPages[1].isVisible && this.burntPages[1].frameIndex === 1) {
-                            this.burntPages[0].remove();
-                            this.burntPages[1].remove();
-                            this.pagesAppended = false;
-                            this.burntPages = [];
-                        };
-                    };
-                };
-            } else {
-                if (container[i].className.includes("fixed") && this.burntPages.length > 0) {
-                    this.burntPages[0].remove();
-                    this.burntPages[1].remove();
-                    this.pagesAppended = false;
-                    this.burntPages = [];
+                    this.onCertificateHover(container, false);
+                    this.handleZoomButton(container.children[0], false);
+                    this.handleBurntPages(container, false);
                 };
             };
         };
     };
 
     /**
-     * !!!
-     * Disabled at the moment.
-     * Will probbaly be completly changed.
-     * !!!
-     * Method handling the certificate mask.
-     * Arrow function to keep the scope here.
+     * Method handling the certificate animation when hovered upon.
+     * @param {HTMLDivElement} certificateContainer The certificates (thumb_b, thumb_f) container.
+     * @param {Boolean} hovering The current toggle state.
      */
-    handleCertificateMask = () => {
-        if (this.burntPages.length > 0) {
-            for (let i = 0; i < this.burntPages.length; i++) {
-                const { index } = this.burntPages[i];
+    onCertificateHover(certificateContainer, hovering) {
+        if (hovering) {
+            if (certificateContainer.style.transform !== "scale(1.1, 1.1)") {
+                const [_, thumbB, thumbF] = certificateContainer.children;
                 
-                const thumbContainers = Array.from(this.component.querySelectorAll(".certificateContainer")[index].children);
-                const mask1 = thumbContainers[0].children[0].children[0].children[0];
-                const mask2 = thumbContainers[1].children[0].children[0].children[0];
+                thumbB.style.animationName = "certificatesFlip";
+                thumbF.style.animationName = "certificatesFlip";
                 
-                mask1.setAttribute("href", `../../../../assets/gfx/img/disolve_animation_inverted/burning_paper${this.burntPages[i].frameIndex}.png`);
-                mask2.setAttribute("href", `../../../../assets/gfx/img/disolve_animation_inverted/burning_paper${this.burntPages[i].frameIndex}.png`);
+                certificateContainer.style.transform = "scale(1.1, 1.1)";
+            };
+        } else {
+            if (certificateContainer.style.transform !== "scale(1, 1)") {
+                const [_, thumbB, thumbF] = certificateContainer.children;
+                
+                thumbB.style.animationName = "";
+                thumbF.style.animationName = "";
+                
+                certificateContainer.style.transform = "scale(1, 1)";
             };
         };
     };
- 
+
+    /**
+     * Method handling the certificates zoom button visibility.
+     * !!! The display and transitionDuration properties are being reset in an event handler attached to the zoom button in the constructor.
+     * @param {HTMLButtonElement} zoomButton The current certificate zoom button.
+     * @param {Boolean} visible The current oom button state.
+     */
+    handleZoomButton(zoomButton, visible) {
+        if (visible) {
+            if (zoomButton.style.opacity !== "1") {
+                zoomButton.style.display = "block";
+                zoomButton.style.transitionDuration = ".2s";
+                zoomButton.style.opacity = "1";
+            };
+        } else {
+            if (zoomButton.style.opacity !== "0") {
+                zoomButton.style.opacity = "0";
+            };
+        };
+    };
+
+    /**
+     * Method handling the fade in and out of the burnt page animation.
+     */
+    handleBurntPages(container, state) {
+        const { alpha, fadeIn } = coreComponents.mainCanvas.humanShapeAnimation;
+        const [thumb_b, thumb_f] = container.children;
+
+        if (alpha > 0.1 && state) {
+            if (!this.burntPageDisolving) {
+                this.burntPageDisolving = true;
+
+                thumb_b.dataset.disolve = "1";
+                thumb_f.dataset.disolve = "1";
+            };
+        } else {
+            if (this.burntPageDisolving && thumb_f.dataset.disolve === "0") {
+                this.burntPageDisolving = false;
+            };
+        };
+    };
+
     /**
      * Method handling the transition from a small to big certificates.
      * The transition is done by adding a new css class (fixed) to the certificateContainer element.
@@ -228,11 +267,20 @@ class CertificatesPage extends BaseComponent {
      */
     onZoomButtonClick = (_, index) => {
         const certificateContainer = this.component.querySelectorAll(".certificateContainer")[index];
+        const { parentElement } = certificateContainer.parentElement;
         const buttonsContainer = this.generateBigCertificateButtons(certificateContainer, index);
+        const html = document.querySelector("html");
+        html.style.position = "fixed";
 
         certificateContainer.appendChild(buttonsContainer);
+        certificateContainer.style.transitionDuration = "0s";
         certificateContainer.classList.add("fixed");
-        certificateContainer.nextElementSibling.style.display = "none";
+        certificateContainer.style.animationName = "bigCertificateZoomIn";
+        certificateContainer.children[0].style.display = "none";
+        parentElement.style.overflow = "visible";
+        
+        this.svgHoverToggles[index] = false;
+        this.onCertificateHover(certificateContainer, false);
     };
 
     /**
@@ -249,6 +297,7 @@ class CertificatesPage extends BaseComponent {
             {
                 id: "closeButton",
                 className: "bigCertificateButtons",
+                pointerEvents: "all",
                 onclick: function() {
                     handleClick(this.parentElement)
                 }
@@ -256,14 +305,15 @@ class CertificatesPage extends BaseComponent {
             [this.createElement("img", { src: "../../../assets/gfx/icons/shared/close.svg" })]
         );
         
-        const { title } = certificateContainer.children[0].dataset;
+        const { file } = certificateContainer.parentElement.dataset;
         const downloadPdf = this.createElement(
             "a",
             {
                 id: "downloadPdf",
                 className: "bigCertificateButtons",
-                href: `./assets/certificates/pdfs/${title}.pdf`,
-                download: `${title}.pdf`
+                href: `./assets/certificates/pdfs/${file}.pdf`,
+                download: `${file}.pdf`,
+                pointerEvents: "all"
             },
             [this.createElement("img", { src: "../../../assets/gfx/icons/shared/pdf.svg" })]
         );
@@ -280,13 +330,14 @@ class CertificatesPage extends BaseComponent {
      * @param {HTMLDivElement} buttonContianer A newly created element contianing 2 buttons (close, download pdf) that will be removed.
      */
     onCloseButtonClick = (certificateContainer, index, buttonContianer) => {
-        certificateContainer.nextElementSibling.style.display = "block";
-        certificateContainer.classList.remove("fixed");
-        
-        buttonContianer.remove();
-        
-        Array.from(certificateContainer.children).forEach(el => el.style.animationName = "");
+        const html = document.querySelector("html");
+        html.style.position = "static";
+
         this.svgHoverToggles[index] = false;
+        
+        certificateContainer.style.animationName = "bigCertificateZoomOut";
+        buttonContianer.remove();
+        this.handleZoomButton(certificateContainer.children[0], false)
     };
 };
 

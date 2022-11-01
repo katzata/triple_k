@@ -7,7 +7,15 @@
 <div id="langsContainer">
     {{#each langs}}
         <button class="langButton">
-            <img class="langIcon" src="../../../assets/gfx/icons/langs/{{@key}}.svg" alt="en icon">
+
+            <svg viewBox="0 0 78 66" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <mask id="myMask">
+                    <image x="0" y="0" width="78" height="66" href="../../../../assets/gfx/img/mask2.png"/>
+                </mask>
+
+                <image x="5%" y="6" width="90%" href="../../../../assets/gfx/icons/langs/{{@key}}.svg"  mask="url(#myMask)"/>
+            </svg>
+
             <span class="langTitle">{{capialiseAll @key}}</span>
         </button>
     {{/each}}

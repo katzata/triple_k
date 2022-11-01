@@ -7,8 +7,8 @@ function runTests(type) {
     };
 
     if (type === "all" || type.includes("header")) {
-        const { headerSpec } = require("./core/header/headerSpec.cy");
-        headerSpec();
+        // const { headerSpec } = require("./core/header/headerSpec.cy");
+        // headerSpec();
     };
     
     // if (type === "all" || type.includes("baseComponent")) {
@@ -53,8 +53,8 @@ function runTests(type) {
 // runTests("all");
 
 runTests([
-    // "baseComponent",
-    "header",
+    "baseComponent",
+    // "header",
     // "footer",
     // "mainPage",
     // "certificatesPage",

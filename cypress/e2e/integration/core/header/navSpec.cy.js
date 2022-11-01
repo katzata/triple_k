@@ -36,9 +36,10 @@ describe("Nav links url change", () => {
     });
 
     function changePage(link) {
+        const { origin } = window.location
         cy.get(`.navLinks[href="${link}"]`).click({force: true});
-        cy.url().should("eq", `http://192.168.0.185:9000${link.toLocaleLowerCase()}`);
-        cy.wait(1600);
+        cy.url().should("eq", `${origin + link.toLocaleLowerCase()}`);
+        cy.wait(1620);
     };
 });
 

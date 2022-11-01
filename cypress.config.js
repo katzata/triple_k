@@ -13,9 +13,9 @@ module.exports = defineConfig({
   },
   component: {
     devServer: {
-      webpackConfig: require('./webpack.dev.config.js'),
+      webpackConfig: require('./webpack.cy.config.js'),
       bundler: "webpack",
-      baseUrl: "http://localhost:3000"
+      baseUrl: "http://localhost:3000",
     },
     specPattern: "**/*.cy.js",
   },

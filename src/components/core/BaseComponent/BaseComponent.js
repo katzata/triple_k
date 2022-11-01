@@ -31,6 +31,7 @@ class BaseComponent {
         this.subComponents = null;
         this.childSubComponents = null;
         this.eventHandlers = null;
+        this.postRenderFunctions = null;
 
         /**
          * Checks if the current component is attached to the dom.
@@ -190,6 +191,18 @@ class BaseComponent {
     };
 
     /**
+     * Method that runs specified functions (defined in the this.postComponentPrepFunctions array).
+     * Runs after all necessary data has been set and the component is about to render.
+     */
+    postComponentPrep() {
+        if (this.postComponentPrepFunctions) {
+            for (const postComponentPrepFn of this.postComponentPrepFunctions) {
+                postComponentPrepFn();
+            };
+        };
+    };
+
+    /**
      * Initiates all the set porperties, attributes and handlers associated with the current component.
      * Uses the imported checkLanguages function from localization/langs.js.
      * @returns {HTMLElement} The newly created html element "this.component";
@@ -202,6 +215,7 @@ class BaseComponent {
         if (this.subComponents !== null) this.addSubComponents(this.subComponents);
         if (this.childSubComponents !== null) this.addChildSubComponents(this.childSubComponents);
         if (this.eventHandlers !== null) this.addEventHandlers(this.eventHandlers);
+        if (this.postComponentPrepFunctions !== null) this.postComponentPrep();
 
         return this.component;
     };

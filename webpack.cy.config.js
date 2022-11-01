@@ -10,11 +10,11 @@ module.exports = {
 	mode: "development",
 	devServer: {
 		static: {
-			directory: path.join(__dirname, "src"),
+			directory: path.join(__dirname, "build"),
 		},
 		compress: true,
 		hot: true,
-		port: 9000,
+		port: 9001,
 		liveReload: true,
 		open: true,
 	},

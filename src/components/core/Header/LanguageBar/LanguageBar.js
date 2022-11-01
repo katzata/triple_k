@@ -57,7 +57,7 @@ class LanguageBar extends BaseComponent {
 
             width = calc;
         };
-        
+
         this.component.style.width = `${width}px`;
         this.arrowHandler();
     };

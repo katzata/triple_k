@@ -24,3 +24,29 @@ Handlebars.registerHelper("setIndexes", function(baseIndex, currentIndex) {
 Handlebars.registerHelper("capialiseAll", function(text) {
     return text.toLocaleUpperCase();
 });
+
+Handlebars.registerHelper("certificateClass", function(certificate) {
+    return certificate.slice(certificate.length - 2);
+});
+
+Handlebars.registerHelper("offsetTextY", function(baseY, i, increment) {
+    return baseY + (i * increment);
+});
+
+Handlebars.registerHelper("pageIndex", function(elementIndex) {
+    // console.log(elementIndex * 2);
+    return elementIndex * 2;
+});
+
+// Handlebars.registerHelper("calc", function(value1, operator, value2) {
+//     value1 = parseFloat(value1);
+//     value2 = parseFloat(value2);
+        
+//     return {
+//         "+": value1 + value2,
+//         "-": value1 - value2,
+//         "*": value1 * value2,
+//         "/": value1 / value2,
+//         "%": value1 % value2
+//     }[operator];
+// });

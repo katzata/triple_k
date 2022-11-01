@@ -13,20 +13,20 @@ module.exports = {
 		primaryStack: [
             { title: "HTML", icon: "html" },
             { title: "CSS", icon: "css" },
+			{ title: "Handlebars", icon: "handlebars" },
             { title: "JavaScript", icon: "js" },
             { title: "webpack", icon: "webpack" },
             { title: "React", icon: "react" },
             { title: "Redux", icon: "redux" },
             { title: "PixiJS", icon: "pixi" },
-            { title: "Node.js", icon: "nodejs" }
         ],
 		discreteUse: [
-            { title: "Handlebars", icon: "handlebars" },
             { title: "Sass", icon: "sass" },
             { title: "Bootstrap", icon: "bootstrap" },
             { title: "TypeScript", icon: "ts" },
             { title: "Angular", icon: "angular" },
             { title: "Express", icon: "express" },
+			{ title: "Node.js", icon: "nodejs" },
             { title: "PHP", icon: "php" },
             { title: "MySQL", icon: "mysql" },
         ],

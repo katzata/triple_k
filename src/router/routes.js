@@ -8,6 +8,14 @@ import NotFound from "../components/pages/NotFound/NotFound";
  * The routes for all pages.
  * Adding a route here makes it avaialable to visit.
  */
+// const routes = {
+//     "/": () => new CertificatesPage(),
+//     "/certificates": () => new CertificatesPage(),
+//     "/interactivecv": () => new InteractiveCv(),
+//     "/projects": () => new Projects(),
+//     "/404": () => new NotFound()
+// };
+
 const routes = {
     "/": () => new MainPage(),
     "/certificates": () => new CertificatesPage(),

@@ -1,24 +1,50 @@
-<svg width="780" height="1122" viewbox="0 0 780 1122">
-    <mask x="0" y="0" id="burntPageMask">
+<svg class="thumb{{certificateClass image}}" viewbox="0 0 780 1122" data-file="{{file}}">
+    <mask x="0" y="0" id="burntPageMask{{index}}-1">
         <image x="0" y="0" href="../../../../assets/gfx/img/disolve_animation/burning_paper1.png" width="780" height="1122"/>
     </mask>
+
+    <mask x="0" y="0" id="burntPageMask{{index}}-2">
+        <image x="0" y="0" href="../../../../assets/gfx/img/disolve_animation_inverted/burning_paper1.png" width="780" height="1122"/>
+    </mask>
     
-    {{!-- <rect x="0" y="0" width="780" height="1122" mask="url(#burntPageMask)"></rect> --}}
-    <image x="0" y="0" href="../../../../assets/gfx/img/page.png" width="780" height="1122" mask="url(#burntPageMask)"/>
+    <image x="0" y="0" href="../../../../assets/certificates/img/{{image}}.png" width="780" height="1122" mask="url(#burntPageMask{{index}}-2)"/>
+    <image x="0" y="0" href="../../../../assets/gfx/img/page.png" width="780" height="1122" mask="url(#burntPageMask{{index}}-1)"/>
 
-    <text x="390" y="60" font-size="18px" class="unitology" mask="url(#burntPageMask)">Software University</text>
-    <text x="390" y="300" font-size="63px" class="unitology bold" mask="url(#burntPageMask)">CERTIFICATE</text>
-    <text x="390" y="474" font-size="12px" class="unitology" mask="url(#burntPageMask)">This certificate is issued by Software University to acknowledge that</text>
-    <text x="390" y="552" font-size="39px" class="unitology bold" mask="url(#burntPageMask)">Kamen Kamenov Kashchiev</text>
-    <text x="390" y="611" class="unitology" mask="url(#burntPageMask)">has successfully completed a course</text>
+    {{#if isFront}}
+        <text x="390" y="60" font-size="18px" class="unitology anchorMiddle" mask="url(#burntPageMask{{index}}-1)">Software University</text>
+        <text x="390" y="300" font-size="63px" class="unitology anchorMiddle bold" mask="url(#burntPageMask{{index}}-1)">CERTIFICATE</text>
+        <text x="390" y="474" font-size="12px" class="unitology anchorMiddle" mask="url(#burntPageMask{{index}}-1)">This certificate is issued by Software University to acknowledge that</text>
+        <text x="390" y="552" font-size="39px" class="unitology anchorMiddle bold" mask="url(#burntPageMask{{index}}-1)">Kamen Kamenov Kashchiev</text>
+        <text x="390" y="611" class="unitology anchorMiddle" mask="url(#burntPageMask{{index}}-1)">has successfully completed a course</text>
 
-    <text x="390" y="676" font-size="31px" class="unitology bold" mask="url(#burntPageMask)">{{title}}</text>
-    <text x="390" y="732" font-size="28px" class="unitology" mask="url(#burntPageMask)">
-        <tspan font-size="16px">with</tspan>
-        {{grade}}
-    </text>
+        <text x="390" y="676" font-size="31px" class="unitology anchorMiddle bold" mask="url(#burntPageMask{{index}}-1)">{{title}}</text>
+        <text x="390" y="732" font-size="28px" class="unitology anchorMiddle" mask="url(#burntPageMask{{index}}-1)">
+            <tspan font-size="16px">with</tspan>
+            {{grade}}
+        </text>
 
-    <image x="45" y="1004" width="80" height="80" href="../../../../assets/gfx/img/pentagram.png" mask="url(#burntPageMask)"/>
+        
+        {{else}}
+
+        <text x="390" y="116" font-size="24px" class="unitology anchorMiddle title" mask="url(#burntPageMask{{index}}-1)">COURSE CURRICULUM:</text>
+        
+        <text x="66" y="200" font-size="20px" class="unitology light" mask="url(#burntPageMask{{index}}-1)">Topic</text>
+        <text x="646" y="200" font-size="20px" class="unitology light" mask="url(#burntPageMask{{index}}-1)">Hours</text>
+
+        <line x1="66 " y1="214" x2="727" y2="214" stroke="rgb(110, 0, 0)" mask="url(#burntPageMask{{index}}-1)"/>
+
+        {{#each program}}
+            <text x="68" y="{{offsetTextY 255 @index 43}}" font-size="18px" class="unitology" mask="url(#burntPageMask{{../index}}-1)">{{this.topic}}</text>
+            <text x="684" y="{{offsetTextY 255 @index 43}}" font-size="18px" class="unitology" mask="url(#burntPageMask{{../index}}-1)">{{this.hours}}</text>
+        {{/each }}
+    {{/if}}
     
-    <text x="236" y="1018" class="unitology" mask="url(#burntPageMask)">Issiue date: 6/6/6</text>
+    <image x="43" y="1002" width="80" height="80" href="../../../../assets/gfx/img/pentagram.png" mask="url(#burntPageMask{{index}}-1)"/>
+
+    <text x="141" y="1018" class="unitology" font-size="12px" mask="url(#burntPageMask{{index}}-1)">Issiue date: 6/6/6</text>
+    <text x="141" y="1047" class="unitology" font-size="12px" mask="url(#burntPageMask{{index}}-1)">Check the validity of this document here:</text>
+    
+    <foreignObject x="141" y="1060" width="160" height="160" mask="url(#burntPageMask{{index}}-1)">
+        <a class="svgLink unitology" href="https://softuni.bg/certificates/details/{{this.href}}" target="_blank">https://softuni.bg/certificates/details/{{this.href}}</a>
+    </foreignObject>
 </svg>

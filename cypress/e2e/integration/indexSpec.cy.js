@@ -10,6 +10,8 @@
  */
 function runTests(type) {
     describe("All integration tests", () => {
+        // before(() => cy.visit("../../../build/index.html"));
+        // before(() => cy.visit("https://test-domain.kashchiev.com/"));
         before(() => cy.visit("http://192.168.0.185:9000/"));
         
         if (type === "all" || type.includes("initial")) {

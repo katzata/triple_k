@@ -1,14 +1,30 @@
-// require('ignore-styles').default(['.sass', '.scss']);
-// const jsdom = require('mocha-jsdom');
+const { expect } = require("chai");
+const BaseComponent = require("../../../src/components/core/BaseComponent/BaseComponent").default;
 const Header = require("../../../src/components/core/Header/Header").default;
 
 function headerSpec() {
     describe("Test", function () {
-        // const jsdom = require('mocha-jsdom');
-        const header = new Header();
         
-        it("yay?", function () {
-            console.log(header);
+        describe("Initial header values", function () {
+            const header = new Header();
+
+            it("All initial header values as expected", function () {
+                expect(header.component).instanceof(HTMLElement);
+                expect(header.id).eq("header");
+                expect(header.navHovering).eq(null);
+                expect(header.subComponents).to.have.length(1);
+                expect(header.eventHandlers).to.have.length(4);
+            });
+
+            it("Header extends the propper class (BaseComponent)", function () {
+                expect(header).instanceof(BaseComponent);
+            });
+
+            it("Header extends the propper class (BaseComponent)", function () {
+                console.log(header.currentLang);
+                console.log(document);
+                // expect(header.currentLang).instanceof(BaseComponent);
+            });
             // expect(baseComponent[prop]).to.eq(value);
         });
         // for (const [prop, value] of expectedProps) {

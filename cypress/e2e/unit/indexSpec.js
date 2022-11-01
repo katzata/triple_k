@@ -1,18 +1,16 @@
 require('ignore-styles').default([".sass", ".scss", ".hbs"]);
 require = require("esm")(module/*, options*/);
-// import baseComponentSpec from "./core/baseComponent/baseComponentSpec";
+const jsdom = require("./jsdom");
+global.localStorage = {};
+
+console.log(global.localStorage);
 
 const {headerSpec} = require("./headerSpec");
 // module.exports = require("./main.js")
 function runTests(type) {
     // describe("All unit tests", () => {
         if (type === "all" || type.includes("header")) {
-            headerSpec()
-            // const header = require("./headerSpec");
-            // baseComponentSpec();
-            // describe("Core components", () => {
-                // const mainCanvas = require("./core/mainCanvas/mainCanvasSpec.cy");
-            // });
+            headerSpec();
         };
         // before(() => cy.visit("http://192.168.0.185:9000/"));
 

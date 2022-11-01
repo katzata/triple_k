@@ -34,8 +34,10 @@ class Header extends BaseComponent {
             navR.content.title = Object.keys(navR.content)[0];
             return { title, navL, main, navR, langs: this.langs };
         };
+
+        this.humanShapeAlpha = 0;
         this.subComponents = [
-            () => new LanguageBar().render(),
+            new LanguageBar().render(),
         ];
         this.navHovering = null;
         
@@ -65,10 +67,19 @@ class Header extends BaseComponent {
         ];
 
         this.animationsLoop([
+            this.monitorHumanShapeAnimation,
             this.animateGhostTitle,
             this.animateNavLinks,
             this.handleMainLink
         ]);
+    };
+
+    /**
+     * Method monitoring changes to the hunam shape animation (coreComponents.mainCanvas.humanShapeAnimation).
+     */
+    monitorHumanShapeAnimation = () => {
+        const alpha = coreComponents.mainCanvas.humanShapeAnimation.alpha / 2;
+        if (this.humanShapeAlpha !== alpha) this.humanShapeAlpha = alpha;
     };
 
     /**
@@ -80,14 +91,13 @@ class Header extends BaseComponent {
      */
     animateGhostTitle = () => {
         const ghostTitle = this.component.querySelector("#headerGhostTitle");
-        const { alpha } = coreComponents.mainCanvas.humanShapeAnimation;
         
         if (ghostTitle) {
-            const offset = ghostTitle.offsetHeight - (12 - 15 * alpha);
+            const offset = ghostTitle.offsetHeight - (12 - 15 * this.humanShapeAlpha);
             const posX = super.random(offset);
             const posY = super.random(offset);
 
-            ghostTitle.style.transform = `translate(${posX}px, ${posY}px) skewX(-${alpha * 20}deg) scale(${1 + (alpha / 2)}, ${1 + (alpha / 2)})`;
+            ghostTitle.style.transform = `translate(${posX}px, ${posY}px) skewX(-${this.humanShapeAlpha * 20}deg) scale(${1 + (this.humanShapeAlpha / 2)}, ${1 + (this.humanShapeAlpha / 2)})`;
         };
     };
 

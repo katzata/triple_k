@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx cypress open",
-    "unitTests": "mocha -r jsdom-global/register --require ignore-styles ./cypress/e2e/unit/indexSpec.js",
+    "unitTests": "mocha --watch -r jsdom-global/register --require ignore-styles ./cypress/e2e/unit/indexSpec.js",
     "dev": "npx webpack serve --config ./webpack.dev.config.js",
     "build": "webpack --config ./webpack.prod.config.js",
     "push": "git add . && git commit -m \"Minor changes commit.\" && git push",

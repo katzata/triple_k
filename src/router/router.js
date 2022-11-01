@@ -71,10 +71,10 @@ const updateDocumentTitle = (path) => {
  * In order for a link (a tag) to be ignored by the router, it should have a data-route attribute to "ignore".
  */
 window.addEventListener("click", (e) => {
-    const { tagName, href, dataset } = e.target;
+    const { tagName, href, dataset, target } = e.target;
 
     if (tagName === "A") {
-        if (dataset.route !== "ignore") {
+        if (target !== "_blank") {
             e.preventDefault();
             if (href !== window.location.href) updateLocation(href);
         };
