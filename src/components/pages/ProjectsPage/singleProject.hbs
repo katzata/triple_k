@@ -1,0 +1,23 @@
+{{#each projects}}
+    <div class="containerWrapper">
+        <h4>{{this.details.title}}</h4>
+
+        <div class="projectContainer">
+            <img src="../../../assets/portfolio/previews/{{this.img}}.png" alt="{{this.img}} screenshot">
+            
+            <div class="linksContainer">
+                <a target="_blank" href="{{this.url.link}}" data-route="ignore">
+                    {{this.details.urlTitle}}
+                    <img src="../../../assets/gfx/icons/shared/external_link.svg" alt="external link">
+                </a>
+
+                <a target="_blank" href="{{this.repo.link}}" data-route="ignore">
+                    {{this.repo.title}}
+                    <img src="../../../assets/gfx/icons/shared/external_link.svg" alt="external link">
+                </a>
+            </div>
+
+            <p class="description">{{this.details.description}}</p>
+        </div>
+    </div>
+{{/each }}

@@ -192,7 +192,7 @@ class BaseComponent {
 
     /**
      * Method that runs specified functions (defined in the this.postComponentPrepFunctions array).
-     * Runs after all necessary data has been set and the component is about to render.
+     * Runs after all necessary data has been set and the component is ready to be appended to the dom.
      */
     postComponentPrep() {
         if (this.postComponentPrepFunctions) {

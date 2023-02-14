@@ -5,7 +5,7 @@ import { pageTransition, coreComponents } from "../utils/utils";
  * Indicates if there is currently running routing.
  * Needed for the page fades.
  */
-let routing = false;
+export let routing = false;
 
 /**
  * Function handling the routing when the url cahnges.

@@ -22,10 +22,10 @@ let setLanguage = "";
  * @returns The currently set language (json object).
  */
 export const checkLanguages = () => {
-    const language = "";
-    const userLang = language.includes("-") ? language.split("-")[0] : language;
+    const language = Navigator.language;
+    const userLang = language && language.includes("-") ? language.split("-")[0] : language;
     let setLang = langs[localStorage.lang] || langs.en;
-
+    
     for (const lang of Object.keys(langs)) {
         if (langs[localStorage.lang]) {
             setLanguage = localStorage.lang;
@@ -39,6 +39,12 @@ export const checkLanguages = () => {
         };
     };
 
+    if (setLanguage === "") {
+        setLanguage = "en";
+    };
+
+    setLang.lang = setLanguage;
+    localStorage.setItem("lang", setLanguage);
     return setLang;
 };
 

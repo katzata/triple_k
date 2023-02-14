@@ -1,0 +1,30 @@
+[
+    {
+        "img": "scorester",
+        "url": {
+            "title": "Visit",
+            "link": "https://scorester.kashchiev.com"
+        },
+        "repo": {
+            "title": "GitHub",
+            "link": "https://github.com/katzata/scorester"
+        },
+        "details": {
+            "bg": {
+                "title": "Scorester",
+                "urlTitle": "Посети",
+                "description": "Апликация за записване на резултати, целяща да замести листът и химикалката.\nЗа всички тези моменти в които искаме да играем карти, зарове и настолни игри."
+            },
+            "en": {
+                "title": "Scorester",
+                "urlTitle": "Visit",
+                "description": "A score keeping application, aimed at replacing the pen and paper.\nFor all those moments when we want to play cards, dice and board games."
+            },
+            "it": {
+                "title": "Scorester",
+                "urlTitle": "Visita",
+                "description": "Una applicazione per tenere risultati, dedicata a sostituirela carata e penna.\nPer tutti qelli momenti quando vogliamo di giocare carte, dadi e giochi da tavolo"
+            }
+        }
+    }
+]

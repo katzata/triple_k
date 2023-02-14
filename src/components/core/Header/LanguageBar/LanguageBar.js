@@ -3,7 +3,7 @@ import languageBarTemplate from "./languageBar.hbs";
 import "./languageBar.scss";
 
 import langs, { changeLanguage } from "../../../../localization/langs";
-import { route } from "../../../../router/router";
+import { routing, route } from "../../../../router/router";
 /**
  * LanguageBar creates a new HTMLElement (section).
  * @extends BaseComponent
@@ -28,7 +28,7 @@ class LanguageBar extends BaseComponent {
 
         this.eventHandlers = [
             { targetId: "#langsToggle", event: "onclick", handler: this.toggleLanguageBar },
-            { targetClass: ".langButton", event: "onclick", handler: (e) => changeLanguage(e, route) },
+            { targetClass: ".langButton", event: "onclick", handler: (e) => !routing && changeLanguage(e, route) },
         ];
     };
 

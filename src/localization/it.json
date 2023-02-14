@@ -83,22 +83,7 @@
 		"downloadButton": "Download PDF"
 	},
 	"projectsSection": {
-		"title": "Progetti",
-		"content": [
-			{
-                "title": "Games Store (progetto del corso SoftUni)",
-				"img": "games_store",
-                "url": {
-					"title": "Visita",
-					"content": "https://react-course-project.kashchiev.com/"
-				},
-                "repo": {
-					"title": "GitHub",
-					"content": "https://github.com/katzata/React-course-project"
-				},
-				"description": "Online negozio di giochi che usa la database di \"igdb\" e \"Twitch\". Scritto in \"React\" con la addizione di \"Redux\". Come backend e stato usato \"back4app\"."
-            }
-		]
+		"title": "Progetti"
 	},
 	"footer": {
 		"main": {

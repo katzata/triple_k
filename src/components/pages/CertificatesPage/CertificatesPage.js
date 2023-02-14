@@ -79,13 +79,11 @@ class CertificatesPage extends BaseComponent {
         ];
 
         this.animationsLoop([
-            // this.handleRowsBg,
-            // this.handleCertificateMask,
             this.monitorCertificates
         ]);
 
         /**
-         * Event handler that makes sure that all toggles are off 
+         * Event handler making sure that all toggles are off 
          */
         document.querySelector("body").ontouchend = (e) => {
             if (!e.target.className.includes("certificateSlot")) {
@@ -141,6 +139,10 @@ class CertificatesPage extends BaseComponent {
         };
     };
 
+    /**
+     * Generate the certificates.
+     * @param {Object} sections An object containing the certificate sections and their respective data as key value pairs.
+     */
     generateCertificates(sections) {
         const topSections = Object.values(sections);
 

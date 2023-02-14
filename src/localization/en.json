@@ -83,22 +83,7 @@
 		"downloadButton": "Download PDF"
 	},
 	"projectsSection": {
-		"title": "Projects",
-		"content": [
-			{
-                "title": "Games Store (SoftUni course project)",
-				"img": "games_store",
-                "url": {
-					"title": "Visit",
-					"content": "https://react-course-project.kashchiev.com/"
-				},
-                "repo": {
-					"title": "GitHub",
-					"content": "https://github.com/katzata/React-course-project"
-				},
-				"description": "Online game store whitch uses a database from \"igdb\" and \"Twitch\". Written in \"React\" with the addition of \"Redux\". \"back4app\" was used as backend."
-            }
-		]
+		"title": "Projects"
 	},
 	"footer": {
 		"main": {
