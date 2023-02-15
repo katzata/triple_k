@@ -2,7 +2,7 @@ import langEn from "./en.json";
 import langBg from "./bg.json";
 import langIt from "./it.json";
 
-import { langTransition } from "../utils/utils";
+// import { langTransition } from "../utils/utils";
 
 /**
  * A list of available languages (json files).
@@ -59,12 +59,23 @@ export const checkLanguages = () => {
  * @see LanguageBar
  */
 export const changeLanguage = (e, routeCallback) => {
-    const lang = e.target.textContent.toLocaleLowerCase();
+    const lang = e.target.dataset.lang;
 
     if (localStorage.lang !== lang) {
         localStorage.setItem("lang", lang);
         routeCallback(langTransition);
     };
+};
+
+/**
+ * Callback function used to initiate page and core component transitions and updates on language change.
+ * @param {Object} param0 Object containing the target section and core components (only target is used). Gets passed down from the route function.
+ * @param {classInstance} page A newly created instance of a specified page.
+ */
+const langTransition = ({ targetSection, mainCanvas, header, footer }, page) => {
+    mainCanvas.siblings = [header, targetSection, footer];
+    mainCanvas.fogAnimationRunning = true;
+    mainCanvas.page = page;
 };
 
 export default langs;

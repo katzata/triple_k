@@ -48,14 +48,3 @@ export const pageTransition = ({ targetSection }, page, endRouting) => {
         targetSection.className = "sectionFadeIn";
     };
 };
-
-/**
- * Callback function used to initiate page and core component transitions and updates on language change.
- * @param {Object} param0 Object containing the target section and core components (only target is used). Gets passed down from the route function.
- * @param {classInstance} page A newly created instance of a specified page.
- */
-export const langTransition = ({ targetSection, mainCanvas, header, footer }, page) => {
-    mainCanvas.siblings = [header, targetSection, footer];
-    mainCanvas.fogAnimationRunning = true;
-    mainCanvas.page = page;
-};
